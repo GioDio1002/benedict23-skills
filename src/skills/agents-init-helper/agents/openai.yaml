@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agents Init Helper"
+  short_description: "Read and improve repository AGENTS.md guidance"
+  default_prompt: "Use $agents-init-helper to inspect this repository for AGENTS.md instructions and improve them if needed."

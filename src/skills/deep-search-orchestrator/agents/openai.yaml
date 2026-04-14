@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deep Search Orchestrator"
+  short_description: "Write structured deep research reports"
+  default_prompt: "Use $deep-search-orchestrator to produce a structured deep research report for this topic."

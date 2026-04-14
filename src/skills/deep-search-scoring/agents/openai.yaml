@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deep Search Scoring"
+  short_description: "Score research quality and QA risk"
+  default_prompt: "Use $deep-search-scoring to evaluate this research report for coverage, evidence quality, and hallucination risk."

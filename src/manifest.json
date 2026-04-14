@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "shared": [
+    {
+      "path": "src/shared/engineering_rules.md",
+      "description": "Shared engineering rules consumed by multi-agent-api-dev."
+    }
+  ],
+  "skills": [
+    {
+      "name": "agents-init-helper",
+      "path": "src/skills/agents-init-helper",
+      "entrypoint": "src/skills/agents-init-helper/SKILL.md"
+    },
+    {
+      "name": "deep-search-orchestrator",
+      "path": "src/skills/deep-search-orchestrator",
+      "entrypoint": "src/skills/deep-search-orchestrator/SKILL.md"
+    },
+    {
+      "name": "deep-search-pipeline",
+      "path": "src/skills/deep-search-pipeline",
+      "entrypoint": "src/skills/deep-search-pipeline/SKILL.md"
+    },
+    {
+      "name": "deep-search-scoring",
+      "path": "src/skills/deep-search-scoring",
+      "entrypoint": "src/skills/deep-search-scoring/SKILL.md"
+    },
+    {
+      "name": "explain-fastapi-endpoint",
+      "path": "src/skills/explain-fastapi-endpoint",
+      "entrypoint": "src/skills/explain-fastapi-endpoint/SKILL.md"
+    },
+    {
+      "name": "multi-agent-api-dev",
+      "path": "src/skills/multi-agent-api-dev",
+      "entrypoint": "src/skills/multi-agent-api-dev/SKILL.md"
+    },
+    {
+      "name": "prd-writer",
+      "path": "src/skills/prd-writer",
+      "entrypoint": "src/skills/prd-writer/SKILL.md"
+    },
+    {
+      "name": "standards-security",
+      "path": "src/skills/standards-security",
+      "entrypoint": "src/skills/standards-security/SKILL.md"
+    },
+    {
+      "name": "test-validation",
+      "path": "src/skills/test-validation",
+      "entrypoint": "src/skills/test-validation/SKILL.md"
+    }
+  ]
+}

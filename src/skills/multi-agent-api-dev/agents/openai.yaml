@@ -1,0 +1,4 @@
+interface:
+  display_name: "Multi-Agent API Dev"
+  short_description: "Sequential backend implementation orchestrator"
+  default_prompt: "Use $multi-agent-api-dev to design, implement, test, and review this backend API task with the required sequential workflow."

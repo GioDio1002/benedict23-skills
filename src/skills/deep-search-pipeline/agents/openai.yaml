@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deep Search Pipeline"
+  short_description: "Run report plus automatic QA scoring"
+  default_prompt: "Use $deep-search-pipeline to generate a deep research report and automatically score its quality."

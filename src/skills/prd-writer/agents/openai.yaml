@@ -1,0 +1,4 @@
+interface:
+  display_name: "PRD Writer"
+  short_description: "Write and standardize product requirement docs"
+  default_prompt: "Use $prd-writer to turn this rough feature idea or draft into a clear, implementation-ready PRD."

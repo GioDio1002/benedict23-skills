@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Validation"
+  short_description: "Generate backend tests and request examples"
+  default_prompt: "Use $test-validation to produce unit tests, API tests, edge cases, and request examples for this backend implementation."

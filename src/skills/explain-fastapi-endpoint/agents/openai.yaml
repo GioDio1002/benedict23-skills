@@ -1,0 +1,4 @@
+interface:
+  display_name: "Explain FastAPI Endpoint"
+  short_description: "Trace a FastAPI endpoint end-to-end"
+  default_prompt: "Use $explain-fastapi-endpoint to analyze this FastAPI endpoint from request entry to downstream effects."

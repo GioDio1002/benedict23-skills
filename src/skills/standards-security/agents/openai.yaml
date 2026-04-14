@@ -1,0 +1,4 @@
+interface:
+  display_name: "Standards Security"
+  short_description: "Review backend code for production safety"
+  default_prompt: "Use $standards-security to review this backend implementation for logging, error handling, security, and production readiness."
