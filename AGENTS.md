@@ -10,6 +10,7 @@ This repository is a normalized, documentation-first home for:
 - shared reference material under `src/shared/`
 - MCP server notes under `src/mcp/`
 - Codex instruction notes under `src/instructions/`
+- prompt design references under `src/prompt-framework/`
 
 This is not an application runtime repository. Most changes here should improve clarity, maintainability, portability, and publishing readiness.
 
@@ -47,6 +48,18 @@ This is not an application runtime repository. Most changes here should improve 
   - why it is useful
   - typical use cases
   - trade-offs
+
+### `src/prompt-framework/`
+
+- This folder is documentation-only.
+- Use it for reusable prompt structures that help users or agents frame work clearly.
+- These files are references, not executable skills.
+- Prefer frameworks that are composable, operational, and short enough to apply in real work.
+- Each framework doc should explain:
+  - what each field means
+  - when to use it
+  - how it can be shortened or partially composed
+  - at least one realistic example
 
 ## Editing Rules
 
