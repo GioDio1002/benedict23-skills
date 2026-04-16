@@ -15,7 +15,7 @@ Observed runtime preferences include:
 - sandbox mode: `danger-full-access`
 - approval policy: `on-failure`
 - personality: `pragmatic`
-- project trust for `/Users/benedict/Documents/cosmetic`: `trusted`
+- current project trust level: `trusted`
 - selected plugins enabled
 - MCP servers registered in global Codex config
 
