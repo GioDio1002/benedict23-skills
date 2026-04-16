@@ -46,6 +46,12 @@ This repo currently tracks nine local-first skills:
 ├── LICENSE
 ├── README.md
 └── src
+    ├── instructions
+    │   ├── README.md
+    │   └── *.md
+    ├── mcp
+    │   ├── README.md
+    │   └── *.md
     ├── manifest.json
     ├── shared
     │   └── engineering_rules.md
@@ -60,6 +66,8 @@ This repo currently tracks nine local-first skills:
 
 - `src/skills/<skill-name>/SKILL.md` is the canonical skill document.
 - `src/skills/<skill-name>/agents/openai.yaml` stores the assistant-facing prompt metadata.
+- `src/mcp/` stores practical MCP server notes for the local Codex/Cursor workflow.
+- `src/instructions/` stores instruction-layer notes for the current Codex environment.
 - `src/shared/` stores shared reference material used by more than one skill.
 - Skills should prefer repository-relative references so the repo can be cloned anywhere.
 
@@ -89,6 +97,7 @@ This repo currently tracks nine local-first skills:
 - This repository is organized for Git-based maintenance first.
 - If these skills are later imported into another Codex or agent environment, copy each skill directory as-is.
 - Avoid absolute local filesystem paths inside `SKILL.md` files.
+- `src/mcp/` and `src/instructions/` are documentation-only directories; they are not imported as skills.
 
 ---
 
@@ -128,6 +137,12 @@ This repo currently tracks nine local-first skills:
 ├── LICENSE
 ├── README.md
 └── src
+    ├── instructions
+    │   ├── README.md
+    │   └── *.md
+    ├── mcp
+    │   ├── README.md
+    │   └── *.md
     ├── manifest.json
     ├── shared
     │   └── engineering_rules.md
@@ -142,6 +157,8 @@ This repo currently tracks nine local-first skills:
 
 - `src/skills/<skill-name>/SKILL.md` 是 skill 的主文档。
 - `src/skills/<skill-name>/agents/openai.yaml` 用于保存面向助手的元数据和默认提示词。
+- `src/mcp/` 用于整理当前本地 Codex/Cursor 工作流里实际使用的 MCP server 说明。
+- `src/instructions/` 用于整理当前 Codex 环境中的 instruction 层说明。
 - `src/shared/` 用于存放多个 skill 共用的参考内容。
 - skill 内部尽量使用仓库相对路径，避免依赖某台机器上的绝对路径。
 
@@ -171,3 +188,4 @@ This repo currently tracks nine local-first skills:
 - 这个仓库首先是为了 Git 维护和版本管理而设计的。
 - 如果后续要导入到其他 Codex 或 agent 环境，可以直接复制单个 skill 目录使用。
 - 尽量不要在 `SKILL.md` 里写本机绝对路径。
+- `src/mcp/` 和 `src/instructions/` 只用于文档整理，不会作为 skill 直接导入。
