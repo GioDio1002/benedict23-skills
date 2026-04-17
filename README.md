@@ -4,7 +4,7 @@
   <a href="#中文">中文</a>
 </p>
 
-# homemade-skills
+# benedict23-skills
 
 Normalized repository for a focused set of homemade Codex skills.
 
