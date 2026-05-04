@@ -14,6 +14,7 @@ They do not attempt to restate hidden platform prompts that are not owned by thi
 
 ## Files
 
+- `codex-compact-instruction.md`
 - `senior-engineer-mentor-mode.md`
 - `documentation-sync-and-completion-gate.md`
 - `local-websearch-permission.md`

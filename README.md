@@ -53,7 +53,7 @@ This repo currently tracks nine local-first skills:
     │   ├── README.md
     │   └── *.md
     ├── prompt-framework
-    │   └── BESA_Framework.md
+    │   └── *.md
     ├── manifest.json
     ├── shared
     │   └── engineering_rules.md
@@ -73,6 +73,11 @@ This repo currently tracks nine local-first skills:
 - `src/prompt-framework/` stores reusable prompt-structuring references that are not themselves skills.
 - `src/shared/` stores shared reference material used by more than one skill.
 - Skills should prefer repository-relative references so the repo can be cloned anywhere.
+
+Current prompt-framework references include:
+
+- `BESA_Framework.md` for bug, expectation, scope, and action driven prompts
+- `ROSEAG_Framework.md` for compact role, objective, scope, expectation, action, and guardrail based requests
 
 ### Included Skills
 
@@ -167,6 +172,11 @@ This repo currently tracks nine local-first skills:
 - `src/prompt-framework/` 用于整理可复用的 prompt 结构框架，这些内容本身不是 skill。
 - `src/shared/` 用于存放多个 skill 共用的参考内容。
 - skill 内部尽量使用仓库相对路径，避免依赖某台机器上的绝对路径。
+
+当前 `prompt-framework` 目录主要包括：
+
+- `BESA_Framework.md`，适合围绕问题现状、预期结果、范围和执行方式来组织请求
+- `ROSEAG_Framework.md`，适合用角色、目标、范围、期望、行动和约束来写紧凑需求
 
 ### Skills 说明
 
