@@ -27,15 +27,17 @@ In short:
 
 ### Scope
 
-This repo currently tracks nine local-first skills:
+This repo currently tracks eleven local-first skills:
 
 - `agents-init-helper`
+- `daily-brief`
 - `deep-search-orchestrator`
 - `deep-search-pipeline`
 - `deep-search-scoring`
 - `explain-fastapi-endpoint`
 - `multi-agent-api-dev`
 - `prd-writer`
+- `weekly-highlights`
 - `standards-security`
 - `test-validation`
 
@@ -126,15 +128,17 @@ Current prompt-framework references include:
 
 ### 当前收录
 
-目前仓库收录以下 9 个本地优先维护的 skills：
+目前仓库收录以下 11 个本地优先维护的 skills：
 
 - `agents-init-helper`
+- `daily-brief`
 - `deep-search-orchestrator`
 - `deep-search-pipeline`
 - `deep-search-scoring`
 - `explain-fastapi-endpoint`
 - `multi-agent-api-dev`
 - `prd-writer`
+- `weekly-highlights`
 - `standards-security`
 - `test-validation`
 

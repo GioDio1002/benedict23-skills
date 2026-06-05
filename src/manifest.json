@@ -28,6 +28,16 @@
       "entrypoint": "src/skills/deep-search-scoring/SKILL.md"
     },
     {
+      "name": "daily-brief",
+      "path": "src/skills/daily-brief",
+      "entrypoint": "src/skills/daily-brief/SKILL.md"
+    },
+    {
+      "name": "weekly-highlights",
+      "path": "src/skills/weekly-highlights",
+      "entrypoint": "src/skills/weekly-highlights/SKILL.md"
+    },
+    {
       "name": "explain-fastapi-endpoint",
       "path": "src/skills/explain-fastapi-endpoint",
       "entrypoint": "src/skills/explain-fastapi-endpoint/SKILL.md"

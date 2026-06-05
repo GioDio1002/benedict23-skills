@@ -1,0 +1,4 @@
+interface:
+  display_name: "Weekly Highlights"
+  short_description: "Summarize weekly Git history in bilingual form"
+  default_prompt: "Use $weekly-highlights to produce a bilingual weekly highlights summary from Git history, masking project names as [project_name]."

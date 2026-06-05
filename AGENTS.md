@@ -20,6 +20,7 @@ This is not an application runtime repository. Most changes here should improve 
 
 - `src/skills/<skill-name>/SKILL.md` is the canonical source for each skill.
 - `src/skills/<skill-name>/agents/openai.yaml` should stay aligned with the actual skill behavior.
+- When adding a new skill, update `src/manifest.json`, `README.md`, and the skills inventory in this file.
 - Avoid absolute machine-specific paths inside skill content unless the skill explicitly documents a local-only workflow.
 - Prefer repository-relative references where possible.
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Daily Brief"
+  short_description: "Summarize recent engineering commits in Chinese and English"
+  default_prompt: "Use $daily-brief to generate a bilingual standup summary from recent Git commits, masking project names as [project_name]."
