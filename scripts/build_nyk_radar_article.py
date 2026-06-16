@@ -15,6 +15,36 @@ def extract_style(html: str) -> str:
     return match.group(1).strip()
 
 
+def sanitize_style(style: str) -> str:
+    lines = style.splitlines()
+    blocked_prefixes = (
+        "body{",
+        "body {",
+        ".container{",
+        ".container {",
+        "header{",
+        "header {",
+        "header h1{",
+        "header h1 {",
+        "header .meta{",
+        "header .meta {",
+    )
+    kept = []
+    skip_depth = 0
+    for line in lines:
+        stripped = line.strip()
+        if skip_depth > 0:
+            skip_depth += line.count("{") - line.count("}")
+            continue
+        if stripped.startswith(blocked_prefixes):
+            skip_depth = line.count("{") - line.count("}")
+            if skip_depth < 0:
+                skip_depth = 0
+            continue
+        kept.append(line)
+    return "\n".join(kept).strip()
+
+
 def extract_sections(html: str) -> list[str]:
     sections = re.findall(r'(<section class="player-section">.*?</section>)', html, re.S)
     if not sections:
@@ -71,7 +101,7 @@ def main():
     source = Path(args.source)
     output_root = Path(args.output_root)
     html = source.read_text(encoding="utf-8")
-    style = extract_style(html)
+    style = sanitize_style(extract_style(html))
     sections = extract_sections(html)
 
     article_dir = output_root / "articles" / ARTICLE_SLUG
@@ -91,7 +121,7 @@ def main():
             page_intro=intro,
             page_no=idx + 1,
             total_pages=total_pages,
-            body=f'<div class="container">{page_sections}</div>',
+            body=f'<div class="article-radar-body">{page_sections}</div>',
             local_style=style,
         )
         (article_dir / f"page-{idx + 1}.html").write_text(page_html, encoding="utf-8")
@@ -99,4 +129,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

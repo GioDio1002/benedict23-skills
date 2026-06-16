@@ -9,50 +9,74 @@
 <body>
   <main class="page">
     <section class="hero">
+      <div class="eyebrow">Codex Skills · Publishing Lab</div>
       <h1>benedict23 skills</h1>
-      <p>A small documentation-first home for reusable Codex skills, prompt patterns, and publishing experiments. This site is the GitHub Pages layer for the repository, with skills on one side and practical article outputs on the other.</p>
-      <div class="meta">GitHub Pages root for GioDio1002/benedict23-skills</div>
+      <p>This is a documentation-first skill library with a second life as a publishing surface. The repository holds reusable Codex skills, while the site turns selected working artifacts into calmer, more readable public pages.</p>
+      <div class="meta">Built for repository-relative publishing, static-first GitHub Pages, and practical article reuse.</div>
       <div class="nav">
-        <a href="./articles/">Open Articles</a>
-        <a href="https://github.com/GioDio1002/benedict23-skills">View Repository</a>
+        <a href="./articles/index.html">Browse Articles</a>
+        <a href="https://github.com/GioDio1002/benedict23-skills">Repository</a>
       </div>
     </section>
 
     <section class="section">
-      <h2>What Lives Here</h2>
+      <div class="section-header">
+        <div>
+          <div class="eyebrow">Library</div>
+          <h2>What this site is for</h2>
+        </div>
+        <p class="section-copy">Not a generic template gallery. This site exists to make real Codex skills and real outputs legible: skill docs on one side, article-grade publishing on the other.</p>
+      </div>
       <div class="grid">
         <article class="card">
           <span class="pill">Skills</span>
-          <h3>Codex Skill Library</h3>
-          <p>Normalized skills under <code>src/skills/</code>, each with a canonical <code>SKILL.md</code> and assistant-facing metadata.</p>
+          <h3>Canonical skill source</h3>
+          <p>Every reusable skill lives in <code>src/skills/</code> with a canonical <code>SKILL.md</code> and aligned assistant metadata.</p>
         </article>
         <article class="card">
           <span class="pill">Articles</span>
-          <h3>Publishable Outputs</h3>
-          <p>Static articles built from working analysis artifacts, including paginated NBA Finals radar coverage.</p>
+          <h3>Readable public outputs</h3>
+          <p>Selected artifacts are rebuilt into paginated, repository-safe reading pages instead of raw local HTML dumps.</p>
         </article>
         <article class="card">
-          <span class="pill">Docs</span>
-          <h3>Shared References</h3>
-          <p>Prompt frameworks, MCP notes, and engineering references that support real day-to-day Codex work.</p>
+          <span class="pill">References</span>
+          <h3>Shared working notes</h3>
+          <p>Prompt frameworks, MCP notes, and operating instructions stay available without polluting the skill directories themselves.</p>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <h2>Featured Article</h2>
-      <div class="grid">
-        <article class="card">
-          <span class="pill">NBA Finals</span>
-          <h3>2026 Knicks Finals Radar Book</h3>
-          <p>Paginated reading version of the Knicks Finals radar analysis, rebuilt from the latest workspace artifact and prepared for GitHub Pages.</p>
+      <div class="feature-grid">
+        <article class="feature-panel">
+          <div class="eyebrow">Featured Article</div>
+          <h3>2026 NBA Finals · Knicks Radar Book</h3>
+          <p>A paginated reading edition of the Knicks Finals radar artifact, rebuilt from the latest local analysis page and cleaned up for public reading.</p>
           <div class="nav">
-            <a href="./articles/2026-nba-finals-knicks-radars/page-1.html">Read Article</a>
+            <a href="./articles/2026-nba-finals-knicks-radars/page-1.html">Read page 1</a>
+            <a href="./articles/index.html">Article index</a>
           </div>
         </article>
+        <aside class="sidebar-panel">
+          <div class="eyebrow">Site Logic</div>
+          <h3>Documentation first, design second, polish last</h3>
+          <div class="kicker-list">
+            <div class="kicker">
+              <strong>Static-first</strong>
+              <span>No runtime app shell. HTML and CSS should stand alone.</span>
+            </div>
+            <div class="kicker">
+              <strong>Readable</strong>
+              <span>Long artifacts get paginated instead of becoming a single endless export.</span>
+            </div>
+            <div class="kicker">
+              <strong>Portable</strong>
+              <span>All links stay repository-relative so the site can live cleanly on GitHub Pages.</span>
+            </div>
+          </div>
+        </aside>
       </div>
     </section>
   </main>
 </body>
 </html>
-
