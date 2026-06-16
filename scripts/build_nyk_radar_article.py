@@ -46,6 +46,13 @@ ROLE_MAP = {
 ENGLISH_REPLACEMENTS = (
     ("球员季后赛均值（含总决赛）", "Player playoffs avg (Finals included)"),
     ("定义 / 备注", "Definition / note"),
+    ("综合评价", "Overall evaluation"),
+    ("相对季后赛表现", "Vs playoff baseline"),
+    ("场均得分", "PPG"),
+    ("场均助攻", "APG"),
+    ("场均篮板", "RPG"),
+    ("场均失误", "TOPG"),
+    ("场均犯规", "PFPG"),
     ("队内得分占比 Team Score Share", "Team Score Share"),
     ("真实命中率 TS%", "True Shooting TS%"),
     ("使用率 USG%", "Usage Rate USG%"),
@@ -168,6 +175,17 @@ def extract_sections(html: str) -> list[str]:
 
 def englishize_section(section: str) -> str:
     section = re.sub(r" · (\d+) 场 · ", r" · \1 Games · ", section)
+    section = re.sub(r"角色: ([^。]+)。场均 ([0-9.]+) 分钟，说明这是稳定轮换而不是临时补位。", r"Role: \1. Averaged \2 minutes, which marks a stable rotation spot rather than an emergency cameo.", section)
+    section = re.sub(r"高持球负荷。USG ([0-9.]+%)，说明很多回合以他收尾。", r"Heavy on-ball burden. USG \1 shows that many possessions finished with him.", section)
+    section = re.sub(r"偏组织驱动。AST% ([0-9.]+%)，更多承担串联而非纯终结。", r"More creator-driven. AST% \1 points to setup work over pure finishing.", section)
+    section = re.sub(r"空间价值明确。场均三分出手 ([0-9.]+) 次，主要拉开半场。", r"Clear spacing value. Averaged \1 three-point attempts and mainly stretched the halfcourt.", section)
+    section = re.sub(r"低触球补位型角色。更多靠防守、篮板或短回合终结提供价值。", r"Low-touch complementary role. Value comes more from defense, rebounding, or short-play finishing.", section)
+    section = re.sub(r"终结效率高。TS ([0-9.]+%)，属于系列赛强点。", r"High finishing efficiency. TS \1 was a real series strength.", section)
+    section = re.sub(r"终结效率偏低。TS ([0-9.]+%)，若高持球则会拖慢进攻回报。", r"Below-par finishing efficiency. TS \1 can drag down returns if paired with heavy usage.", section)
+    section = re.sub(r"终结效率中性。TS ([0-9.]+%)，更多要结合角色理解。", r"Neutral finishing efficiency. TS \1 needs to be read in role context.", section)
+    section = re.sub(r"在场赢分明显。Net Rating ([+-][0-9.]+)。", r"Clear on-court winning impact. Net Rating \1.", section)
+    section = re.sub(r"在场容易被打击。Net Rating ([+-][0-9.]+)。", r"On-court minutes were vulnerable. Net Rating \1.", section)
+    section = re.sub(r"在场净胜负接近中性。Net Rating ([+-][0-9.]+)。", r"On-court net margin stayed close to neutral. Net Rating \1.", section)
     section = re.sub(
         r"这张雷达对比的是 2026 总决赛表现、本队总决赛均值，以及该球员整个 2025-26 季后赛均值（含总决赛）。灰线可用来判断球员是否在总决赛相对季后赛整体下滑。生成时间 [^。]+。",
         ENGLISH_SUMMARY,
@@ -186,6 +204,8 @@ def englishize_section(section: str) -> str:
     section = re.sub(r"比队内均值 ([+-]?[0-9.]+%?)。", r"vs team avg \1.", section)
     section = re.sub(r"低于队内均值 ([0-9.]+%?)。", r"below team avg by \1.", section)
     section = re.sub(r"高于队内均值 ([0-9.]+%?)。", r"above team avg by \1.", section)
+    section = re.sub(r"比季后赛整体好 ([0-9.]+%)", r"\1 better than full playoffs", section)
+    section = re.sub(r"比季后赛整体差 ([0-9.]+%)", r"\1 worse than full playoffs", section)
     for chinese, english in sorted(ENGLISH_REPLACEMENTS, key=lambda item: len(item[0]), reverse=True):
         section = section.replace(chinese, english)
     return section

@@ -50,10 +50,14 @@ def test_englishize_section_removes_chinese_labels():
     section = """
 <div class="eyebrow">纽约尼克斯 · G</div>
 <div class="subtitle">Alpha creator · 5 场 · 39.1 MPG · 32.6 PPG</div>
+<div class="stat-chip"><strong>32.6</strong><span>场均得分</span></div>
 <div class="legend-item">球员</div>
 <div class="group-title">队内相对优势</div>
 <div class="insight-label">失误率 TOV%</div>
 <div class="insight-desc">高于队内均值 2.9%。</div>
+<div class="group-title">相对季后赛表现</div>
+<div class="delta-item good"><span>正负值 +/- 比季后赛整体好 87.0%</span></div>
+<strong>综合评价</strong>
 <div class="summary-box">这张雷达对比的是 2026 总决赛表现、本队总决赛均值，以及该球员整个 2025-26 季后赛均值（含总决赛）。灰线可用来判断球员是否在总决赛相对季后赛整体下滑。PIE 是综合指标，和多个单项维度存在包含关系，因此解读时应更多把它当成总览。生成时间 2026-06-16 12:51:31 CST。</div>
 <th>维度</th><th>球员季后赛均值（含总决赛）</th><th>定义 / 备注</th><td>正负值 +/-</td><td>每场个人犯规数。它与防守侵略性有关，但更多反映犯规控制，不等于防守质量，数值越低越好。</td>
 """
@@ -62,10 +66,14 @@ def test_englishize_section_removes_chinese_labels():
 
     assert "New York Knicks" in cleaned
     assert "5 Games" in cleaned
+    assert "PPG" in cleaned
     assert "Player" in cleaned
     assert "Team-relative strengths" in cleaned
     assert "Turnover Rate TOV%" in cleaned
     assert "above team avg by 2.9%." in cleaned
+    assert "Vs playoff baseline" in cleaned
+    assert "87.0% better than full playoffs" in cleaned
+    assert "Overall evaluation" in cleaned
     assert "This radar compares 2026 NBA Finals performance" in cleaned
     assert "Metric" in cleaned
     assert "Player playoffs avg (Finals included)" in cleaned
