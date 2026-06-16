@@ -36,6 +36,7 @@ This repo currently tracks eleven local-first skills:
 - `deep-search-scoring`
 - `explain-fastapi-endpoint`
 - `multi-agent-api-dev`
+- `nba-finals-radar-publishing`
 - `prd-writer`
 - `weekly-highlights`
 - `standards-security`
@@ -47,6 +48,10 @@ This repo currently tracks eleven local-first skills:
 .
 ├── LICENSE
 ├── README.md
+├── docs
+│   ├── index.html
+│   ├── articles/
+│   └── assets/
 └── src
     ├── instructions
     │   ├── README.md
@@ -86,14 +91,17 @@ Current prompt-framework references include:
 | Skill | Purpose |
 | --- | --- |
 | `agents-init-helper` | Read repository-local `AGENTS.md` instructions before implementation work |
+| `daily-brief` | Produce concise daily cross-repo or cross-source standup summaries |
 | `deep-search-orchestrator` | Produce structured deep research reports |
 | `deep-search-pipeline` | Run report generation followed by scoring |
 | `deep-search-scoring` | Score deep research quality and hallucination risk |
 | `explain-fastapi-endpoint` | Trace FastAPI endpoints end-to-end |
 | `multi-agent-api-dev` | Orchestrate requirement analysis, code generation, validation, and security review |
+| `nba-finals-radar-publishing` | Publish official-data NBA Finals radar analysis into pages and social-ready layouts |
 | `prd-writer` | Standardize PRDs and product specs |
 | `standards-security` | Review backend reliability, logging, and security hygiene |
 | `test-validation` | Generate backend test coverage and request examples |
+| `weekly-highlights` | Build compact weekly highlight summaries from recent repo activity |
 
 ### Maintenance Workflow
 
@@ -105,6 +113,8 @@ Current prompt-framework references include:
 ### Publishing Notes
 
 - This repository is organized for Git-based maintenance first.
+- `docs/` is the static GitHub Pages layer for this repository.
+- The expected Pages URL after deployment is the repository Pages URL, typically `https://giodio1002.github.io/benedict23-skills/`.
 - If these skills are later imported into another Codex or agent environment, copy each skill directory as-is.
 - Avoid absolute local filesystem paths inside `SKILL.md` files.
 - `src/mcp/`, `src/instructions/`, and `src/prompt-framework/` are documentation-only directories; they are not imported as skills.
@@ -137,6 +147,7 @@ Current prompt-framework references include:
 - `deep-search-scoring`
 - `explain-fastapi-endpoint`
 - `multi-agent-api-dev`
+- `nba-finals-radar-publishing`
 - `prd-writer`
 - `weekly-highlights`
 - `standards-security`
@@ -148,6 +159,10 @@ Current prompt-framework references include:
 .
 ├── LICENSE
 ├── README.md
+├── docs
+│   ├── index.html
+│   ├── articles/
+│   └── assets/
 └── src
     ├── instructions
     │   ├── README.md
@@ -187,14 +202,17 @@ Current prompt-framework references include:
 | Skill | 作用 |
 | --- | --- |
 | `agents-init-helper` | 在开始实现前优先读取仓库本地 `AGENTS.md` 指令 |
+| `daily-brief` | 生成跨仓库或跨信息源的简洁日报摘要 |
 | `deep-search-orchestrator` | 生成结构化深度研究报告 |
 | `deep-search-pipeline` | 先生成报告，再自动做评分与质检 |
 | `deep-search-scoring` | 对深度研究内容做质量与幻觉风险评分 |
 | `explain-fastapi-endpoint` | 端到端追踪 FastAPI 接口执行路径 |
 | `multi-agent-api-dev` | 编排需求分析、代码生成、测试验证和安全审查 |
+| `nba-finals-radar-publishing` | 把官方 NBA 总决赛雷达分析整理成页面和社媒可发布内容 |
 | `prd-writer` | 规范化 PRD 和产品需求文档 |
 | `standards-security` | 审查后端可靠性、日志和安全卫生 |
 | `test-validation` | 生成后端测试覆盖和请求示例 |
+| `weekly-highlights` | 生成紧凑的周度高亮与进展摘要 |
 
 ### 维护方式
 
@@ -206,6 +224,8 @@ Current prompt-framework references include:
 ### 发布说明
 
 - 这个仓库首先是为了 Git 维护和版本管理而设计的。
+- `docs/` 目录同时作为这个仓库的 GitHub Pages 静态站点发布层。
+- 部署后默认访问地址通常是 `https://giodio1002.github.io/benedict23-skills/`。
 - 如果后续要导入到其他 Codex 或 agent 环境，可以直接复制单个 skill 目录使用。
 - 尽量不要在 `SKILL.md` 里写本机绝对路径。
 - `src/mcp/`、`src/instructions/` 和 `src/prompt-framework/` 只用于文档整理，不会作为 skill 直接导入。

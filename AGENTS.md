@@ -11,6 +11,7 @@ This repository is a normalized, documentation-first home for:
 - MCP server notes under `src/mcp/`
 - Codex instruction notes under `src/instructions/`
 - prompt design references under `src/prompt-framework/`
+- static GitHub Pages publishing files under `docs/`
 
 This is not an application runtime repository. Most changes here should improve clarity, maintainability, portability, and publishing readiness.
 
@@ -62,6 +63,16 @@ This is not an application runtime repository. Most changes here should improve 
   - how it can be shortened or partially composed
   - at least one realistic example
 
+### `docs/`
+
+- This folder is the GitHub Pages publish root for this repository.
+- Keep it static-first: HTML, CSS, lightweight assets, and generated article pages.
+- Do not add app-runtime build systems unless explicitly needed.
+- Pages content should:
+  - avoid machine-specific absolute paths
+  - link with repository-relative site paths
+  - remain readable without JavaScript
+
 ## Editing Rules
 
 - Keep Markdown concise, operational, and easy to scan.
@@ -93,6 +104,7 @@ For documentation-only changes, the minimum validation bar is:
 - file exists in the intended directory
 - repository structure references are accurate
 - cross-references are not stale
+- GitHub Pages links are relative and resolve within `docs/`
 - git status is clean after commit
 
 For research-backed docs, also verify:

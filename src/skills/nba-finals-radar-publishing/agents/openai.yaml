@@ -1,0 +1,5 @@
+interface:
+  display_name: "NBA Finals Radar Publishing"
+  short_description: "Publish official-data NBA Finals radar analysis"
+  default_prompt: "Use $nba-finals-radar-publishing to turn official NBA Finals data into radar pages, paginated articles, coach analysis, and social-ready player cards."
+

@@ -48,6 +48,11 @@
       "entrypoint": "src/skills/multi-agent-api-dev/SKILL.md"
     },
     {
+      "name": "nba-finals-radar-publishing",
+      "path": "src/skills/nba-finals-radar-publishing",
+      "entrypoint": "src/skills/nba-finals-radar-publishing/SKILL.md"
+    },
+    {
       "name": "prd-writer",
       "path": "src/skills/prd-writer",
       "entrypoint": "src/skills/prd-writer/SKILL.md"
