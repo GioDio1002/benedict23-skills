@@ -1,4 +1,7 @@
-from build_nyk_radar_article import article_shell, sanitize_style
+import json
+import logging
+
+from build_nyk_radar_article import JsonFormatter, article_shell, sanitize_style
 
 
 def test_sanitize_style_removes_page_level_rules():
@@ -19,6 +22,7 @@ header h1{font-size:42px}
 def test_article_shell_uses_custom_footer():
     html = article_shell(
         html_lang="en",
+        css_href="../../assets/site.css",
         page_title="T",
         page_headline="H",
         page_intro="I",
@@ -39,3 +43,33 @@ def test_article_shell_uses_custom_footer():
     )
 
     assert "custom footer" in html
+    assert 'href="../../assets/site.css"' in html
+
+
+def test_json_formatter_outputs_required_observability_fields():
+    record = logging.LogRecord(
+        name="test",
+        level=logging.INFO,
+        pathname=__file__,
+        lineno=1,
+        msg="generated",
+        args=(),
+        exc_info=None,
+    )
+    record.trace_id = "trace"
+    record.request_id = "request"
+    record.user_id = "local"
+    record.status_code = "200"
+    record.duration_ms = "12.3"
+
+    payload = json.loads(JsonFormatter().format(record))
+
+    assert payload["message"] == "generated"
+    assert payload["level"] == "INFO"
+    assert payload["service"] == "nba-finals-radar-publishing"
+    assert payload["trace_id"] == "trace"
+    assert payload["request_id"] == "request"
+    assert payload["user_id"] == "local"
+    assert payload["status_code"] == "200"
+    assert payload["duration_ms"] == "12.3"
+    assert "timestamp" in payload

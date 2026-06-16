@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 import argparse
+import json
+import logging
 import math
+import os
 import re
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 NAME_MAP = {
@@ -37,6 +42,34 @@ ROLE_MAP = {
     "Rotation connector": "轮换连接器",
     "Bench specialist": "替补功能位",
 }
+
+
+class JsonFormatter(logging.Formatter):
+    def format(self, record: logging.LogRecord) -> str:
+        payload = {
+            "timestamp": datetime.fromtimestamp(record.created, timezone.utc).isoformat(),
+            "level": record.levelname,
+            "message": record.getMessage(),
+            "service": "nba-finals-radar-publishing",
+            "env": os.getenv("APP_ENV", "local"),
+            "trace_id": getattr(record, "trace_id", ""),
+            "request_id": getattr(record, "request_id", ""),
+            "user_id": getattr(record, "user_id", ""),
+            "status_code": getattr(record, "status_code", ""),
+            "duration_ms": getattr(record, "duration_ms", ""),
+        }
+        return json.dumps(payload, ensure_ascii=True)
+
+
+def configure_logging() -> logging.Logger:
+    logger = logging.getLogger("nba_finals_radar_publishing")
+    if not logger.handlers:
+        handler = logging.StreamHandler()
+        handler.setFormatter(JsonFormatter())
+        logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    return logger
 
 
 def extract_style(html: str) -> str:
@@ -95,7 +128,7 @@ def localize_section(section: str, lang: str) -> str:
     return section
 
 
-def article_shell(*, html_lang: str, page_title: str, page_headline: str, page_intro: str, page_no: int, total_pages: int, body: str, local_style: str, footer_note: str, article_index_href: str, site_home_href: str, prev_label: str, next_label: str, page_label: str, switch_label: str, switch_href: str, all_articles_label: str, site_home_label: str) -> str:
+def article_shell(*, html_lang: str, css_href: str, page_title: str, page_headline: str, page_intro: str, page_no: int, total_pages: int, body: str, local_style: str, footer_note: str, article_index_href: str, site_home_href: str, prev_label: str, next_label: str, page_label: str, switch_label: str, switch_href: str, all_articles_label: str, site_home_label: str) -> str:
     prev_href = f"page-{page_no - 1}.html" if page_no > 1 else None
     next_href = f"page-{page_no + 1}.html" if page_no < total_pages else None
     prev_button = f'<a class="button" href="{prev_href}">{prev_label}</a>' if prev_href else f'<span class="button disabled">{prev_label}</span>'
@@ -106,7 +139,7 @@ def article_shell(*, html_lang: str, page_title: str, page_headline: str, page_i
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{page_title}</title>
-  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="{css_href}">
   <style>{local_style}</style>
 </head>
 <body>
@@ -136,6 +169,8 @@ def article_shell(*, html_lang: str, page_title: str, page_headline: str, page_i
 
 
 def main():
+    started = time.perf_counter()
+    logger = configure_logging()
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", required=True)
     parser.add_argument("--output-root", required=True)
@@ -160,6 +195,7 @@ def main():
     total_pages = math.ceil(len(sections) / args.per_page)
     article_index_href = "../index.html"
     site_home_href = "../../index.html"
+    css_href = "../../assets/site.css" if args.lang == "en" else "../../../assets/site.css"
     page_label = "Page" if args.lang == "en" else "第"
     page_title_label = "Page" if args.lang == "en" else "第"
     prev_label = "Previous Page" if args.lang == "en" else "上一页"
@@ -176,9 +212,10 @@ def main():
         if args.lang == "en":
             switch_href = f"../../zh/articles/{args.slug}/page-{idx + 1}.html"
         else:
-            switch_href = f"../../articles/{args.slug}/page-{idx + 1}.html"
+            switch_href = f"../../../articles/{args.slug}/page-{idx + 1}.html"
         page_html = article_shell(
             html_lang=html_lang,
+            css_href=css_href,
             page_title=f"{args.headline} · {page_title_label}{idx + 1}{'' if args.lang == 'en' else '页'}",
             page_headline=args.headline,
             page_intro=args.intro,
@@ -198,6 +235,17 @@ def main():
             site_home_label=site_home_label,
         )
         (article_dir / f"page-{idx + 1}.html").write_text(page_html, encoding="utf-8")
+
+    logger.info(
+        "radar article pages generated",
+        extra={
+            "trace_id": f"{args.slug}:{args.lang}",
+            "request_id": args.slug,
+            "user_id": "local",
+            "status_code": "200",
+            "duration_ms": str(round((time.perf_counter() - started) * 1000, 2)),
+        },
+    )
 
 
 if __name__ == "__main__":
