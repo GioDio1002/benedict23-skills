@@ -48,6 +48,8 @@ ENGLISH_REPLACEMENTS = (
     ("定义 / 备注", "Definition / note"),
     ("综合评价", "Overall evaluation"),
     ("相对季后赛表现", "Vs playoff baseline"),
+    ("相对季后赛", "Vs playoff baseline"),
+    ("场均分钟", "MPG"),
     ("场均得分", "PPG"),
     ("场均助攻", "APG"),
     ("场均篮板", "RPG"),
