@@ -54,8 +54,8 @@ def test_englishize_section_removes_chinese_labels():
 <div class="group-title">队内相对优势</div>
 <div class="insight-label">队内得分占比 Team Score Share</div>
 <div class="insight-desc">比队内均值 +22.8%。</div>
-<div class="summary-box">这张雷达不是常规赛全联盟画像，而是 2026 总决赛这轮系列赛画像。横向基准是“本队均值 + 全系列均值”。生成时间 2026-06-16 12:51:31 CST。</div>
-<th>维度</th><th>总决赛总体均值</th><td>真实命中率 TS%</td>
+<div class="summary-box">这张雷达对比的是 2026 总决赛表现、本队总决赛均值，以及该球员整个 2025-26 季后赛均值（含总决赛）。灰线可用来判断球员是否在总决赛相对季后赛整体下滑。生成时间 2026-06-16 12:51:31 CST。</div>
+<th>维度</th><th>球员季后赛均值（含总决赛）</th><td>真实命中率 TS%</td>
 """
 
     cleaned = englishize_section(section)
@@ -66,9 +66,9 @@ def test_englishize_section_removes_chinese_labels():
     assert "Team-relative strengths" in cleaned
     assert "Team Score Share" in cleaned
     assert "vs team avg +22.8%." in cleaned
-    assert "This radar is a 2026 NBA Finals series view" in cleaned
+    assert "This radar compares 2026 NBA Finals performance" in cleaned
     assert "Metric" in cleaned
-    assert "Finals overall avg" in cleaned
+    assert "Player playoffs avg (Finals included)" in cleaned
     assert "True Shooting TS%" in cleaned
     assert not any("\u4e00" <= char <= "\u9fff" for char in cleaned)
 

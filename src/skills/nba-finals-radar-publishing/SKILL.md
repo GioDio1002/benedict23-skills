@@ -21,14 +21,18 @@ Use this skill when the task is NBA playoff or Finals coverage that needs both a
 
 1. Gather official game-level data for the whole series.
 2. Keep only players with real minutes.
-3. Build per-player metric bundles.
+3. Build per-player Finals metric bundles.
 4. Remove redundant axes when two metrics tell the same story.
-5. Render:
+5. Add a player-specific playoffs baseline when evaluating Finals drop-off:
+   - fetch `SeasonType=Playoffs` player and team per-game stats
+   - include Finals inside that playoffs average
+   - use this as the gray comparison line instead of a generic Finals overall average
+6. Render:
    - team radar overview
    - player pages
    - article index
    - paginated article pages
-6. Keep labels readable in both Chinese and English when publishing.
+7. Keep labels readable in both Chinese and English when publishing.
 
 ## Metric guidance
 
@@ -42,6 +46,7 @@ Use this skill when the task is NBA playoff or Finals coverage that needs both a
   - `AST/TO` for decision quality
   - `PIE` for overall game impact
   - `NetRtg` for on-court results
+- Avoid using `Finals overall avg` as the third radar/table baseline when the reader is asking whether a player choked in the Finals. Use `Player playoffs avg (Finals included)` so each player is compared against his own full playoff level.
 
 ## Publishing guidance
 
@@ -49,4 +54,3 @@ Use this skill when the task is NBA playoff or Finals coverage that needs both a
 - Single-player pages should be easy to convert into image cards.
 - Avoid machine-specific links in published output.
 - Prefer repository-relative site links and stable slugs.
-

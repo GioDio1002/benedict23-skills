@@ -44,6 +44,7 @@ ROLE_MAP = {
 }
 
 ENGLISH_REPLACEMENTS = (
+    ("球员季后赛均值（含总决赛）", "Player playoffs avg (Finals included)"),
     ("队内得分占比 Team Score Share", "Team Score Share"),
     ("真实命中率 TS%", "True Shooting TS%"),
     ("使用率 USG%", "Usage Rate USG%"),
@@ -71,8 +72,9 @@ ENGLISH_REPLACEMENTS = (
 )
 
 ENGLISH_SUMMARY = (
-    "This radar is a 2026 NBA Finals series view, not a regular-season "
-    "or league-wide profile. The baselines are team average and full-series average."
+    "This radar compares 2026 NBA Finals performance against team Finals average "
+    "and the player's full 2025-26 playoffs average, with Finals included. The gray "
+    "line helps show whether the player dropped from his wider playoff level."
 )
 
 
@@ -149,6 +151,11 @@ def extract_sections(html: str) -> list[str]:
 
 
 def englishize_section(section: str) -> str:
+    section = re.sub(
+        r"这张雷达对比的是 2026 总决赛表现、本队总决赛均值，以及该球员整个 2025-26 季后赛均值（含总决赛）。灰线可用来判断球员是否在总决赛相对季后赛整体下滑。生成时间 [^。]+。",
+        ENGLISH_SUMMARY,
+        section,
+    )
     section = re.sub(
         r"这张雷达不是常规赛全联盟画像，而是 2026 总决赛这轮系列赛画像。横向基准是“本队均值 \+ 全系列均值”。生成时间 [^。]+。",
         ENGLISH_SUMMARY,
