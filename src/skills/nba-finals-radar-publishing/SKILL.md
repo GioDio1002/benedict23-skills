@@ -52,5 +52,6 @@ Use this skill when the task is NBA playoff or Finals coverage that needs both a
 
 - Long-form article pages should be paginated when one page becomes too long to read comfortably.
 - Single-player pages should be easy to convert into image cards.
+- Keep English and Chinese publishing shells aligned when labels, baselines, or explanatory summaries change.
 - Avoid machine-specific links in published output.
 - Prefer repository-relative site links and stable slugs.
