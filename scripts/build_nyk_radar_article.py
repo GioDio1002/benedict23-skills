@@ -95,13 +95,13 @@ def localize_section(section: str, lang: str) -> str:
     return section
 
 
-def article_shell(*, page_title: str, page_headline: str, page_intro: str, page_no: int, total_pages: int, body: str, local_style: str, footer_note: str, article_index_href: str, site_home_href: str, prev_label: str, next_label: str, page_label: str, switch_label: str, switch_href: str) -> str:
+def article_shell(*, html_lang: str, page_title: str, page_headline: str, page_intro: str, page_no: int, total_pages: int, body: str, local_style: str, footer_note: str, article_index_href: str, site_home_href: str, prev_label: str, next_label: str, page_label: str, switch_label: str, switch_href: str, all_articles_label: str, site_home_label: str) -> str:
     prev_href = f"page-{page_no - 1}.html" if page_no > 1 else None
     next_href = f"page-{page_no + 1}.html" if page_no < total_pages else None
     prev_button = f'<a class="button" href="{prev_href}">{prev_label}</a>' if prev_href else f'<span class="button disabled">{prev_label}</span>'
     next_button = f'<a class="button" href="{next_href}">{next_label}</a>' if next_href else f'<span class="button disabled">{next_label}</span>'
     return f"""<!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="{html_lang}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -116,8 +116,8 @@ def article_shell(*, page_title: str, page_headline: str, page_intro: str, page_
       <h1>{page_headline}</h1>
       <p>{page_intro}</p>
       <div class="nav">
-        <a href="{article_index_href}">All Articles</a>
-        <a href="{site_home_href}">Site Home</a>
+        <a href="{article_index_href}">{all_articles_label}</a>
+        <a href="{site_home_href}">{site_home_label}</a>
       </div>
       <div class="pager">
         {prev_button}
@@ -128,7 +128,7 @@ def article_shell(*, page_title: str, page_headline: str, page_intro: str, page_
     <section class="embed-shell">
       {body}
     </section>
-    <footer class="footer">{footer_note}</footer>
+    <footer class="footer">{footer_note} · <a href="https://github.com/GioDio1002/benedict23-skills/tree/main/src/skills/nba-finals-radar-publishing">Generated with skill: nba-finals-radar-publishing</a></footer>
   </main>
 </body>
 </html>
@@ -158,12 +158,16 @@ def main():
     article_dir.mkdir(parents=True, exist_ok=True)
 
     total_pages = math.ceil(len(sections) / args.per_page)
-    article_index_href = "../index.html" if args.lang == "en" else "../index.html"
-    site_home_href = "../../index.html" if args.lang == "en" else "../../index.html"
+    article_index_href = "../index.html"
+    site_home_href = "../../index.html"
     page_label = "Page" if args.lang == "en" else "第"
+    page_title_label = "Page" if args.lang == "en" else "第"
     prev_label = "Previous Page" if args.lang == "en" else "上一页"
     next_label = "Next Page" if args.lang == "en" else "下一页"
     switch_label = "中文版" if args.lang == "en" else "English"
+    all_articles_label = "All Articles" if args.lang == "en" else "全部文章"
+    site_home_label = "Site Home" if args.lang == "en" else "站点首页"
+    html_lang = "en" if args.lang == "en" else "zh-CN"
 
     for idx in range(total_pages):
         start = idx * args.per_page
@@ -174,7 +178,8 @@ def main():
         else:
             switch_href = f"../../articles/{args.slug}/page-{idx + 1}.html"
         page_html = article_shell(
-            page_title=f"{args.headline} · Page {idx + 1}",
+            html_lang=html_lang,
+            page_title=f"{args.headline} · {page_title_label}{idx + 1}{'' if args.lang == 'en' else '页'}",
             page_headline=args.headline,
             page_intro=args.intro,
             page_no=idx + 1,
@@ -189,6 +194,8 @@ def main():
             page_label=page_label,
             switch_label=switch_label,
             switch_href=switch_href,
+            all_articles_label=all_articles_label,
+            site_home_label=site_home_label,
         )
         (article_dir / f"page-{idx + 1}.html").write_text(page_html, encoding="utf-8")
 

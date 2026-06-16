@@ -18,6 +18,7 @@ header h1{font-size:42px}
 
 def test_article_shell_uses_custom_footer():
     html = article_shell(
+        html_lang="en",
         page_title="T",
         page_headline="H",
         page_intro="I",
@@ -33,6 +34,8 @@ def test_article_shell_uses_custom_footer():
         page_label="Page",
         switch_label="中文版",
         switch_href="../../zh/articles/demo/page-1.html",
+        all_articles_label="All Articles",
+        site_home_label="Site Home",
     )
 
     assert "custom footer" in html
