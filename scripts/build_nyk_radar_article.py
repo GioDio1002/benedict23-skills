@@ -4,6 +4,40 @@ import math
 import re
 from pathlib import Path
 
+NAME_MAP = {
+    "Jalen Brunson": "杰伦·布伦森",
+    "OG Anunoby": "OG·阿奴诺比",
+    "Mikal Bridges": "米卡尔·布里奇斯",
+    "Karl-Anthony Towns": "卡尔-安东尼·唐斯",
+    "Josh Hart": "约什·哈特",
+    "Landry Shamet": "兰德里·沙梅特",
+    "Mitchell Robinson": "米切尔·罗宾逊",
+    "Miles McBride": "迈尔斯·麦克布莱德",
+    "Jose Alvarado": "何塞·阿尔瓦拉多",
+    "Jordan Clarkson": "乔丹·克拉克森",
+    "Ariel Hukporti": "阿里埃尔·胡克波尔蒂",
+    "Jeremy Sochan": "杰里米·索汉",
+    "Victor Wembanyama": "维克托·文班亚马",
+    "Devin Vassell": "德文·瓦塞尔",
+    "De'Aaron Fox": "德阿隆·福克斯",
+    "Stephon Castle": "斯蒂芬·卡斯尔",
+    "Julian Champagnie": "朱利安·尚帕尼",
+    "Dylan Harper": "迪伦·哈珀",
+    "Keldon Johnson": "凯尔登·约翰逊",
+    "Harrison Barnes": "哈里森·巴恩斯",
+    "Luke Kornet": "卢克·科内特",
+    "Carter Bryant": "卡特·布莱恩特",
+}
+
+ROLE_MAP = {
+    "Alpha creator": "头号持球核心",
+    "Secondary creator": "第二发起点",
+    "Interior anchor": "内线支柱",
+    "Floor spacer": "空间点",
+    "Rotation connector": "轮换连接器",
+    "Bench specialist": "替补功能位",
+}
+
 
 def extract_style(html: str) -> str:
     match = re.search(r"<style>(.*?)</style>", html, re.S)
@@ -49,11 +83,23 @@ def extract_sections(html: str) -> list[str]:
     return sections
 
 
-def article_shell(*, page_title: str, page_headline: str, page_intro: str, page_no: int, total_pages: int, body: str, local_style: str, footer_note: str) -> str:
+def localize_section(section: str, lang: str) -> str:
+    if lang != "zh":
+        return section
+    for english, chinese in NAME_MAP.items():
+        section = section.replace(english, chinese)
+    for english, chinese in ROLE_MAP.items():
+        section = section.replace(english, chinese)
+    section = section.replace("PPG", "场均得分")
+    section = section.replace("MPG", "场均分钟")
+    return section
+
+
+def article_shell(*, page_title: str, page_headline: str, page_intro: str, page_no: int, total_pages: int, body: str, local_style: str, footer_note: str, article_index_href: str, site_home_href: str, prev_label: str, next_label: str, page_label: str, switch_label: str, switch_href: str) -> str:
     prev_href = f"page-{page_no - 1}.html" if page_no > 1 else None
     next_href = f"page-{page_no + 1}.html" if page_no < total_pages else None
-    prev_button = f'<a class="button" href="{prev_href}">Previous Page</a>' if prev_href else '<span class="button disabled">Previous Page</span>'
-    next_button = f'<a class="button" href="{next_href}">Next Page</a>' if next_href else '<span class="button disabled">Next Page</span>'
+    prev_button = f'<a class="button" href="{prev_href}">{prev_label}</a>' if prev_href else f'<span class="button disabled">{prev_label}</span>'
+    next_button = f'<a class="button" href="{next_href}">{next_label}</a>' if next_href else f'<span class="button disabled">{next_label}</span>'
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -66,15 +112,16 @@ def article_shell(*, page_title: str, page_headline: str, page_intro: str, page_
 <body>
   <main class="page">
     <section class="article-header">
+      <div class="lang-switch"><a class="button" href="{switch_href}">{switch_label}</a></div>
       <h1>{page_headline}</h1>
       <p>{page_intro}</p>
       <div class="nav">
-        <a href="../index.html">All Articles</a>
-        <a href="../../index.html">Site Home</a>
+        <a href="{article_index_href}">All Articles</a>
+        <a href="{site_home_href}">Site Home</a>
       </div>
       <div class="pager">
         {prev_button}
-        <div class="pager-note">Page {page_no} / {total_pages}</div>
+        <div class="pager-note">{page_label} {page_no} / {total_pages}</div>
         {next_button}
       </div>
     </section>
@@ -97,6 +144,7 @@ def main():
     parser.add_argument("--headline", required=True)
     parser.add_argument("--intro", required=True)
     parser.add_argument("--footer-note", default="Article rebuilt from the latest local radar artifact for GitHub Pages publishing.")
+    parser.add_argument("--lang", choices=["en", "zh"], default="en")
     args = parser.parse_args()
 
     source = Path(args.source)
@@ -105,15 +153,26 @@ def main():
     style = sanitize_style(extract_style(html))
     sections = extract_sections(html)
 
-    article_dir = output_root / "articles" / args.slug
+    article_root = output_root / "articles" / args.slug if args.lang == "en" else output_root / "zh" / "articles" / args.slug
+    article_dir = article_root
     article_dir.mkdir(parents=True, exist_ok=True)
 
     total_pages = math.ceil(len(sections) / args.per_page)
+    article_index_href = "../index.html" if args.lang == "en" else "../index.html"
+    site_home_href = "../../index.html" if args.lang == "en" else "../../index.html"
+    page_label = "Page" if args.lang == "en" else "第"
+    prev_label = "Previous Page" if args.lang == "en" else "上一页"
+    next_label = "Next Page" if args.lang == "en" else "下一页"
+    switch_label = "中文版" if args.lang == "en" else "English"
 
     for idx in range(total_pages):
         start = idx * args.per_page
         end = start + args.per_page
-        page_sections = "\n".join(sections[start:end])
+        page_sections = "\n".join(localize_section(section, args.lang) for section in sections[start:end])
+        if args.lang == "en":
+            switch_href = f"../../zh/articles/{args.slug}/page-{idx + 1}.html"
+        else:
+            switch_href = f"../../articles/{args.slug}/page-{idx + 1}.html"
         page_html = article_shell(
             page_title=f"{args.headline} · Page {idx + 1}",
             page_headline=args.headline,
@@ -123,6 +182,13 @@ def main():
             body=f'<div class="article-radar-body">{page_sections}</div>',
             local_style=style,
             footer_note=args.footer_note,
+            article_index_href=article_index_href,
+            site_home_href=site_home_href,
+            prev_label=prev_label,
+            next_label=next_label,
+            page_label=page_label,
+            switch_label=switch_label,
+            switch_href=switch_href,
         )
         (article_dir / f"page-{idx + 1}.html").write_text(page_html, encoding="utf-8")
 

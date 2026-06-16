@@ -26,6 +26,13 @@ def test_article_shell_uses_custom_footer():
         body="<div>body</div>",
         local_style="",
         footer_note="custom footer",
+        article_index_href="../index.html",
+        site_home_href="../../index.html",
+        prev_label="Previous Page",
+        next_label="Next Page",
+        page_label="Page",
+        switch_label="中文版",
+        switch_href="../../zh/articles/demo/page-1.html",
     )
 
     assert "custom footer" in html

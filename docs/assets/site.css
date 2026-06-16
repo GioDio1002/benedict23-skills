@@ -228,11 +228,24 @@ code {
 .feature-panel,
 .sidebar-panel,
 .article-header {
+  position: relative;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 28px;
   padding: 24px;
   box-shadow: var(--shadow);
+}
+
+.lang-switch {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.lang-switch .button {
+  min-height: 40px;
+  padding: 10px 14px;
+  font-size: 13px;
 }
 
 .feature-panel h3,
