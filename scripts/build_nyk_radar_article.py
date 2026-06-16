@@ -43,6 +43,38 @@ ROLE_MAP = {
     "Bench specialist": "替补功能位",
 }
 
+ENGLISH_REPLACEMENTS = (
+    ("队内得分占比 Team Score Share", "Team Score Share"),
+    ("真实命中率 TS%", "True Shooting TS%"),
+    ("使用率 USG%", "Usage Rate USG%"),
+    ("助攻率 AST%", "Assist Rate AST%"),
+    ("篮板率 REB%", "Rebound Rate REB%"),
+    ("助失比 A/T", "Assist/Turnover A/T"),
+    ("净效率 NetRtg", "Net Rating NetRtg"),
+    ("纽约尼克斯", "New York Knicks"),
+    ("圣安东尼奥马刺", "San Antonio Spurs"),
+    ("队内相对优势", "Team-relative strengths"),
+    ("队内相对短板", "Team-relative gaps"),
+    ("总决赛总体均值", "Finals overall avg"),
+    ("本队均值", "Team avg"),
+    ("队内均值", "Team avg"),
+    ("维度", "Metric"),
+    ("球员", "Player"),
+    ("真实命中率", "True Shooting"),
+    ("使用率", "Usage Rate"),
+    ("助攻率", "Assist Rate"),
+    ("队内得分占比", "Team Score Share"),
+    ("篮板率", "Rebound Rate"),
+    ("助失比", "Assist/Turnover"),
+    ("净效率", "Net Rating"),
+    ("场", "Games"),
+)
+
+ENGLISH_SUMMARY = (
+    "This radar is a 2026 NBA Finals series view, not a regular-season "
+    "or league-wide profile. The baselines are team average and full-series average."
+)
+
 
 class JsonFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
@@ -116,7 +148,21 @@ def extract_sections(html: str) -> list[str]:
     return sections
 
 
+def englishize_section(section: str) -> str:
+    section = re.sub(
+        r"这张雷达不是常规赛全联盟画像，而是 2026 总决赛这轮系列赛画像。横向基准是“本队均值 \+ 全系列均值”。生成时间 [^。]+。",
+        ENGLISH_SUMMARY,
+        section,
+    )
+    section = re.sub(r"比队内均值 ([+-]?[0-9.]+%?)。", r"vs team avg \1.", section)
+    for chinese, english in ENGLISH_REPLACEMENTS:
+        section = section.replace(chinese, english)
+    return section
+
+
 def localize_section(section: str, lang: str) -> str:
+    if lang == "en":
+        return englishize_section(section)
     if lang != "zh":
         return section
     for english, chinese in NAME_MAP.items():
@@ -200,7 +246,7 @@ def main():
     page_title_label = "Page" if args.lang == "en" else "第"
     prev_label = "Previous Page" if args.lang == "en" else "上一页"
     next_label = "Next Page" if args.lang == "en" else "下一页"
-    switch_label = "中文版" if args.lang == "en" else "English"
+    switch_label = "Chinese" if args.lang == "en" else "English"
     all_articles_label = "All Articles" if args.lang == "en" else "全部文章"
     site_home_label = "Site Home" if args.lang == "en" else "站点首页"
     html_lang = "en" if args.lang == "en" else "zh-CN"
@@ -209,6 +255,7 @@ def main():
         start = idx * args.per_page
         end = start + args.per_page
         page_sections = "\n".join(localize_section(section, args.lang) for section in sections[start:end])
+        page_title_suffix = f"{page_title_label} {idx + 1}" if args.lang == "en" else f"{page_title_label}{idx + 1}页"
         if args.lang == "en":
             switch_href = f"../../zh/articles/{args.slug}/page-{idx + 1}.html"
         else:
@@ -216,7 +263,7 @@ def main():
         page_html = article_shell(
             html_lang=html_lang,
             css_href=css_href,
-            page_title=f"{args.headline} · {page_title_label}{idx + 1}{'' if args.lang == 'en' else '页'}",
+            page_title=f"{args.headline} · {page_title_suffix}",
             page_headline=args.headline,
             page_intro=args.intro,
             page_no=idx + 1,
