@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>NYK 2026 Finals · SNS Cards · Page 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#111;
+  padding:60px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:48px;
+  justify-content:center;
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  align-items:flex-start;
+}
+
+/* Each card is exactly 1080×1080 for SNS */
+.card{
+  width:1080px;
+  height:1080px;
+  background:#0D1B2A;
+  position:relative;
+  overflow:hidden;
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  padding:72px 80px;
+}
+
+/* Knicks orange top accent bar */
+.card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:5px;
+  background:linear-gradient(90deg,#006BB6 0%,#F58426 100%);
+}
+
+/* Team / series branding */
+.card-brand{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:52px;
+}
+.brand-team{
+  font-size:0.78rem;font-weight:700;
+  color:#F58426;text-transform:uppercase;letter-spacing:0.14em;
+}
+.brand-series{
+  font-size:0.72rem;color:rgba(255,255,255,0.4);
+  letter-spacing:0.1em;text-transform:uppercase;
+}
+
+/* Player name block */
+.card-player{margin-bottom:48px}
+.card-position{
+  font-size:0.78rem;font-weight:700;
+  color:#006BB6;text-transform:uppercase;letter-spacing:0.12em;
+  margin-bottom:10px;
+}
+.card-name{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:4.8rem;font-weight:700;font-style:italic;
+  color:#FFFFFF;line-height:0.95;margin-bottom:10px;
+}
+.card-name-en{
+  font-size:1.05rem;color:rgba(255,255,255,0.5);
+  font-weight:400;letter-spacing:0.06em;
+}
+.card-role{
+  font-size:0.88rem;color:rgba(255,255,255,0.6);
+  margin-top:8px;letter-spacing:0.03em;
+}
+
+/* Divider */
+.divider{
+  width:100%;height:1px;
+  background:rgba(255,255,255,0.1);
+  margin-bottom:48px;
+}
+
+/* Stats row */
+.stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:16px;margin-bottom:52px;
+}
+.stat-card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:3px;
+  padding:22px 20px;
+}
+.stat-number{
+  font-family:'JetBrains Mono',monospace;
+  font-size:2.6rem;font-weight:700;
+  color:#FFFFFF;letter-spacing:-0.03em;
+  line-height:1;
+}
+.stat-label{
+  font-size:0.68rem;color:rgba(255,255,255,0.4);
+  text-transform:uppercase;letter-spacing:0.09em;
+  margin-top:10px;font-weight:600;
+}
+
+/* Key insight */
+.insights-block{flex:1}
+.insight-item{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:16px 20px;border-radius:3px;
+  margin-bottom:12px;
+}
+.insight-item.good{background:rgba(27,94,58,0.2);border:1px solid rgba(27,94,58,0.3)}
+.insight-item.bad{background:rgba(139,26,26,0.18);border:1px solid rgba(139,26,26,0.25)}
+.insight-icon{font-size:1.2rem;font-weight:700;flex-shrink:0;margin-top:1px}
+.insight-item.good .insight-icon{color:#4ADE80}
+.insight-item.bad .insight-icon{color:#F87171}
+.insight-content{}
+.insight-title{
+  font-size:0.95rem;font-weight:600;
+  margin-bottom:3px;
+}
+.insight-item.good .insight-title{color:#4ADE80}
+.insight-item.bad .insight-title{color:#F87171}
+.insight-detail{font-size:0.82rem;color:rgba(255,255,255,0.55)}
+
+/* Footer */
+.card-footer{
+  margin-top:auto;padding-top:28px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-games{font-size:0.75rem;color:rgba(255,255,255,0.3);letter-spacing:0.08em}
+.footer-source{font-size:0.68rem;color:rgba(255,255,255,0.2);letter-spacing:0.06em}
+</style>
+</head>
+<body>
+
+<!-- CARD 1: Jalen Brunson -->
+<div class="card" id="card-brunson">
+  <div class="card-brand">
+    <div class="brand-team">NEW YORK KNICKS</div>
+    <div class="brand-series">2026 NBA Finals</div>
+  </div>
+  <div class="card-player">
+    <div class="card-position">G · 后卫</div>
+    <div class="card-name">杰伦·布伦森</div>
+    <div class="card-name-en">Jalen Brunson</div>
+    <div class="card-role">头号持球核心</div>
+  </div>
+  <div class="divider"></div>
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-number">32.6</div>
+      <div class="stat-label">场均得分</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">39.1</div>
+      <div class="stat-label">场均分钟</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">4.6</div>
+      <div class="stat-label">场均助攻</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">3.8</div>
+      <div class="stat-label">场均失误</div>
+    </div>
+  </div>
+  <div class="insights-block">
+    <div class="insight-item good">
+      <div class="insight-icon">↑</div>
+      <div class="insight-content">
+        <div class="insight-title">队内得分占比 Team Score Share</div>
+        <div class="insight-detail">比队内均值 +22.8%  ·  比季后赛基准好 27.3%</div>
+      </div>
+    </div>
+    <div class="insight-item good">
+      <div class="insight-icon">↑</div>
+      <div class="insight-content">
+        <div class="insight-title">使用率 USG% 36.6%</div>
+        <div class="insight-detail">比队内均值 +20.4%——持球核心地位明确</div>
+      </div>
+    </div>
+    <div class="insight-item bad">
+      <div class="insight-icon">↓</div>
+      <div class="insight-content">
+        <div class="insight-title">失误率 TOV% 9.9%</div>
+        <div class="insight-detail">高于队内均值 2.9%  ·  比季后赛基准差 23.8%</div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="footer-games">5 场 · 总决赛 2026</div>
+    <div class="footer-source">TS% 53.2%  ·  PIE 15.2%</div>
+  </div>
+</div>
+
+<!-- CARD 2: OG Anunoby -->
+<div class="card" id="card-og">
+  <div class="card-brand">
+    <div class="brand-team">NEW YORK KNICKS</div>
+    <div class="brand-series">2026 NBA Finals</div>
+  </div>
+  <div class="card-player">
+    <div class="card-position">F · 前锋</div>
+    <div class="card-name">OG·阿奴诺比</div>
+    <div class="card-name-en">OG Anunoby</div>
+    <div class="card-role">空间点</div>
+  </div>
+  <div class="divider"></div>
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-number">21.2</div>
+      <div class="stat-label">场均得分</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">36.0</div>
+      <div class="stat-label">场均分钟</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">4.8</div>
+      <div class="stat-label">场均篮板</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">0.6</div>
+      <div class="stat-label">场均失误</div>
+    </div>
+  </div>
+  <div class="insights-block">
+    <div class="insight-item good">
+      <div class="insight-icon">↑</div>
+      <div class="insight-content">
+        <div class="insight-title">真实命中率 TS% 69.6%</div>
+        <div class="insight-detail">比队内均值 +32.1%——系列赛效率最高点</div>
+      </div>
+    </div>
+    <div class="insight-item good">
+      <div class="insight-icon">↑</div>
+      <div class="insight-content">
+        <div class="insight-title">失误率 TOV% 极低 3.4%</div>
+        <div class="insight-detail">低于队内均值 3.6%——持球稳定</div>
+      </div>
+    </div>
+    <div class="insight-item bad">
+      <div class="insight-icon">↓</div>
+      <div class="insight-content">
+        <div class="insight-title">正负值 −3.4</div>
+        <div class="insight-detail">比季后赛整体差 135.4%——上场时球队净负</div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="footer-games">5 场 · 总决赛 2026</div>
+    <div class="footer-source">3PT 6.4次/场  ·  PIE 14.7%</div>
+  </div>
+</div>
+
+<!-- CARD 3: Mikal Bridges -->
+<div class="card" id="card-bridges">
+  <div class="card-brand">
+    <div class="brand-team">NEW YORK KNICKS</div>
+    <div class="brand-series">2026 NBA Finals</div>
+  </div>
+  <div class="card-player">
+    <div class="card-position">G · 后卫</div>
+    <div class="card-name">米卡尔·布里奇斯</div>
+    <div class="card-name-en">Mikal Bridges</div>
+    <div class="card-role">轮换连接器</div>
+  </div>
+  <div class="divider"></div>
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-number">10.4</div>
+      <div class="stat-label">场均得分</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">32.9</div>
+      <div class="stat-label">场均分钟</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">3.4</div>
+      <div class="stat-label">场均助攻</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">+6.6</div>
+      <div class="stat-label">正负值</div>
+    </div>
+  </div>
+  <div class="insights-block">
+    <div class="insight-item good">
+      <div class="insight-icon">↑</div>
+      <div class="insight-content">
+        <div class="insight-title">正负值 +6.6</div>
+        <div class="insight-detail">比队内均值 +5.4——在场时球队明显占优</div>
+      </div>
+    </div>
+    <div class="insight-item good">
+      <div class="insight-icon">↑</div>
+      <div class="insight-content">
+        <div class="insight-title">助攻率 AST% 15.7%</div>
+        <div class="insight-detail">比季后赛基准好 29.0%——组织端提升明显</div>
+      </div>
+    </div>
+    <div class="insight-item bad">
+      <div class="insight-icon">↓</div>
+      <div class="insight-content">
+        <div class="insight-title">真实命中率 TS% 51.6%</div>
+        <div class="insight-detail">比季后赛基准差 19.7%——终结效率拖累</div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="footer-games">5 场 · 总决赛 2026</div>
+    <div class="footer-source">TOV% 5.2%  ·  PIE 8.9%</div>
+  </div>
+</div>
+
+<!-- CARD 4: Karl-Anthony Towns -->
+<div class="card" id="card-kat">
+  <div class="card-brand">
+    <div class="brand-team">NEW YORK KNICKS</div>
+    <div class="brand-series">2026 NBA Finals</div>
+  </div>
+  <div class="card-player">
+    <div class="card-position">C · 中锋</div>
+    <div class="card-name">卡尔-安东尼·唐斯</div>
+    <div class="card-name-en">Karl-Anthony Towns</div>
+    <div class="card-role">内线支柱</div>
+  </div>
+  <div class="divider"></div>
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-number">13.0</div>
+      <div class="stat-label">场均得分</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">10.6</div>
+      <div class="stat-label">场均篮板</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">+8.8</div>
+      <div class="stat-label">正负值</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">4.6</div>
+      <div class="stat-label">场均犯规</div>
+    </div>
+  </div>
+  <div class="insights-block">
+    <div class="insight-item good">
+      <div class="insight-icon">↑</div>
+      <div class="insight-content">
+        <div class="insight-title">防守效率 DefRtg 97.4</div>
+        <div class="insight-detail">低于队内均值 2.7——防守端队内最强</div>
+      </div>
+    </div>
+    <div class="insight-item good">
+      <div class="insight-icon">↑</div>
+      <div class="insight-content">
+        <div class="insight-title">篮板率 REB% 16.8%</div>
+        <div class="insight-detail">比队内均值高出两倍以上——内线统治力</div>
+      </div>
+    </div>
+    <div class="insight-item bad">
+      <div class="insight-icon">↓</div>
+      <div class="insight-content">
+        <div class="insight-title">失误率 TOV% 19.2%</div>
+        <div class="insight-detail">高于队内均值 12.1%  ·  比季后赛基准差 39.9%</div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="footer-games">5 场 · 总决赛 2026</div>
+    <div class="footer-source">TS% 58.9%  ·  PIE 12.4%</div>
+  </div>
+</div>
+
+</body>
+</html>
