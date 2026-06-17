@@ -56,6 +56,30 @@ Use this skill when the task is NBA playoff or Finals coverage that needs both a
 - Avoid machine-specific links in published output.
 - Prefer repository-relative site links and stable slugs.
 
+## Overall-evaluation writing
+
+The per-player "overall evaluation" must read like a professional analyst, not a template. Every
+sentence has to carry a concrete number and a judgment; never emit filler clauses such as "needs to
+be read in role context" or "efficiency is neutral" that assert nothing.
+
+Build each evaluation from the player's own stat line, anchored on comparisons (Finals value vs the
+player's full-playoff value vs team average):
+
+- **Burden** — classify role from USG% and Team Score Share (primary / secondary / complementary /
+  low-usage off-ball), and state the minutes load.
+- **Efficiency** — compare Finals TS% against the player's own playoff TS%; report the signed gap in
+  points and call it a drop, a rise, or holding. Add an absolute read only at the extremes
+  (elite ≥60%, cold <48%).
+- **One salient secondary trait** — pick the most deviant of: turnover security (TOV%), creation
+  (AST%), rebounding (REB%), or defense (DefRtg vs playoff). Skip the rest.
+- **On-court impact + verdict** — report +/- vs the player's playoff on-court mark, then a one-line
+  verdict synthesized from the efficiency gap, +/- delta, and PIE delta (matched/beat baseline,
+  mixed, or clear step down).
+- **Small samples** — for sub-10-minute players, do not over-read: state the minutes, flag the
+  sample as too small, and stop. No manufactured insight.
+
+Keep the English and Chinese versions generated from the same computed facts so they stay aligned.
+
 ## Visual design (radar article shell)
 
 A naturalist, scholarly design language (huasheng.ai/parrots-inspired) is shared by every radar
