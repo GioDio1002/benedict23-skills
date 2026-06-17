@@ -643,7 +643,7 @@ code {
   overflow: hidden;
   border-radius: 8px;
   border: 1px solid var(--line);
-  background: #F8F4EE;
+  background: rgba(255, 255, 255, 0.64);
 }
 
 .article-radar-body table {
@@ -802,7 +802,7 @@ html:lang(zh-CN) .article-radar-body .summary-box {
 
 html:lang(zh-CN) .article-radar-body .table-panel {
   border-color: rgba(28, 24, 20, 0.09);
-  background: #F8F4EE;
+  background: rgba(255, 252, 248, 0.72);
 }
 
 html:lang(zh-CN) .article-radar-body table {
