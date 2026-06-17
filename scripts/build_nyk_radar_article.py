@@ -68,7 +68,7 @@ ENGLISH_REPLACEMENTS = (
     ("圣安东尼奥马刺", "San Antonio Spurs"),
     ("队内相对优势", "Team-relative strengths"),
     ("队内相对短板", "Team-relative gaps"),
-    ("总决赛总体均值", "Finals overall avg"),
+    ("总决赛总体均值", "Player playoffs avg"),
     ("本队均值", "Team avg"),
     ("队内均值", "Team avg"),
     ("维度", "Metric"),
@@ -177,6 +177,7 @@ def extract_sections(html: str) -> list[str]:
 
 def englishize_section(section: str) -> str:
     section = re.sub(r" · (\d+) 场 · ", r" · \1 Games · ", section)
+    section = re.sub(r" · (\d+) 场(?=<)", r" · \1 Games", section)
     section = re.sub(r"角色: ([^。]+)。场均 ([0-9.]+) 分钟，说明这是稳定轮换而不是临时补位。", r"Role: \1. Averaged \2 minutes, which marks a stable rotation spot rather than an emergency cameo.", section)
     section = re.sub(r"高持球负荷。USG ([0-9.]+%)，说明很多回合以他收尾。", r"Heavy on-ball burden. USG \1 shows that many possessions finished with him.", section)
     section = re.sub(r"偏组织驱动。AST% ([0-9.]+%)，更多承担串联而非纯终结。", r"More creator-driven. AST% \1 points to setup work over pure finishing.", section)
@@ -299,7 +300,7 @@ def main():
     page_title_label = "Page" if args.lang == "en" else "第"
     prev_label = "Previous Page" if args.lang == "en" else "上一页"
     next_label = "Next Page" if args.lang == "en" else "下一页"
-    switch_label = "中文" if args.lang == "en" else "English"
+    switch_label = "Chinese" if args.lang == "en" else "English"
     all_articles_label = "All Articles" if args.lang == "en" else "全部文章"
     site_home_label = "Site Home" if args.lang == "en" else "站点首页"
     html_lang = "en" if args.lang == "en" else "zh-CN"

@@ -3,45 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Articles · benedict23 skills</title>
+  <title>NBA Articles · benedict23 skills</title>
   <link rel="stylesheet" href="../../assets/site.css">
 </head>
 <body>
   <main class="page">
     <section class="hero">
       <div class="lang-switch"><a class="button" href="../../articles/index.html">English</a></div>
-      <div class="eyebrow">文章</div>
-      <h1>发布页，不是原始导出</h1>
-      <p>这些页面来自真实 Codex 工作产物，但都被重新整理成更适合公开阅读的静态文章。目标不是“把所有导出都摆出来”，而是“把真正有价值的内容读顺”。</p>
+      <div class="eyebrow">NBA Articles</div>
+      <h1>由 skills 生成的雷达分析</h1>
+      <p>这些页面不是原始导出，而是 NBA Finals radar publishing skill 的公开阅读层：官方数据进入流程，球员与球队故事输出成文章。</p>
       <div class="nav">
         <a href="../index.html">首页</a>
-        <a href="./2026-nba-finals-knicks-radars/page-1.html">打开尼克斯文章</a>
+        <a href="./2026-nba-finals-knicks-radars/page-1.html">尼克斯雷达手册</a>
+        <a href="./2026-nba-finals-spurs-radars/page-1.html">马刺雷达手册</a>
       </div>
     </section>
 
     <section class="section">
       <div class="section-header">
         <div>
-          <div class="eyebrow">当前</div>
-          <h2>可读文章</h2>
+          <div class="eyebrow">Current Series</div>
+          <h2>2026 NBA 总决赛</h2>
         </div>
-        <p class="section-copy">两篇总决赛雷达页都已经被改造成分页文章。原始球员 section 会保留，但页面级冲突样式会被剥离，再包进统一的阅读壳里。</p>
+        <p class="section-copy">每篇文章都会把总决赛表现、本队均值和球员完整季后赛均值放在一起看，帮助判断角色、负荷、效率和系列赛阶段变化。</p>
       </div>
       <div class="grid">
         <article class="card">
-          <span class="pill">2026 NBA总决赛</span>
-          <h3>纽约尼克斯雷达手册</h3>
-          <p>按球员拆分的总决赛雷达分析，已经重构成三页文章，读起来更像 feature，而不是原始导出文件。</p>
+          <span class="pill">New York Knicks</span>
+          <h3>尼克斯雷达手册</h3>
+          <p>布伦森、唐斯、阿奴诺比、布里奇斯、哈特，以及尼克斯总决赛轮换的逐人雷达分析。</p>
           <div class="nav">
-            <a href="./2026-nba-finals-knicks-radars/page-1.html">阅读文章</a>
+            <a href="./2026-nba-finals-knicks-radars/page-1.html">阅读尼克斯</a>
           </div>
         </article>
         <article class="card">
-          <span class="pill">2026 NBA总决赛</span>
-          <h3>圣安东尼奥马刺雷达手册</h3>
-          <p>马刺版 companion article，沿用同样的分页文章结构，便于对照阅读总决赛两队的球员画像。</p>
+          <span class="pill">San Antonio Spurs</span>
+          <h3>马刺雷达手册</h3>
+          <p>文班亚马、福克斯、瓦塞尔、卡斯尔、索汉，以及马刺总决赛轮换的同结构文章版本。</p>
           <div class="nav">
-            <a href="./2026-nba-finals-spurs-radars/page-1.html">阅读文章</a>
+            <a href="./2026-nba-finals-spurs-radars/page-1.html">阅读马刺</a>
+          </div>
+        </article>
+        <article class="card">
+          <span class="pill">Method</span>
+          <h3>由可复用 skill 生成</h3>
+          <p>生成流程记录在 <code>nba-finals-radar-publishing</code>，每篇文章页脚都能跳回 GitHub skill 目录。</p>
+          <div class="nav">
+            <a href="https://github.com/GioDio1002/benedict23-skills/tree/main/src/skills/nba-finals-radar-publishing">打开 skill</a>
           </div>
         </article>
       </div>

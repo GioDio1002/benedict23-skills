@@ -10,39 +10,48 @@
   <main class="page">
     <section class="hero">
       <div class="lang-switch"><a class="button" href="../index.html">English</a></div>
-      <div class="eyebrow">Codex Skills · 发布站</div>
-      <h1>benedict23 skills</h1>
-      <p>这是一个以文档为先的 skill 仓库，同时也兼作发布页面。仓库里维护可复用的 Codex skills，站点则把一部分真实工作产物整理成更适合公开阅读的静态页面。</p>
-      <div class="meta">为仓库相对路径发布、静态 GitHub Pages 和实际文章复用而构建。</div>
-      <div class="nav">
-        <a href="./articles/index.html">浏览文章</a>
-        <a href="https://github.com/GioDio1002/benedict23-skills">查看仓库</a>
+      <div class="hero-grid">
+        <div class="hero-stack">
+          <div class="eyebrow">Codex Skills · NBA Publishing Lab</div>
+          <h1>benedict23 skills</h1>
+          <p>这里是可复用 Codex skills 和成品发布页的公开入口。当前重点是 NBA 总决赛雷达分析：官方数据、双语文章、球员画像和适合社媒再加工的篮球内容。</p>
+          <div class="nav">
+            <a href="./articles/index.html">阅读 NBA 文章</a>
+            <a href="https://github.com/GioDio1002/benedict23-skills">GitHub 仓库</a>
+            <a href="https://github.com/GioDio1002/benedict23-skills/tree/main/src/skills/nba-finals-radar-publishing">NBA skill</a>
+          </div>
+        </div>
+        <aside class="scoreboard" aria-label="站点重点">
+          <div class="score-row"><strong>22</strong><span>总决赛球员</span></div>
+          <div class="score-row"><strong>2</strong><span>球队雷达手册</span></div>
+          <div class="score-row"><strong>1</strong><span>可复用 NBA skill</span></div>
+        </aside>
       </div>
     </section>
 
     <section class="section">
       <div class="section-header">
         <div>
-          <div class="eyebrow">结构</div>
-          <h2>这个站点用来做什么</h2>
+          <div class="eyebrow">Pipeline</div>
+          <h2>从官方数据到可发布页面</h2>
         </div>
-        <p class="section-copy">它不是一个通用模板站。这里的目标是让真实 skill 和真实输出都更清楚：一边是 skill 文档，一边是适合阅读的 article 化发布页。</p>
+        <p class="section-copy">NBA skill 把 box score 和 advanced metrics 转成稳定流程：抓取、清洗、分析、渲染、翻译、分页，并保留后续做小红书卡片的出口。</p>
       </div>
       <div class="grid">
         <article class="card">
-          <span class="pill">Skills</span>
-          <h3>Canonical 技能源</h3>
-          <p>每个可复用 skill 都保存在 <code>src/skills/</code>，以 <code>SKILL.md</code> 为主文档，并配套 assistant metadata。</p>
+          <span class="pill">Source</span>
+          <h3>官方数据优先</h3>
+          <p>以 NBA API 的总决赛和季后赛数据为基础，派生指标如 Team Score Share 会明确写出计算逻辑，方便复查。</p>
         </article>
         <article class="card">
-          <span class="pill">Articles</span>
-          <h3>可读的公开输出</h3>
-          <p>真实工作产物会被重构成分页阅读页，而不是直接把本地原始 HTML 生硬扔上来。</p>
+          <span class="pill">Analysis</span>
+          <h3>结合角色的雷达</h3>
+          <p>每名球员同时对比本队总决赛均值和个人完整季后赛均值，用来判断总决赛阶段是上升还是下滑。</p>
         </article>
         <article class="card">
-          <span class="pill">References</span>
-          <h3>共享工作说明</h3>
-          <p>Prompt framework、MCP notes 和运行说明保留在仓库里，但不会污染 skill 目录本身。</p>
+          <span class="pill">Publishing</span>
+          <h3>双语静态文章</h3>
+          <p>把密集的本地雷达导出重包成 GitHub Pages 文章，支持中英文切换，并在页脚链接回生成它的 skill。</p>
         </article>
       </div>
     </section>
@@ -50,32 +59,31 @@
     <section class="section">
       <div class="feature-grid">
         <article class="feature-panel">
-          <div class="eyebrow">精选文章</div>
-          <h3>2026 NBA总决赛 · 尼克斯雷达手册</h3>
-          <p>把尼克斯总决赛雷达页整理成了分页阅读版，基于最新本地分析结果重新包装，更适合在 GitHub Pages 上阅读。</p>
+          <div class="eyebrow">精选</div>
+          <h3>2026 NBA 总决赛雷达手册</h3>
+          <p>尼克斯和马刺两队已经做成成套阅读页。每篇都保留球员雷达、指标表、综合评价和季后赛基准对比。</p>
+          <div class="stat-grid">
+            <div class="stat-tile"><strong>10</strong><span>雷达指标</span></div>
+            <div class="stat-tile"><strong>3</strong><span>每队页数</span></div>
+            <div class="stat-tile"><strong>中/英</strong><span>双语版本</span></div>
+          </div>
           <div class="nav">
-            <a href="./articles/2026-nba-finals-knicks-radars/page-1.html">阅读第 1 页</a>
-            <a href="./articles/index.html">文章目录</a>
+            <a href="./articles/2026-nba-finals-knicks-radars/page-1.html">打开尼克斯</a>
+            <a href="./articles/2026-nba-finals-spurs-radars/page-1.html">打开马刺</a>
           </div>
         </article>
         <aside class="sidebar-panel">
-          <div class="eyebrow">同时上线</div>
-          <h3>马刺雷达手册也已经成对发布</h3>
+          <div class="eyebrow">Skill Link</div>
+          <h3>nba-finals-radar-publishing</h3>
+          <p>每个 article 页脚都会链接回 GitHub skill 目录，读者可以直接看到这套页面是怎么生成的。</p>
           <div class="kicker-list">
             <div class="kicker">
-              <strong>配套阅读</strong>
-              <span>马刺总决赛雷达页也已经整理成同一套分页文章壳。</span>
+              <strong>适用场景</strong>
+              <span>NBA 季后赛系列赛、教练评价、球员雷达页和小红书卡片化内容。</span>
             </div>
             <div class="kicker">
-              <strong>系列成套</strong>
-              <span>现在这轮总决赛不再只有单边视角，而是 Knicks / Spurs 两篇并列。</span>
-            </div>
-            <div class="kicker">
-              <strong>下一步</strong>
-              <span>后续可以继续往下扩成社媒卡面和对位总览海报。</span>
-            </div>
-            <div class="nav">
-              <a href="./articles/2026-nba-finals-spurs-radars/page-1.html">阅读马刺文章</a>
+              <strong>输出形式</strong>
+              <span>无需 JavaScript 也能阅读的静态 HTML 文章。</span>
             </div>
           </div>
         </aside>
@@ -84,4 +92,3 @@
   </main>
 </body>
 </html>
-

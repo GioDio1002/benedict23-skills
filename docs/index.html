@@ -9,10 +9,84 @@
 <body>
   <main class="page">
     <section class="hero">
-  <div class="lang-switch"><a class="button" href="./zh/index.html">中文</a></div>
-      <h1>benedict23 skills</h1>
-      <div class="nav">
-        <a href="https://github.com/GioDio1002/benedict23-skills">GitHub</a>
+      <div class="lang-switch"><a class="button" href="./zh/index.html">Chinese</a></div>
+      <div class="hero-grid">
+        <div class="hero-stack">
+          <div class="eyebrow">Codex Skills · NBA Publishing Lab</div>
+          <h1>benedict23 skills</h1>
+          <p>A public home for reusable Codex skills and the finished artifacts they produce. Current focus: official-data NBA Finals radar analysis, bilingual article publishing, and social-ready basketball visuals.</p>
+          <div class="nav">
+            <a href="./articles/index.html">Read NBA articles</a>
+            <a href="https://github.com/GioDio1002/benedict23-skills">GitHub repo</a>
+            <a href="https://github.com/GioDio1002/benedict23-skills/tree/main/src/skills/nba-finals-radar-publishing">NBA skill</a>
+          </div>
+        </div>
+        <aside class="scoreboard" aria-label="Site highlights">
+          <div class="score-row"><strong>22</strong><span>Finals players</span></div>
+          <div class="score-row"><strong>2</strong><span>Team radar books</span></div>
+          <div class="score-row"><strong>1</strong><span>Reusable NBA skill</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow">Pipeline</div>
+          <h2>From official data to publishable pages</h2>
+        </div>
+        <p class="section-copy">The NBA skill turns box score and advanced metrics into a repeatable publishing workflow: fetch, normalize, analyze, render, translate, paginate, and prepare social card outputs.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <span class="pill">Source</span>
+          <h3>Official-data first</h3>
+          <p>Uses NBA API endpoints for Finals and playoff baselines, then keeps derived metrics such as Team Score Share explicit and auditable.</p>
+        </article>
+        <article class="card">
+          <span class="pill">Analysis</span>
+          <h3>Role-aware radars</h3>
+          <p>Compares each player against team Finals average and his full playoff average, so the page can surface Finals rises and drop-offs.</p>
+        </article>
+        <article class="card">
+          <span class="pill">Publishing</span>
+          <h3>Bilingual static articles</h3>
+          <p>Repacks dense local radar exports into GitHub Pages articles with language switching, cleaner layout, and links back to the generating skill.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="feature-grid">
+        <article class="feature-panel">
+          <div class="eyebrow">Featured</div>
+          <h3>2026 NBA Finals radar books</h3>
+          <p>Knicks and Spurs player radars are published as paired reading experiences. Each article keeps the analytical tables, player-by-player notes, and playoff comparison baseline intact.</p>
+          <div class="stat-grid">
+            <div class="stat-tile"><strong>10</strong><span>Radar metrics</span></div>
+            <div class="stat-tile"><strong>3</strong><span>Pages per team</span></div>
+            <div class="stat-tile"><strong>EN/ZH</strong><span>Language modes</span></div>
+          </div>
+          <div class="nav">
+            <a href="./articles/2026-nba-finals-knicks-radars/page-1.html">Open Knicks</a>
+            <a href="./articles/2026-nba-finals-spurs-radars/page-1.html">Open Spurs</a>
+          </div>
+        </article>
+        <aside class="sidebar-panel">
+          <div class="eyebrow">Skill link</div>
+          <h3>nba-finals-radar-publishing</h3>
+          <p>The article footer links directly to the skill directory, so readers can trace the method behind the published pages.</p>
+          <div class="kicker-list">
+            <div class="kicker">
+              <strong>Use case</strong>
+              <span>NBA playoff series analysis, coach notes, radar pages, and Xiaohongshu-ready cards.</span>
+            </div>
+            <div class="kicker">
+              <strong>Output</strong>
+              <span>Static HTML articles that remain readable without JavaScript.</span>
+            </div>
+          </div>
+        </aside>
       </div>
     </section>
   </main>
