@@ -640,6 +640,7 @@ code {
 
 .article-radar-body .table-panel {
   margin-top: 18px;
+  padding: 0;
   overflow: hidden;
   border-radius: 8px;
   border: 1px solid var(--line);
