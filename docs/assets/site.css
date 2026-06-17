@@ -890,6 +890,16 @@ html:lang(zh-CN) .article-radar-body svg text {
   .hero h1,
   .article-header h1 {
     max-width: none;
+    font-size: clamp(1.9rem, 8.5vw, 2.6rem);
+  }
+
+  /* stop the language toggle from overlapping the title on phones */
+  .lang-switch {
+    position: static;
+    margin-bottom: 14px;
+  }
+  .lang-switch .button {
+    display: inline-block;
   }
 
   .article-radar-body .player-header {

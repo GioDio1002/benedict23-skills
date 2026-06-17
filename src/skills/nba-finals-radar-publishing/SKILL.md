@@ -1,21 +1,41 @@
 ---
 name: nba-finals-radar-publishing
-description: "Turn official NBA Finals box score data into publishable radar analysis, coach notes, paginated long-form articles, and Xiaohongshu-ready single-player cards. Use when the agent needs a repeatable workflow for playoff or Finals coverage that starts from official nba_api data and ends in static HTML publishing."
+description: "Scrape official NBA box-score data for ANY team's series (Finals, any playoff round, or a regular-season span) and turn it into publishable radar analysis, analyst notes, a searchable swipe-deck article, and social-ready single-player cards. Use when the agent needs a repeatable pipeline that starts from official nba_api data and ends in static HTML publishing. (a.k.a. nba-analysis-pipeline.)"
 ---
 
-# NBA Finals Radar Publishing
+# NBA Series Radar Publishing
 
-Use this skill when the task is NBA playoff or Finals coverage that needs both analysis and publishing.
+Use this skill for the full pipeline — **scrape official NBA data → analyze → generate static HTML** —
+for **any team and any series**: the Finals, an earlier playoff round, or a defined regular-season
+span. The "Finals vs full-playoff baseline" framing is the headline use case, but the same workflow
+generalizes: pick the series, pick the comparison baseline, generate the same publishing shell.
 
 ## Responsibilities
 
 - prefer official `stats.nba.com` data through `nba_api`
 - distinguish team context, player context, and coach context
-- turn one series into:
+- turn one series (any team, any round) into:
   - full-team radar pages
   - player-by-player publishable pages
-  - paginated long-form article pages
+  - a searchable swipe-deck article (one player per card)
   - social-first card layouts
+
+## Data acquisition (scraping)
+
+The pipeline is parameterized by `(team, season, series scope)` — nothing is hard-coded to a specific
+team or to the Finals. To target a new series:
+
+1. Resolve the team and its games for the scope via `nba_api` (`leaguegamefinder` /
+   `teamgamelogs`), filtered by `SeasonType` (`Playoffs` or `Regular Season`) and the date/round window.
+2. Pull per-game player + team box scores (traditional + advanced) for those games
+   (`boxscoretraditionalv3`, `boxscoreadvancedv3`), and the broader baseline split (e.g. full-playoff
+   or full-season per-game) for the gray reference line.
+3. Be a polite scraper: official endpoints rate-limit — add backoff/retries, cache raw JSON locally,
+   and re-run analysis off the cache instead of re-hitting the API.
+4. Normalize into per-player metric bundles; derived metrics (e.g. Team Score Share) keep their
+   formula explicit and auditable.
+5. The chosen baseline is configurable: Finals → player's full-playoff average; a playoff round →
+   that player's regular-season or prior-rounds average; a regular-season span → season-to-date.
 
 ## Workflow
 
@@ -102,3 +122,21 @@ languages and every page stay aligned; do not fork per-page styles.
   the definition/note column the majority of the width so notes flow wide instead of stacking tall.
 - Insight sentiment uses ↑/↓ arrows (good/bad), not colored left-border accent cards or chips.
 - Do not render a redundant per-card score badge in the player-header corner.
+
+## Mobile / responsive
+
+The published deck must read well on a phone, not just desktop:
+
+- Header: below ~720px the language toggle goes `position: static` and stacks above the title — never
+  absolutely positioned where it can overlap the `<h1>`. Scale the heading down (`clamp` to ~1.9rem).
+- Stat chips collapse to 2 columns; the radar/insights grid collapses to a single column.
+- The name picker stays a sticky bar; chips scroll horizontally; the search box goes full width.
+- Swipe-deck navigation works by touch swipe (pointer events) in addition to buttons and arrow keys.
+- Verify at 390px width (one common phone viewport) before shipping.
+
+## URL & title naming
+
+- Publish the deck as a clean directory `index.html` (e.g. `.../2026-nba-finals-knicks-radars/`),
+  not `page-1.html`; redirect any legacy paginated URLs to it.
+- Give each page a descriptive, branded `<title>` (e.g. `2026 NBA Finals · Knicks Player Performance
+  | benedict23`) rather than a bare or numbered title — it is the tab label and the share preview name.
