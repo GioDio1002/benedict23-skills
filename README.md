@@ -110,7 +110,7 @@ Current prompt-framework references include:
 | `deep-search-scoring` | Score deep research quality and hallucination risk |
 | `explain-fastapi-endpoint` | Trace FastAPI endpoints end-to-end |
 | `multi-agent-api-dev` | Orchestrate requirement analysis, code generation, validation, and security review |
-| `nba-finals-radar-publishing` | Publish official-data NBA Finals radar analysis into pages and social-ready layouts |
+| `nba-finals-radar-publishing` | Publish official-data NBA series radar analysis (14-axis: 6 offense + 1 impact + 7 defense incl. matchup-level), bilingual swipe deck, head-to-head comparison, and social-ready layouts |
 | `prd-writer` | Standardize PRDs and product specs |
 | `standards-security` | Review backend reliability, logging, and security hygiene |
 | `test-validation` | Generate backend test coverage and request examples |
@@ -241,7 +241,7 @@ All player radar pages under `docs/` use a unified design language inspired by t
 | `deep-search-scoring` | 对深度研究内容做质量与幻觉风险评分 |
 | `explain-fastapi-endpoint` | 端到端追踪 FastAPI 接口执行路径 |
 | `multi-agent-api-dev` | 编排需求分析、代码生成、测试验证和安全审查 |
-| `nba-finals-radar-publishing` | 把官方 NBA 总决赛雷达分析整理成页面和社媒可发布内容 |
+| `nba-finals-radar-publishing` | 用官方数据生成 NBA 系列赛 14 维雷达分析（进攻 6 + 整体 1 + 防守 7，含对位级防守），输出双语滑动卡片、球员对比页与社媒成品 |
 | `prd-writer` | 规范化 PRD 和产品需求文档 |
 | `standards-security` | 审查后端可靠性、日志和安全卫生 |
 | `test-validation` | 生成后端测试覆盖和请求示例 |

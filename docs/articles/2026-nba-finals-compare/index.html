@@ -223,13 +223,54 @@ details.fold>.radar-wrap,details.fold>.table-card{margin:0;border:none;border-ra
     pk.querySelector('[data-sub]').textContent=teamName(p.t)+' · '+p.pos+' · '+p.mpg+(isEN?' MPG':' 分钟');
     pk.querySelector('[data-stats]').innerHTML=(p.c||[]).map(function(c){return '<div class="m"><b>'+c[0]+'</b><span>'+c[1]+'</span></div>';}).join('');
   }
+  function pp(x){return (x>=0?'+':'')+x.toFixed(1);}
+  function compareProse(self, other, selfSide){
+    var same=self.t===other.t;
+    var L=isEN?{
+      sameLead:'Same-roster matchup vs '+other.n+'.',
+      crossLead:'Cross-team head-to-head with '+other.n+'.',
+      usgUp:function(g,s){return 'Carries the bigger offensive load — USG '+pp(g)+'pp, finishing '+pp(s)+'pp more of team scoring.';},
+      usgDown:function(g,s){return 'Plays the lower-usage role — USG '+pp(g)+'pp, '+pp(s)+'pp of team scoring vs '+other.n+'.';},
+      tsUp:function(g){return 'Stays more efficient on those touches (TS% '+pp(g)+'pp).';},
+      tsDown:function(g){return 'Pays for it in efficiency — TS% '+pp(g)+'pp behind.';},
+      tsEven:'Efficiency is a wash (TS% within a point).',
+      ast:function(g){return g>0?'Creates more for teammates (AST% '+pp(g)+'pp).':'Cedes the playmaking — AST% '+pp(g)+'pp.';},
+      reb:function(g){return g>0?'Wins the glass (REB% '+pp(g)+'pp).':'Gives up the boards (REB% '+pp(g)+'pp).';},
+      def:function(stops,disc,sec){return 'Defensive read: Def. Stops '+pp(stops)+', Foul Discipline '+pp(disc)+', Ball Security '+pp(sec)+' vs '+other.n+'.';},
+      impact:function(pm,pie){return 'On-court net '+pp(pm)+' and PIE '+pp(pie)+'pp relative to '+other.n+'.';}
+    }:{
+      sameLead:'队内对位 '+other.n+' 的横向读法。',
+      crossLead:'跨队对位 '+other.n+' 的系列赛直接对比。',
+      usgUp:function(g,s){return '承担更重的进攻负荷——使用率高 '+pp(g)+'pp，队内得分占比多 '+pp(s)+'pp。';},
+      usgDown:function(g,s){return '走低使用率角色——使用率 '+pp(g)+'pp，队内得分占比 '+pp(s)+'pp（相对 '+other.n+'）。';},
+      tsUp:function(g){return '在更高负荷下仍更高效（真实命中率 '+pp(g)+'pp）。';},
+      tsDown:function(g){return '效率被压制——真实命中率落后 '+pp(g)+'pp。';},
+      tsEven:'两人效率几乎打平（真实命中率差距 <1pp）。',
+      ast:function(g){return g>0?'组织端更突出（助攻率高 '+pp(g)+'pp）。':'让出组织权——助攻率 '+pp(g)+'pp。';},
+      reb:function(g){return g>0?'篮板端占优（篮板率 '+pp(g)+'pp）。':'让出篮板——篮板率 '+pp(g)+'pp。';},
+      def:function(stops,disc,sec){return '防守三项相对 '+other.n+'：防守压制 '+pp(stops)+'、犯规节制 '+pp(disc)+'、护球率 '+pp(sec)+'。';},
+      impact:function(pm,pie){return '在场净胜 '+pp(pm)+' 分、PIE '+pp(pie)+'pp 相对于 '+other.n+'。';}
+    };
+    var dUsg=self.v[1]-other.v[1], dShare=self.v[3]-other.v[3];
+    var dTs=self.v[0]-other.v[0], dAst=self.v[2]-other.v[2], dReb=self.v[4]-other.v[4];
+    var dSec=self.v[5]-other.v[5], dPm=self.v[6]-other.v[6], dStops=self.v[7]-other.v[7], dDisc=self.v[8]-other.v[8], dPie=self.v[9]-other.v[9];
+    var lines=[];
+    lines.push(same?L.sameLead:L.crossLead);
+    lines.push(dUsg>=0?L.usgUp(dUsg,dShare):L.usgDown(dUsg,dShare));
+    if(Math.abs(dTs)<1) lines.push(L.tsEven); else lines.push(dTs>0?L.tsUp(dTs):L.tsDown(dTs));
+    if(Math.abs(dAst)>=Math.abs(dReb)) lines.push(L.ast(dAst)); else lines.push(L.reb(dReb));
+    lines.push(L.def(dStops,dDisc,dSec));
+    lines.push(L.impact(dPm,dPie));
+    return lines.join(' ');
+  }
   function drawEvals(){
     var w=document.getElementById('eval-wrap'); if(!w) return;
+    var pa=PLAYERS[sel.a], pb=PLAYERS[sel.b];
     function card(side){
-      var p=PLAYERS[sel[side]];
+      var self=side==='a'?pa:pb, other=side==='a'?pb:pa;
       var col=side==='a'?'#006BB6':'#F58426';
-      var txt=p.ev||'';
-      return '<article class="eval-card"><header><span class="tag" style="color:'+col+'">'+CFG.evalLabel+' · '+(side==='a'?'A':'B')+'</span><h4>'+p.n+'</h4></header><p>'+txt+'</p></article>';
+      var txt=compareProse(self,other,side);
+      return '<article class="eval-card"><header><span class="tag" style="color:'+col+'">'+CFG.evalLabel+' · '+(side==='a'?'A':'B')+'</span><h4>'+self.n+'</h4></header><p>'+txt+'</p></article>';
     }
     w.innerHTML=card('a')+card('b');
   }

@@ -36,6 +36,13 @@ team or to the Finals. To target a new series:
    formula explicit and auditable.
 5. The chosen baseline is configurable: Finals → player's full-playoff average; a playoff round →
    that player's regular-season or prior-rounds average; a regular-season span → season-to-date.
+6. For the **defense expansion axes** (BLK% / STL% / Forced TOV% / Matchup Suppression), pull
+   two additional endpoints: `PlayByPlayV3` for each game (so Forced TOV% can attribute each
+   `EVENTMSGTYPE=5` event to the defender that produced the steal / 24-second / 5-second
+   violation), and `LeagueDashPtDefend` (season-cumulative) plus per-game
+   `BoxScoreMatchupsV3` for matchup-level FGM/FGA grouped by primary defender. Cache both
+   alongside the traditional/advanced box scores. Publish Matchup FG% Allowed as
+   `100 − MFG%` so the axis stays higher-better.
 
 ## Workflow
 
@@ -56,17 +63,42 @@ team or to the Finals. To target a new series:
 
 ## Metric guidance
 
-- Do not pair strongly overlapping axes without reason.
-- Prefer:
-  - `TS%` for scoring efficiency
-  - `Team Score Share` for scoring burden
-  - `USG%` for possession burden
-  - `AST%` for creation
-  - `REB%` for board impact
-  - `AST/TO` for decision quality
-  - `PIE` for overall game impact
-  - `NetRtg` for on-court results
-- Avoid using `Finals overall avg` as the third radar/table baseline when the reader is asking whether a player choked in the Finals. Use `Player playoffs avg (Finals included)` so each player is compared against his own full playoff level.
+The published radar carries **fourteen axes** organized as offense (6) + impact (1) + defense (7):
+
+**Offense — load + efficiency + creation**
+- `TS%` — scoring efficiency
+- `USG%` — possession burden
+- `AST%` — creation
+- `Team Score Share` — share of team scoring (role weight)
+- `REB%` — board impact
+- `Ball Security` (= 100 − TOV%) — clean-possession rate
+
+**Overall impact**
+- `+/-` — on-court net points
+- `PIE` — official all-in-one impact
+
+**Defense — both team-level and matchup-level signals**
+- `Def. Stops` (= 120 − DefRtg) — on-court team defensive disruption
+- `Foul Discipline` (= 6 − PF/G) — fouling restraint
+- `BLK%` — rim protection (`100 × BLK × (TmMin/5) / (Min × OppFGA2)`)
+- `STL%` — perimeter disruption (`100 × STL × (TmMin/5) / (Min × OppPoss)`)
+- `Forced TOV%` — share of opponent possessions the defender forced into a giveaway,
+  attributed via PlayByPlayV3 (`EVENTMSGTYPE=5` with STEAL / SCREEN_AST chains)
+- `Matchup Suppression` (= 100 − Matchup FG% Allowed) — opponent FG% on possessions where
+  this player is the primary defender, from `LeagueDashPtDefend` / `BoxScoreMatchupsV3`
+
+Rules:
+- Don't pair strongly overlapping axes without reason (e.g. don't also plot AST/TO when
+  Ball Security and AST% are already on the radar).
+- Every axis must be **higher-better** — invert TOV%, DefRtg, PF/G, and Matchup FG% Allowed
+  into their positive opposites at publish time. Don't show "lower is better" tags.
+- Defense is **two-layer**: team-level (Def. Stops, Foul Discipline) and matchup-level
+  (BLK%, STL%, Forced TOV%, Matchup Suppression). The team-level layer answers "is the
+  defense better with him on?", the matchup layer answers "what does he himself do to
+  the opponent?" — keep both, they read different stories.
+- Use `Player playoffs avg (Finals included)` as the third baseline, not `Finals overall
+  avg`, when the reader is asking whether a player choked in the Finals — every player
+  must be compared against his own full playoff level.
 
 ## Publishing guidance
 
@@ -97,9 +129,13 @@ team or to the Finals. To target a new series:
     head-to-head context is visible before the user even reads the radar.
   - Wrap the radar block, the **per-player overall-evaluation cards**, and the comparison
     table each in their own `<details open>` so readers can fold any of the three
-    independently to shorten the page. The overall-evaluation fold sits **between radar and
-    table**, and pulls the same analyst-note prose that lives in each player's deck card so
-    the compare view stays in sync with the per-team articles.
+    independently. The overall-evaluation fold sits **between radar and table**.
+  - On the compare page the evaluation cards are **A-vs-B generated**, not deck prose:
+    each card reads the other side's vector and writes delta-driven sentences (USG /
+    Score Share for burden, TS% for efficiency, the larger of AST% / REB% for the
+    secondary trait, the three defensive axes as a single line, +/- and PIE for impact).
+    Same-roster pairings get a "队内对位 / Same-roster matchup" lead; cross-team pairs
+    get "跨队对位 / Cross-team head-to-head." Regenerate whenever the picker changes.
   - **ZH radar axis labels stack the Chinese term over the English short** (e.g. 真实命中率 / TS%);
     EN radars use the English short alone. Apply the same convention across deck and compare radars
     so a reader can match terms across pages.
