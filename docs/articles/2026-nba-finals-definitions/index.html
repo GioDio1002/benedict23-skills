@@ -8,7 +8,10 @@
 :root{--bg:#F8F4EE;--card:#FFFDFB;--border:#E2D9CC;--text:#1C1713;--muted:#7A6F64;--accent:#006BB6;--accent2:#F58426}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,"PingFang SC","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:15px}
-.page{max-width:1140px;margin:0 auto;padding:42px 32px 60px}
+.page{max-width:1140px;margin:0 auto;padding:42px 32px 60px;position:relative}
+.lang-switch{position:absolute;top:24px;right:32px}
+.lang-switch a{display:inline-block;padding:6px 14px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text);text-decoration:none;font-size:.85rem}
+.lang-switch a:hover{color:var(--accent);border-color:var(--accent)}
 h1{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:700;font-size:2.4rem;line-height:1.15;margin-bottom:14px}
 .intro{color:var(--muted);max-width:760px;font-size:1.02rem;margin-bottom:8px}
 .note{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);padding:14px 18px;border-radius:8px;margin:24px 0 28px;color:var(--text);font-size:.95rem}
@@ -36,6 +39,7 @@ tr:last-child td{border-bottom:none}
 </head>
 <body>
 <main class="page">
+  <div class="lang-switch"><a href="#" data-lang-switch>中文</a></div>
   <h1>Metrics & Data Pipeline</h1>
   <p class="intro">Precise definitions, formulas, and on-court meaning for the ten radar axes used across the per-team decks and the comparison page, plus the full data acquisition pipeline behind them.</p>
   <div class="note">Every originally "lower is better" raw metric is published as its positive opposite (Ball Security / Def. Stops / Foul Discipline / Matchup Suppression), so "further from center = better" holds across the radar. The four defensive additions — Block %, Steal %, Forced TOV %, Matchup Suppression — are queued for the next re-scrape that expands the radar to fourteen axes.</div>

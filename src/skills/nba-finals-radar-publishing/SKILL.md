@@ -161,6 +161,14 @@ Rules:
     plus the brand title itself clickable, both collapse. When collapsed, a labeled floating
     `☰ Expand` button (icon + text, not just an icon) sits top-left so the entry point is
     discoverable on first look.
+  - **One language switch, scoped to the whole shell** — never two. The sidebar carries no
+    EN/中文 link; the language toggle lives only inside the iframe pages (top-right of each
+    child page) AND the shell intercepts clicks on `.lang-switch a` / `[data-lang-switch]`
+    inside the iframe to redirect the *parent* to the counterpart shell URL with the same
+    `#hash`. Otherwise the iframe swaps language while the sidebar stays in the old
+    language — confusing and broken. Every iframe-loaded child page (decks, compare,
+    definitions) must carry one lang-switch element so the user has a switch from every
+    view.
 - Publish a **Metrics & Data** companion page (`#definitions`) that documents the radar's ten
   axes (Chinese + English name, exact formula, what the metric *means on the court*) as a
   fixed-layout table, then walks through the **seven-step data acquisition pipeline**: source

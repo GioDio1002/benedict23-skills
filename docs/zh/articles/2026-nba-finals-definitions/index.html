@@ -8,7 +8,10 @@
 :root{--bg:#F8F4EE;--card:#FFFDFB;--border:#E2D9CC;--text:#1C1713;--muted:#7A6F64;--accent:#006BB6;--accent2:#F58426}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,"PingFang SC","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:15px}
-.page{max-width:1140px;margin:0 auto;padding:42px 32px 60px}
+.page{max-width:1140px;margin:0 auto;padding:42px 32px 60px;position:relative}
+.lang-switch{position:absolute;top:24px;right:32px}
+.lang-switch a{display:inline-block;padding:6px 14px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text);text-decoration:none;font-size:.85rem}
+.lang-switch a:hover{color:var(--accent);border-color:var(--accent)}
 h1{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:700;font-size:2.4rem;line-height:1.15;margin-bottom:14px}
 .intro{color:var(--muted);max-width:760px;font-size:1.02rem;margin-bottom:8px}
 .note{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);padding:14px 18px;border-radius:8px;margin:24px 0 28px;color:var(--text);font-size:.95rem}
@@ -36,6 +39,7 @@ tr:last-child td{border-bottom:none}
 </head>
 <body>
 <main class="page">
+  <div class="lang-switch"><a href="#" data-lang-switch>English</a></div>
   <h1>维度定义与数据采集</h1>
   <p class="intro">本页给出对比页与雷达图所用的十个维度的精确定义、计算公式与它所表达的「比赛价值」，以及全部数据的获取流程，方便复现与校验。</p>
   <div class="note">所有「越低越好」的原始指标在发布时都已经折算成正向对立面（护球率 / 防守压制 / 犯规节制 / 对位压制率），雷达图上「越往外越好」恒成立。十维之外的封盖率 / 抢断率 / 迫使失误率 / 对位防守命中率四项防守维度已纳入下一轮 re-scrape，准备扩展到十四维。</div>

@@ -40,7 +40,6 @@ body.collapsed .side-toggle{display:inline-flex}
     </div>
     <nav><button class="nav-item" data-view="compare">Comparison</button><button class="nav-item" data-view="knicks">Knicks</button><button class="nav-item" data-view="spurs">Spurs</button><button class="nav-item" data-view="definitions">Metrics & Data</button></nav>
     <div class="side-foot">
-      <a href="../../zh/articles/2026-nba-finals/index.html">中文</a>
       <a href="../../index.html">Site Home</a>
     </div>
   </aside>
@@ -50,6 +49,21 @@ body.collapsed .side-toggle{display:inline-flex}
 var SRC={"knicks":"../2026-nba-finals-knicks-radars/index.html","spurs":"../2026-nba-finals-spurs-radars/index.html","compare":"../2026-nba-finals-compare/index.html","definitions":"../2026-nba-finals-definitions/index.html"};
 var DEFAULT='compare';
 var items=document.querySelectorAll('.nav-item'), vf=document.getElementById('vf');
+function swapLang(){
+  var here=location.pathname, hash=location.hash||'';
+  var target=here.indexOf('/zh/')>=0
+    ? here.replace('/zh/articles/2026-nba-finals/','/articles/2026-nba-finals/')
+    : here.replace('/articles/2026-nba-finals/','/zh/articles/2026-nba-finals/');
+  location.replace(target+hash);
+}
+vf.addEventListener('load', function(){
+  try{
+    var doc=vf.contentDocument; if(!doc) return;
+    doc.querySelectorAll('.lang-switch a, a[data-lang-switch]').forEach(function(a){
+      a.addEventListener('click', function(e){e.preventDefault(); swapLang();});
+    });
+  }catch(e){}
+});
 function show(v){ if(!SRC[v])v=DEFAULT; vf.src=SRC[v];
   items.forEach(function(b){b.classList.toggle('is-on',b.dataset.view===v);});
   try{history.replaceState(null,'','#'+v);}catch(e){} }
