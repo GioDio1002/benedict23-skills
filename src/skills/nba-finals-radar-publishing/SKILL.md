@@ -55,3 +55,22 @@ Use this skill when the task is NBA playoff or Finals coverage that needs both a
 - Keep English and Chinese publishing shells aligned when labels, baselines, or explanatory summaries change.
 - Avoid machine-specific links in published output.
 - Prefer repository-relative site links and stable slugs.
+
+## Visual design (radar article shell)
+
+A naturalist, scholarly design language (huasheng.ai/parrots-inspired) is shared by every radar
+article page. Shared rules live in the site stylesheet under the `.article-radar-body` scope so both
+languages and every page stay aligned; do not fork per-page styles.
+
+- Palette: warm cream background, team primary as the single accent (Knicks `#006BB6`, secondary
+  `#F58426`), naturalist neutrals. No gradients on content surfaces.
+- Typography: Playfair Display (italic serif, player names) / Inter (body) / JetBrains Mono (stats and numbers).
+- Radar SVG colors are swapped client-side by injected JS (team color and reference/gray line),
+  not by rewriting the SVG path data.
+- Summary ("overall evaluation") block uses the same flat-card scheme as the stat chips: light
+  surface, hairline border, accent left-rule, dark body text, uppercase accent label. Never a dark
+  or gradient fill — it must stay readable.
+- Stat tables use `table-layout: fixed`: keep the metric and the three value columns narrow and give
+  the definition/note column the majority of the width so notes flow wide instead of stacking tall.
+- Insight sentiment uses ↑/↓ arrows (good/bad), not colored left-border accent cards or chips.
+- Do not render a redundant per-card score badge in the player-header corner.

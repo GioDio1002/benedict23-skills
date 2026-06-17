@@ -605,13 +605,35 @@ code {
 }
 
 .article-radar-body .summary-box {
-  background: linear-gradient(135deg, var(--accent-deep), var(--accent));
-  color: #fff7f0;
-  border-radius: 8px;
-  padding: 16px;
+  background: #f3eee4;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent-blue);
+  border-radius: 4px;
+  padding: 16px 18px;
   font-size: 14px;
   line-height: 1.7;
   margin-top: 12px;
+}
+
+.article-radar-body .summary-box strong,
+.article-radar-body .summary-box .summary-label {
+  display: block;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+  margin-bottom: 8px;
+}
+
+.article-radar-body .summary-box,
+.article-radar-body .summary-box p {
+  font-family: var(--font-body);
+  font-style: normal;
+  color: var(--ink);
 }
 
 .article-radar-body .table-panel {
@@ -655,12 +677,24 @@ code {
   font-family: var(--font-body);
   font-weight: 700;
   color: var(--ink);
-  width: 20%;
 }
+
+/* 5-col layout: narrow metric + 3 value cells, give the rest to the note */
+.article-radar-body th:nth-child(1),
+.article-radar-body td:nth-child(1) { width: 15%; }
+.article-radar-body th:nth-child(2),
+.article-radar-body td:nth-child(2),
+.article-radar-body th:nth-child(3),
+.article-radar-body td:nth-child(3),
+.article-radar-body th:nth-child(4),
+.article-radar-body td:nth-child(4) { width: 9%; }
+.article-radar-body th:nth-child(5),
+.article-radar-body td:nth-child(5) { width: 49%; }
 
 .article-radar-body .definition-cell {
   font-family: var(--font-body);
   line-height: 1.55;
+  min-width: 0;
 }
 
 .article-radar-body .value-cell {
