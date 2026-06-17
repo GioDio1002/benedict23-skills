@@ -142,13 +142,47 @@ Rules:
     once both candidates are named.
   - Open each card with a **Finals letter grade** (A+ through F) rendered as a colored
     square badge next to the player's name, plus a one-line rationale row above the
-    prose explaining the grade with concrete deltas. Grade is computed from the player's
-    Finals values vs his own full-playoff baseline:
-    `score = (TS%_Finals − TS%_playoff) + 0.6 × (+/-_Finals − +/-_playoff) + 1.2 ×
-    (PIE_Finals − PIE_playoff)`, bucketed `≥10 A+ · ≥5 A · ≥2 A− · ≥0 B+ · ≥−2 B ·
-    ≥−5 B− · ≥−8 C · ≥−12 D · else F`. The grade reads the player's Finals form against
-    *himself*, while the comparison prose reads him against the picked opponent — two
-    complementary lenses in one card.
+    prose stating the absolute stat line and series outcome.
+
+    **Grading model — analyst-style, not vs-self.** Earlier iterations graded "Finals vs
+    own playoff baseline." That punishes Finals MVPs whose efficiency dips against tougher
+    defense (e.g. a 36% USG FMVP at 53% TS reads as "down from 57%" and gets a D — wrong).
+    The model below mirrors how working NBA writers actually grade a Finals series: volume
+    × absolute efficiency, absolute impact, role-fit credit, and the series outcome itself
+    as a categorical signal (rings + FMVP are the loudest signals in any analyst piece).
+
+    Score = `volumeTier × efficiencyCredit + impactTerm + roleBonus + outcomeMod`
+
+    - `volumeTier`: high (USG ≥28 or MPG ≥36) = 1.0 · mid (USG ≥22 or MPG ≥30) = 0.7 ·
+      rotation (MPG ≥18) = 0.45 · scrub = 0.25. Heavy-load roles weight efficiency more.
+    - `efficiencyCredit` (absolute TS%, not delta): ≥62 → +12 · ≥58 → +8 · ≥54 → +4 ·
+      ≥50 → 0 · ≥46 → −4 · ≥42 → −9 · else −14.
+    - `impactTerm`: `0.8 × clamp(+/-, −15, +15)` plus a PIE-around-12 spline (above 18
+      worth +1.5/pp, 12–18 worth +0.6/pp, below 12 worth −1.4/pp).
+    - `roleBonus`: efficient role player (USG <22 + TS ≥60 + MPG ≥20) +4 · efficient star
+      (USG ≥28 + TS ≥55) +5 · alpha creator threshold (USG ≥32 + TS ≥53) +4.
+    - `outcomeMod`: series winner +6 · FMVP +14 (categorical, mirrors analyst weight) ·
+      alpha on losing side dragged team (USG ≥28 + +/- ≤−3) −4 · small-minute loser −1.
+    - Small-sample clamp: when MPG <12, score is clamped to `[−8, +4]` (C+ … B). Don't
+      hand out A's or F's on a 6-minute sample.
+
+    Buckets: `≥26 A+ · ≥20 A · ≥14 A- · ≥8 B+ · ≥2 B · ≥-4 B- · ≥-10 C+ · ≥-16 C ·
+    ≥-22 D · else F`.
+
+    Sanity-check on 2026 Knicks–Spurs: Jalen Brunson (USG 36.6 · TS 53.2 · +/- +1.6 ·
+    PIE 15.2 · Knicks won · FMVP) → ~27.2 → **A+**. Karl-Anthony Towns (USG 18.6 · TS
+    68.4 · efficient secondary on winning side) → A+. Wembanyama (USG 29.7 · TS 58.9 ·
+    losing side star) → B+. The numbers should track common analyst takes; if they don't,
+    tune the constants — don't fall back to vs-self deltas.
+
+    **Per-series knobs** (set in compare-page META): `seriesWinner` (team key), `fmvp`
+    (player display name), `fmvpTag` / `winTag` / `lossTag` (i18n strings shown in the
+    rationale row). When publishing a new series, set these four — the grading code is
+    generic.
+
+    The grade reads the player's Finals form **in the analyst sense** (absolute role +
+    efficiency + result), while the comparison prose reads him against the picked
+    opponent — two complementary lenses in one card.
   - **ZH radar axis labels stack the Chinese term over the English short** (e.g. 真实命中率 / TS%);
     EN radars use the English short alone. Apply the same convention across deck and compare radars
     so a reader can match terms across pages.
