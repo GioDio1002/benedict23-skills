@@ -95,8 +95,11 @@ team or to the Finals. To target a new series:
   - Each picker's subtitle carries the **six stat-mini panels** (MPG / PPG / APG / RPG / TOPG /
     PFPG) for the currently selected player — same six chips as the per-player deck card — so the
     head-to-head context is visible before the user even reads the radar.
-  - Wrap the radar block and the comparison table each in their own `<details open>` so readers
-    can fold either independently to shorten the page.
+  - Wrap the radar block, the **per-player overall-evaluation cards**, and the comparison
+    table each in their own `<details open>` so readers can fold any of the three
+    independently to shorten the page. The overall-evaluation fold sits **between radar and
+    table**, and pulls the same analyst-note prose that lives in each player's deck card so
+    the compare view stays in sync with the per-team articles.
   - **ZH radar axis labels stack the Chinese term over the English short** (e.g. 真实命中率 / TS%);
     EN radars use the English short alone. Apply the same convention across deck and compare radars
     so a reader can match terms across pages.
