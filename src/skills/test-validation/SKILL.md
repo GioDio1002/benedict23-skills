@@ -1,6 +1,6 @@
 ---
 name: test-validation
-description: "Generate backend tests and validation coverage for APIs and services. Use when Codex needs unit tests, API tests, edge-case coverage, request examples, or a validation plan for backend endpoints and server-side logic."
+description: "Generate backend tests and validation coverage for APIs and services. Use when the agent needs unit tests, API tests, edge-case coverage, request examples, or a validation plan for backend endpoints and server-side logic."
 ---
 
 # Test Validation

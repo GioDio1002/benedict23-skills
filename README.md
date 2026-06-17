@@ -6,7 +6,7 @@
 
 # benedict23-skills
 
-Normalized repository for a focused set of homemade Codex skills.
+Normalized repository for a focused set of homemade agent skills, usable in both Codex and Claude Code.
 
 ---
 
@@ -14,7 +14,7 @@ Normalized repository for a focused set of homemade Codex skills.
 
 ### Overview
 
-This repository collects a small set of homemade Codex skills that were organized for long-term maintenance and publishing.
+This repository collects a small set of homemade agent skills that were organized for long-term maintenance and publishing. The skills are runtime-portable: they run in both Codex and Claude Code (and any agent environment that loads `SKILL.md`-style skill directories).
 
 These skills were not written as raw copies of any single upstream project. They were shaped around real usage scenarios from daily work, then adjusted and refined with ideas, patterns, and references taken from open source projects when useful.
 
@@ -75,11 +75,24 @@ This repo currently tracks eleven local-first skills:
 
 - `src/skills/<skill-name>/SKILL.md` is the canonical skill document.
 - `src/skills/<skill-name>/agents/openai.yaml` stores the assistant-facing prompt metadata.
-- `src/mcp/` stores practical MCP server notes for the local Codex/Cursor workflow.
-- `src/instructions/` stores instruction-layer notes for the current Codex environment.
+- `src/mcp/` stores practical MCP server notes for the local Codex / Claude Code / Cursor workflow.
+- `src/instructions/` stores instruction-layer notes for the agent environment (Codex and Claude Code).
 - `src/prompt-framework/` stores reusable prompt-structuring references that are not themselves skills.
 - `src/shared/` stores shared reference material used by more than one skill.
 - Skills should prefer repository-relative references so the repo can be cloned anywhere.
+
+### Runtime Compatibility (Codex + Claude Code)
+
+- Each `SKILL.md` uses YAML front matter with `name` and `description`, which both Codex and Claude
+  Code read for skill discovery and triggering.
+- Skills are self-describing and reference only repository-relative paths, so the same directory works
+  unchanged in either runtime.
+- **Codex**: point the assistant at `src/skills/<skill-name>/` (with `agents/openai.yaml` carrying the
+  prompt metadata).
+- **Claude Code**: copy or symlink `src/skills/<skill-name>/` into a skills directory it scans
+  (e.g. `~/.claude/skills/<skill-name>/`); the front-matter `description` drives auto-triggering.
+- Keep skill bodies tool-agnostic — describe intent and workflow, not one runtime's exact tool names —
+  so behavior stays consistent across both.
 
 Current prompt-framework references include:
 
@@ -115,7 +128,7 @@ Current prompt-framework references include:
 - This repository is organized for Git-based maintenance first.
 - `docs/` is the static GitHub Pages layer for this repository.
 - The expected Pages URL after deployment is the repository Pages URL, typically `https://giodio1002.github.io/benedict23-skills/`.
-- If these skills are later imported into another Codex or agent environment, copy each skill directory as-is.
+- If these skills are later imported into another agent environment (Codex, Claude Code, or other), copy each skill directory as-is.
 - Avoid absolute local filesystem paths inside `SKILL.md` files.
 - `src/mcp/`, `src/instructions/`, and `src/prompt-framework/` are documentation-only directories; they are not imported as skills.
 
@@ -135,7 +148,7 @@ All player radar pages under `docs/` use a unified design language inspired by t
 
 ### 仓库说明
 
-这个仓库用于集中维护一组整理过的 homemade Codex skills，方便后续持续更新、迁移和发布。
+这个仓库用于集中维护一组整理过的 homemade agent skills，方便后续持续更新、迁移和发布。这些 skills 跨运行时通用：在 Codex 和 Claude Code 中都能使用（以及任何加载 `SKILL.md` 形式 skill 目录的 agent 环境）。
 
 这些 skills 不是照搬某一个上游项目的内容，而是按照我自己的实际使用场景逐步打磨出来的；在整理过程中，也会参考一些开源项目里的思路、模式和表达方式，再结合真实使用反馈做调整。
 
@@ -196,11 +209,21 @@ All player radar pages under `docs/` use a unified design language inspired by t
 
 - `src/skills/<skill-name>/SKILL.md` 是 skill 的主文档。
 - `src/skills/<skill-name>/agents/openai.yaml` 用于保存面向助手的元数据和默认提示词。
-- `src/mcp/` 用于整理当前本地 Codex/Cursor 工作流里实际使用的 MCP server 说明。
-- `src/instructions/` 用于整理当前 Codex 环境中的 instruction 层说明。
+- `src/mcp/` 用于整理本地 Codex / Claude Code / Cursor 工作流里实际使用的 MCP server 说明。
+- `src/instructions/` 用于整理 agent 环境（Codex 和 Claude Code）的 instruction 层说明。
 - `src/prompt-framework/` 用于整理可复用的 prompt 结构框架，这些内容本身不是 skill。
 - `src/shared/` 用于存放多个 skill 共用的参考内容。
 - skill 内部尽量使用仓库相对路径，避免依赖某台机器上的绝对路径。
+
+### 运行时兼容（Codex + Claude Code）
+
+- 每个 `SKILL.md` 使用带 `name` 和 `description` 的 YAML front matter，Codex 和 Claude Code 都靠它做
+  skill 发现与触发。
+- skill 自描述、只引用仓库相对路径，所以同一个目录在两种运行时里都能直接用，无需改动。
+- **Codex**：把助手指向 `src/skills/<skill-name>/`（`agents/openai.yaml` 保存提示词元数据）。
+- **Claude Code**：把 `src/skills/<skill-name>/` 复制或软链到它扫描的 skills 目录
+  （如 `~/.claude/skills/<skill-name>/`）；front matter 里的 `description` 驱动自动触发。
+- skill 正文保持工具无关——描述意图和流程，而不是某个运行时的具体工具名——以保证两边行为一致。
 
 当前 `prompt-framework` 目录主要包括：
 
@@ -236,7 +259,7 @@ All player radar pages under `docs/` use a unified design language inspired by t
 - 这个仓库首先是为了 Git 维护和版本管理而设计的。
 - `docs/` 目录同时作为这个仓库的 GitHub Pages 静态站点发布层。
 - 部署后默认访问地址通常是 `https://giodio1002.github.io/benedict23-skills/`。
-- 如果后续要导入到其他 Codex 或 agent 环境，可以直接复制单个 skill 目录使用。
+- 如果后续要导入到其他 agent 环境（Codex、Claude Code 或其他），可以直接复制单个 skill 目录使用。
 - 尽量不要在 `SKILL.md` 里写本机绝对路径。
 - `src/mcp/`、`src/instructions/` 和 `src/prompt-framework/` 只用于文档整理，不会作为 skill 直接导入。
 

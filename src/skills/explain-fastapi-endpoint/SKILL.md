@@ -1,6 +1,6 @@
 ---
 name: explain-fastapi-endpoint
-description: Analyze a FastAPI endpoint end-to-end, including trigger conditions, request flow, handler logic, service calls, database or queue interactions, external API usage, success and failure paths, SSE behavior, and data transformations. Use when Codex needs to explain or review a FastAPI route, debug endpoint behavior, trace request processing across modules, document backend flows, or inspect how an API endpoint reaches schemas, models, tasks, and downstream systems.
+description: Analyze a FastAPI endpoint end-to-end, including trigger conditions, request flow, handler logic, service calls, database or queue interactions, external API usage, success and failure paths, SSE behavior, and data transformations. Use when the agent needs to explain or review a FastAPI route, debug endpoint behavior, trace request processing across modules, document backend flows, or inspect how an API endpoint reaches schemas, models, tasks, and downstream systems.
 ---
 
 # Explain FastAPI Endpoint

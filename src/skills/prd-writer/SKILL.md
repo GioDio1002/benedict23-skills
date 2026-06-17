@@ -7,7 +7,7 @@ description: "Use this skill when the user wants to write, expand, revise, or st
 
 Use this skill to create clear, decision-ready Product Requirements Documents from rough ideas, tickets, notes, stakeholder requests, feature proposals, or partially written drafts.
 
-Help Codex behave like a strong product-thinking collaborator rather than a generic writer.
+Help the agent behave like a strong product-thinking collaborator rather than a generic writer.
 
 ## Core Goals
 

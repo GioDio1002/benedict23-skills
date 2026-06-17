@@ -1,6 +1,6 @@
 ---
 name: agents-init-helper
-description: Read repository-local agent instruction files and use them as the source of truth before starting work. Use when a repository may contain `AGENTS.md`, `AGENTS.override.md`, or similar Codex instruction files; when the user asks to initialize Codex instructions; when the user asks to improve project guidance for Codex; or when the task depends on repository-specific working rules.
+description: Read repository-local agent instruction files and use them as the source of truth before starting work. Use when a repository may contain `AGENTS.md`, `CLAUDE.md`, `AGENTS.override.md`, or similar agent instruction files; when the user asks to initialize agent instructions; when the user asks to improve project guidance for the coding agent; or when the task depends on repository-specific working rules. Works in both Codex and Claude Code.
 ---
 
 # Agents Init Helper
@@ -10,7 +10,8 @@ Use this skill to make repository-local instructions the first stop instead of g
 ## Check For Agent Instructions First
 
 Before making changes, look for repository instruction files, especially:
-- `AGENTS.md`
+- `AGENTS.md` (Codex and other agents)
+- `CLAUDE.md` (Claude Code)
 - `AGENTS.override.md`
 - any other configured fallback instruction file the repo uses
 
@@ -23,7 +24,7 @@ If such a file exists:
 ## If `AGENTS.md` Is Missing
 
 If the repo does not contain `AGENTS.md`:
-- tell the user Codex supports the built-in `/init` command to scaffold one
+- tell the user that both Codex and Claude Code support a built-in `/init` command to scaffold one (`AGENTS.md` in Codex, `CLAUDE.md` in Claude Code)
 - offer a direct markdown draft if the user wants content now
 - if asked to create it, write a practical `AGENTS.md` with concise, enforceable rules
 
@@ -73,7 +74,7 @@ Use this structure unless the repository already has a better one:
 - Documentation update requirements
 
 ## Validation before completion
-- Commands Codex should run after edits
+- Commands the agent should run after edits
 - What must pass before marking work done
 
 ## File / architecture notes
@@ -105,7 +106,7 @@ If `AGENTS.md` exists:
 - "The key instructions are: run tests after backend edits, update docs for public behavior changes, and avoid new dependencies without justification."
 
 If `AGENTS.md` does not exist:
-- "This repo does not have an `AGENTS.md` yet. In Codex, `/init` can scaffold one in the current directory. I can also draft a stronger version for this repo now."
+- "This repo does not have an `AGENTS.md` / `CLAUDE.md` yet. In Codex or Claude Code, `/init` can scaffold one in the current directory. I can also draft a stronger version for this repo now."
 
 ## Starter Draft
 

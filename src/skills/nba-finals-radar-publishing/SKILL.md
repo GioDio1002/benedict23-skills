@@ -1,6 +1,6 @@
 ---
 name: nba-finals-radar-publishing
-description: "Turn official NBA Finals box score data into publishable radar analysis, coach notes, paginated long-form articles, and Xiaohongshu-ready single-player cards. Use when Codex needs a repeatable workflow for playoff or Finals coverage that starts from official nba_api data and ends in static HTML publishing."
+description: "Turn official NBA Finals box score data into publishable radar analysis, coach notes, paginated long-form articles, and Xiaohongshu-ready single-player cards. Use when the agent needs a repeatable workflow for playoff or Finals coverage that starts from official nba_api data and ends in static HTML publishing."
 ---
 
 # NBA Finals Radar Publishing
