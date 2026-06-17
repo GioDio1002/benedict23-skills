@@ -89,10 +89,35 @@ team or to the Finals. To target a new series:
   - A **mode switch**: *Overlay* (A vs B on one radar) and *Split* (two separate per-player radars,
     each showing that player's three series for readability). The comparison table follows the mode —
     A-vs-B edge table in overlay; per-player Finals/playoff/team tables in split.
+  - **Two-level drill picker** for each side: pick a team first, then a player within that team
+    (with a "‹ back" row to return to team list). Typing into the search box falls through to a
+    **flat cross-team search**, so power users still get one-keystroke access.
+  - Each picker's subtitle carries the **six stat-mini panels** (MPG / PPG / APG / RPG / TOPG /
+    PFPG) for the currently selected player — same six chips as the per-player deck card — so the
+    head-to-head context is visible before the user even reads the radar.
+  - Wrap the radar block and the comparison table each in their own `<details open>` so readers
+    can fold either independently to shorten the page.
+  - **ZH radar axis labels stack the Chinese term over the English short** (e.g. 真实命中率 / TS%);
+    EN radars use the English short alone. Apply the same convention across deck and compare radars
+    so a reader can match terms across pages.
 - Bind the per-team decks and the compare page under one **unified entry** (`2026-nba-finals/`,
-  titled "2026 NBA 总决赛球员表现分析") with a **collapsible left sidebar** that switches between
-  Knicks / Spurs / Comparison (hash-routed `#knicks`/`#spurs`/`#compare`); point all home and index
-  links at this entry.
+  titled "2026 NBA 总决赛球员表现分析") with a **collapsible left sidebar**, hash-routed:
+  - Sidebar order surfaces the most analytical view first: **Comparison → Team A → Team B →
+    Metrics & Data** (`#compare` / `#<teamA>` / `#<teamB>` / `#definitions`). Comparison is the
+    default landing view.
+  - Collapse UX must be **obvious, not hidden**: a dedicated `«` button next to the brand title,
+    plus the brand title itself clickable, both collapse. When collapsed, a labeled floating
+    `☰ Expand` button (icon + text, not just an icon) sits top-left so the entry point is
+    discoverable on first look.
+- Publish a **Metrics & Data** companion page (`#definitions`) that documents the radar's ten
+  axes (Chinese + English name, exact formula, what the metric *means on the court*) as a
+  fixed-layout table, then walks through the **seven-step data acquisition pipeline**: source
+  endpoints (`LeagueGameFinder`, `TeamGameLogs`, `BoxScoreTraditionalV3`, `BoxScoreAdvancedV3`),
+  caching strategy, polite-scrape rate-limit / UA discipline, the three baselines (Finals /
+  player full-playoff / team-Finals), derived-metric formulas, cross-verification against
+  `BoxScoreSummaryV2` and the public stats.nba.com page (≤0.5pp tolerance), and per-axis
+  min/max normalization. This page is the reproducibility receipt — without it the radars
+  read as black-box analytics.
 - Long-form article pages should be paginated when one page becomes too long to read comfortably.
 - Single-player pages should be easy to convert into image cards.
 - Keep English and Chinese publishing shells aligned when labels, baselines, or explanatory summaries change.

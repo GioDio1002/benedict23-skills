@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700;1,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Noto+Serif+SC:wght@600;700;900&display=swap');
+:root{
+  --bg:#F8F4EE; --card:#FFFDFB; --border:#E2D9CC;
+  --text:#1C1713; --muted:#7A6F64;
+  --accent:#006BB6; --warm:#F58426;
+  --bad:#8B1A1A; --bad-bg:#FAF0EE;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#cdc4b6}
+#cover{
+  width:1080px;height:1440px;background:var(--bg);position:relative;overflow:hidden;
+  font-family:'Inter','Noto Serif SC',sans-serif;color:var(--text);
+  padding:96px 88px 80px;display:flex;flex-direction:column;
+}
+/* faint diagonal weave so it isn't a flat fill */
+#cover::before{content:'';position:absolute;inset:0;opacity:.4;pointer-events:none;
+  background:
+    linear-gradient(115deg, rgba(0,107,182,0.05), transparent 34%),
+    linear-gradient(245deg, rgba(245,132,38,0.05), transparent 38%);}
+.top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:2}
+.eyebrow{font-size:21px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.eyebrow .dash{display:inline-block;width:42px;height:2px;background:var(--accent);vertical-align:middle;margin-right:14px}
+.stamp{
+  font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;letter-spacing:.14em;
+  color:var(--bad);border:1.5px solid var(--bad);border-radius:3px;padding:8px 12px;
+  transform:rotate(4deg);opacity:.85;text-transform:uppercase;
+}
+.headline{position:relative;z-index:2;margin-top:120px}
+.headline .lead{
+  font-family:'Noto Serif SC',serif;font-weight:900;font-size:88px;line-height:1.28;
+  letter-spacing:-0.01em;color:var(--text);
+}
+.headline .lead em{
+  font-style:normal;color:var(--bad);position:relative;white-space:nowrap;
+}
+.headline .lead em::after{content:'';position:absolute;left:0;right:0;bottom:6px;height:14px;
+  background:rgba(139,26,26,0.16);z-index:-1}
+.headline .tail{font-family:'JetBrains Mono',monospace;color:var(--muted);font-weight:500}
+.sub{position:relative;z-index:2;margin-top:34px;font-size:27px;line-height:1.7;color:var(--muted);max-width:30ch;
+  font-family:'Noto Serif SC',serif}
+.sub b{color:var(--text);font-weight:700}
+.evidence{position:relative;z-index:2;margin-top:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.chip{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:22px 22px 20px}
+.chip.flag{background:var(--bad-bg);border-color:rgba(139,26,26,0.22)}
+.chip .num{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:42px;letter-spacing:-.02em;color:var(--text)}
+.chip.flag .num{color:var(--bad)}
+.chip .lab{font-size:15px;color:var(--muted);margin-top:10px;line-height:1.45}
+.chip .lab b{color:var(--text);font-weight:600}
+.foot{position:relative;z-index:2;margin-top:30px;display:flex;justify-content:space-between;align-items:center;
+  padding-top:22px;border-top:1px solid var(--border)}
+.foot .who{font-family:'Playfair Display',serif;font-style:italic;font-size:26px;color:var(--text)}
+.foot .url{font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--accent);letter-spacing:.02em}
+.barwrap{position:absolute;left:0;right:0;bottom:0;height:8px;z-index:3;
+  background:linear-gradient(90deg,var(--accent),var(--warm))}
+</style>
+</head>
+<body>
+<div id="cover">
+  <div class="top">
+    <div class="eyebrow"><span class="dash"></span>数据复盘 · 2026 NBA 总决赛</div>
+    <div class="stamp">嫌疑报告</div>
+  </div>
+
+  <div class="headline">
+    <div class="lead">为了分析福克斯<br>总决赛到底有多<em>卧底</em>，<br>我做了个网站<span class="tail">……</span></div>
+  </div>
+
+  <div class="sub">官方数据进、可读结论出。<b>真实命中率、在场净胜、季后赛对比</b>，逐项摆出来，让数据自己说话。</div>
+
+  <div class="evidence">
+    <div class="chip flag">
+      <div class="num">43.5%</div>
+      <div class="lab">总决赛真实命中率<br><b>季后赛 49.7%</b></div>
+    </div>
+    <div class="chip flag">
+      <div class="num">−0.6</div>
+      <div class="lab">在场场均净胜<br><b>季后赛 +5.7</b></div>
+    </div>
+    <div class="chip">
+      <div class="num">21.2%</div>
+      <div class="lab">使用率<br><b>持球没少碰</b></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="who">benedict23 · 表现分析</div>
+    <div class="url">giodio1002.github.io/benedict23-skills</div>
+  </div>
+  <div class="barwrap"></div>
+</div>
+</body>
+</html>
