@@ -79,11 +79,20 @@ team or to the Finals. To target a new series:
   collapsed by default; the radar+analysis block is foldable (open by default). Recompute the deck
   viewport height on every `toggle` so the slider resizes to the open content.
 - Offer a **head-to-head compare page** alongside the per-team decks: two searchable pickers (player
-  A vs player B, drawn from every player on both teams), one **overlaid** radar (A vs B, two series
-  on shared axes), and a metric-by-metric delta table marking which player wins each axis. Plot the
-  overlaid radar from the raw per-player values with per-axis min/max normalization, and **invert the
-  lower-is-better axes** (TOV%, DefRtg, PF/G) so outward always means better; tag those rows so the
-  table stays unambiguous.
+  A vs player B, drawn from every player on both teams), and a metric-by-metric delta table.
+  - **Recast the lower-is-better axes as positive opposites** (don't just invert for plotting):
+    TOV% → Ball Security (100−TOV), DefRtg → Def. Stops (120−DefRtg), PF/G → Foul Discipline (6−PF),
+    and rewrite their definitions accordingly. Then all ten axes are higher-better — no "lower is
+    better" tags needed, and radar area is meaningful.
+  - Each player carries three series — **Finals, playoff average, team average** — and every series is
+    a **click-to-hide** legend toggle.
+  - A **mode switch**: *Overlay* (A vs B on one radar) and *Split* (two separate per-player radars,
+    each showing that player's three series for readability). The comparison table follows the mode —
+    A-vs-B edge table in overlay; per-player Finals/playoff/team tables in split.
+- Bind the per-team decks and the compare page under one **unified entry** (`2026-nba-finals/`,
+  titled "2026 NBA 总决赛球员表现分析") with a **collapsible left sidebar** that switches between
+  Knicks / Spurs / Comparison (hash-routed `#knicks`/`#spurs`/`#compare`); point all home and index
+  links at this entry.
 - Long-form article pages should be paginated when one page becomes too long to read comfortably.
 - Single-player pages should be easy to convert into image cards.
 - Keep English and Chinese publishing shells aligned when labels, baselines, or explanatory summaries change.
