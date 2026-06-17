@@ -78,10 +78,13 @@ details.fold>.radar-wrap,details.fold>.table-card{margin:0;border:none;border-ra
 
 .eval-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:8px 18px 22px}
 .eval-card{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:2px;padding:16px 20px}
-.eval-card header{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.eval-card header{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.eval-card .grade{flex:0 0 auto;width:50px;height:50px;border-radius:10px;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.55rem;font-style:normal;letter-spacing:-.02em}
+.eval-card .meta{display:flex;flex-direction:column;gap:2px;min-width:0}
 .eval-card .tag{font-family:'Inter',sans-serif;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
 .eval-card h4{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:700;font-size:1.05rem;color:var(--text);margin:0}
 .eval-card p{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.92rem;line-height:1.75;color:var(--text);margin:0}
+.eval-card p.grade-line{font-family:'Inter',sans-serif;font-style:normal;font-size:.85rem;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px 12px;margin-bottom:10px}
 @media(max-width:760px){.eval-wrap{grid-template-columns:1fr}}
 </style>
 </head>
@@ -224,6 +227,19 @@ details.fold>.radar-wrap,details.fold>.table-card{margin:0;border:none;border-ra
     pk.querySelector('[data-stats]').innerHTML=(p.c||[]).map(function(c){return '<div class="m"><b>'+c[0]+'</b><span>'+c[1]+'</span></div>';}).join('');
   }
   function pp(x){return (x>=0?'+':'')+x.toFixed(1);}
+  function gradeFor(p){
+    var dTs=p.v[0]-p.p[0], dPm=p.v[6]-p.p[6], dPie=p.v[9]-p.p[9];
+    var s=dTs*1.0 + dPm*0.6 + dPie*1.2;
+    if(s>=10) return 'A+'; if(s>=5)  return 'A';  if(s>=2)  return 'A-';
+    if(s>=0)  return 'B+'; if(s>=-2) return 'B';  if(s>=-5) return 'B-';
+    if(s>=-8) return 'C';  if(s>=-12)return 'D';  return 'F';
+  }
+  function gradeLine(p,g){
+    var dTs=p.v[0]-p.p[0], dPm=p.v[6]-p.p[6], dPie=p.v[9]-p.p[9];
+    return isEN
+      ? 'Finals grade '+g+' — TS% '+pp(dTs)+'pp, +/- '+pp(dPm)+', PIE '+pp(dPie)+'pp vs his own playoff baseline.'
+      : '总决赛评级 '+g+' —— 真实命中率 '+pp(dTs)+'pp、正负值 '+pp(dPm)+'、PIE '+pp(dPie)+'pp（对比自身季后赛基准）。';
+  }
   function compareProse(self, other, selfSide){
     var same=self.t===other.t;
     var L=isEN?{
@@ -269,8 +285,14 @@ details.fold>.radar-wrap,details.fold>.table-card{margin:0;border:none;border-ra
     function card(side){
       var self=side==='a'?pa:pb, other=side==='a'?pb:pa;
       var col=side==='a'?'#006BB6':'#F58426';
-      var txt=compareProse(self,other,side);
-      return '<article class="eval-card"><header><span class="tag" style="color:'+col+'">'+CFG.evalLabel+' · '+(side==='a'?'A':'B')+'</span><h4>'+self.n+'</h4></header><p>'+txt+'</p></article>';
+      var g=gradeFor(self);
+      var head=
+        '<header>'
+          +'<div class="grade" style="background:'+col+'">'+g+'</div>'
+          +'<div class="meta"><span class="tag" style="color:'+col+'">'+CFG.evalLabel+'</span><h4>'+self.n+'</h4></div>'
+        +'</header>';
+      var body='<p class="grade-line">'+gradeLine(self,g)+'</p><p>'+compareProse(self,other,side)+'</p>';
+      return '<article class="eval-card" style="border-left-color:'+col+'">'+head+body+'</article>';
     }
     w.innerHTML=card('a')+card('b');
   }

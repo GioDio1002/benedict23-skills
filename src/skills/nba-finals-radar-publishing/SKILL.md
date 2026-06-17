@@ -130,12 +130,25 @@ Rules:
   - Wrap the radar block, the **per-player overall-evaluation cards**, and the comparison
     table each in their own `<details open>` so readers can fold any of the three
     independently. The overall-evaluation fold sits **between radar and table**.
-  - On the compare page the evaluation cards are **A-vs-B generated**, not deck prose:
+  - On the compare page the evaluation cards are **head-to-head generated**, not deck prose:
     each card reads the other side's vector and writes delta-driven sentences (USG /
     Score Share for burden, TS% for efficiency, the larger of AST% / REB% for the
     secondary trait, the three defensive axes as a single line, +/- and PIE for impact).
     Same-roster pairings get a "队内对位 / Same-roster matchup" lead; cross-team pairs
     get "跨队对位 / Cross-team head-to-head." Regenerate whenever the picker changes.
+  - **Drop "A" / "B" labels entirely** once players are selected — the eyebrow shows just
+    "OVERALL EVALUATION", the colored left rule + colored tag handle side identity, and
+    the player name in the h4 carries the identity. Generic A/B labels are misleading
+    once both candidates are named.
+  - Open each card with a **Finals letter grade** (A+ through F) rendered as a colored
+    square badge next to the player's name, plus a one-line rationale row above the
+    prose explaining the grade with concrete deltas. Grade is computed from the player's
+    Finals values vs his own full-playoff baseline:
+    `score = (TS%_Finals − TS%_playoff) + 0.6 × (+/-_Finals − +/-_playoff) + 1.2 ×
+    (PIE_Finals − PIE_playoff)`, bucketed `≥10 A+ · ≥5 A · ≥2 A− · ≥0 B+ · ≥−2 B ·
+    ≥−5 B− · ≥−8 C · ≥−12 D · else F`. The grade reads the player's Finals form against
+    *himself*, while the comparison prose reads him against the picked opponent — two
+    complementary lenses in one card.
   - **ZH radar axis labels stack the Chinese term over the English short** (e.g. 真实命中率 / TS%);
     EN radars use the English short alone. Apply the same convention across deck and compare radars
     so a reader can match terms across pages.
