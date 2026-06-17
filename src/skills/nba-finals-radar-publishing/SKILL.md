@@ -141,6 +141,14 @@ languages and every page stay aligned; do not fork per-page styles.
   the definition/note column the majority of the width so notes flow wide instead of stacking tall.
 - Insight sentiment uses ↑/↓ arrows (good/bad), not colored left-border accent cards or chips.
 - Do not render a redundant per-card score badge in the player-header corner.
+- **Cross-page metric consistency**: every published radar — per-team deck and head-to-head compare
+  alike — uses the positive-opposite naming (Ball Security / Def. Stops / Foul Discipline) so all ten
+  axes are higher-better. Radar geometry is consistent too: axis 0 (TS%) at the top, going clockwise.
+  Per-axis normalization uses min/max across all players on the page so cross-player comparison stays
+  meaningful. ZH radars stack the Chinese term over the English short on every axis (e.g. 真实命中率
+  / TS%; 护球率 / Ball Security); EN radars use the English short alone.
+- When the metric polarity is flipped, also regenerate any precomputed delta-pill / insight cards —
+  or drop them — so their wording and percentages stay consistent with the new positive metrics.
 
 ## Mobile / responsive
 
