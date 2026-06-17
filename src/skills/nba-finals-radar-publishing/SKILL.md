@@ -50,6 +50,10 @@ Use this skill when the task is NBA playoff or Finals coverage that needs both a
 
 ## Publishing guidance
 
+- Prefer a single-page **swipe deck** over multi-page pagination: render one player per card in a
+  horizontal slider (prev/next + keyboard + touch swipe) with a sticky, searchable name picker, so
+  readers jump between players instead of scrolling a long page. Keep legacy paginated URLs as
+  redirects to the deck. Pagination is the fallback only when a swipe deck is not feasible.
 - Long-form article pages should be paginated when one page becomes too long to read comfortably.
 - Single-player pages should be easy to convert into image cards.
 - Keep English and Chinese publishing shells aligned when labels, baselines, or explanatory summaries change.
