@@ -607,7 +607,7 @@ code {
 }
 
 .article-radar-body .summary-box {
-  background: #f3eee4;
+  background: #F8F4EE;
   color: var(--ink);
   border: 1px solid var(--line);
   border-left: 3px solid var(--accent-blue);
@@ -643,7 +643,7 @@ code {
   overflow: hidden;
   border-radius: 8px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.64);
+  background: #F8F4EE;
 }
 
 .article-radar-body table {
@@ -665,8 +665,8 @@ code {
   font-weight: 800;
   letter-spacing: 0.10em;
   text-transform: uppercase;
-  color: var(--accent-deep);
-  background: rgba(255, 248, 240, 0.9);
+  color: var(--muted);
+  background: #F8F4EE;
 }
 
 .article-radar-body td {
@@ -802,7 +802,7 @@ html:lang(zh-CN) .article-radar-body .summary-box {
 
 html:lang(zh-CN) .article-radar-body .table-panel {
   border-color: rgba(28, 24, 20, 0.09);
-  background: rgba(255, 252, 248, 0.72);
+  background: #F8F4EE;
 }
 
 html:lang(zh-CN) .article-radar-body table {
