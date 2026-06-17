@@ -32,12 +32,13 @@ body{font-family:'Inter',-apple-system,"PingFang SC","Hiragino Sans GB",sans-ser
 .pk-opt .tm{font-size:.7rem;color:var(--muted);font-weight:600;align-self:center}
 .pk-opt[hidden]{display:none}
 .vs{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;color:var(--muted);font-size:1.1rem;text-align:center}
-.mode-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:14px}
-.seg{display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--card)}
-.seg-btn{font-family:inherit;font-size:.85rem;font-weight:600;padding:8px 18px;border:none;background:transparent;color:var(--muted);cursor:pointer}
+.mode-row{display:flex;flex-wrap:nowrap;gap:12px;align-items:center;justify-content:flex-start;margin-bottom:14px;overflow-x:auto;padding-bottom:2px}
+.mode-row::-webkit-scrollbar{height:6px}.mode-row::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.seg{flex:0 0 auto;display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--card)}
+.seg-btn{font-family:inherit;font-size:.82rem;font-weight:600;padding:7px 14px;border:none;background:transparent;color:var(--muted);cursor:pointer;white-space:nowrap}
 .seg-btn.is-on{background:var(--accent);color:#fff}
-.series-toggles{display:flex;flex-wrap:wrap;gap:8px}
-.stog{font-family:inherit;font-size:.76rem;font-weight:600;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--card);color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.series-toggles{flex:1 1 auto;display:flex;flex-wrap:nowrap;gap:6px;justify-content:flex-end}
+.stog{flex:0 0 auto;font-family:inherit;font-size:.72rem;font-weight:600;padding:5px 10px;border:1px solid var(--border);border-radius:999px;background:var(--card);color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .stog i{width:16px;height:3px;border-radius:2px;display:inline-block}
 .stog.off{opacity:.4}
 .radar-wrap{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:20px}
