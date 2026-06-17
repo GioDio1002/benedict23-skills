@@ -78,6 +78,12 @@ team or to the Finals. To target a new series:
 - Keep each card short with **collapsible `<details>` sections**: the long metric-definition table is
   collapsed by default; the radar+analysis block is foldable (open by default). Recompute the deck
   viewport height on every `toggle` so the slider resizes to the open content.
+- Offer a **head-to-head compare page** alongside the per-team decks: two searchable pickers (player
+  A vs player B, drawn from every player on both teams), one **overlaid** radar (A vs B, two series
+  on shared axes), and a metric-by-metric delta table marking which player wins each axis. Plot the
+  overlaid radar from the raw per-player values with per-axis min/max normalization, and **invert the
+  lower-is-better axes** (TOV%, DefRtg, PF/G) so outward always means better; tag those rows so the
+  table stays unambiguous.
 - Long-form article pages should be paginated when one page becomes too long to read comfortably.
 - Single-player pages should be easy to convert into image cards.
 - Keep English and Chinese publishing shells aligned when labels, baselines, or explanatory summaries change.

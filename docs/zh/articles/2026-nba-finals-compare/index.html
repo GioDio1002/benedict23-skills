@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 总决赛 · 球员对比 | benedict23</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2032%2032%27%3E%3Crect%20width%3D%2732%27%20height%3D%2732%27%20rx%3D%277%27%20fill%3D%27%23006BB6%27/%3E%3Ctext%20x%3D%2716%27%20y%3D%2724%27%20font-family%3D%27Georgia%2C%22Times%20New%20Roman%22%2Cserif%27%20font-size%3D%2723%27%20font-weight%3D%27700%27%20fill%3D%27%23FFFDFB%27%20text-anchor%3D%27middle%27%3EB%3C/text%3E%3C/svg%3E">
+  <style>@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+:root{--bg:#F8F4EE;--card:#FFFDFB;--border:#E2D9CC;--text:#1C1713;--muted:#7A6F64;--accent:#006BB6;--warm:#F58426}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,"PingFang SC","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.page{max-width:980px;margin:0 auto;padding:30px 22px 60px}
+.article-header{position:relative;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:30px 32px;margin-bottom:20px}
+.lang-switch{position:absolute;top:20px;right:20px}
+.btn{display:inline-block;font-size:.85rem;font-weight:600;padding:8px 14px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text);text-decoration:none;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.article-header h1{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:700;font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.08;margin-bottom:14px;max-width:18ch}
+.article-header p{color:var(--muted);font-size:.95rem;max-width:60ch}
+.nav{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.cmp-pickers{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin-bottom:20px}
+.pk{position:relative;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.pk.a{border-top:3px solid var(--accent)}
+.pk.b{border-top:3px solid var(--warm)}
+.pk-tag{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.pk.a .pk-tag{color:var(--accent)}.pk.b .pk-tag{color:var(--warm)}
+.pk-name{font-family:'Playfair Display',serif;font-style:italic;font-size:1.45rem;font-weight:700;line-height:1.1}
+.pk-sub{font-size:.78rem;color:var(--muted);margin-top:4px}
+.pk-input{width:100%;margin-top:12px;font-family:inherit;font-size:.9rem;padding:9px 12px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text)}
+.pk-input:focus{outline:none;border-color:var(--accent)}
+.pk-list{position:absolute;left:16px;right:16px;top:100%;z-index:50;max-height:280px;overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;box-shadow:0 12px 30px rgba(20,20,18,.14);display:none;margin-top:-4px}
+.pk-list.open{display:block}
+.pk-opt{display:flex;justify-content:space-between;gap:10px;padding:9px 13px;font-size:.86rem;cursor:pointer;border-bottom:1px solid var(--border)}
+.pk-opt:last-child{border-bottom:none}
+.pk-opt:hover,.pk-opt.hi{background:var(--bg)}
+.pk-opt .tm{font-size:.7rem;color:var(--muted);font-weight:600;align-self:center}
+.pk-opt[hidden]{display:none}
+.vs{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;color:var(--muted);font-size:1.1rem;text-align:center}
+.radar-card,.table-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:20px}
+.radar-card svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.legend{display:flex;justify-content:center;gap:26px;margin-top:8px;flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:9px;font-size:.9rem;font-weight:600}
+.legend i{width:22px;height:4px;border-radius:2px;display:inline-block}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+th{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td.metric{font-weight:600}
+td.va{font-family:'JetBrains Mono',monospace;color:var(--accent);font-weight:700}
+td.vb{font-family:'JetBrains Mono',monospace;color:var(--warm);font-weight:700}
+td.edge{font-weight:700;font-size:.8rem}
+.edge-a{color:var(--accent)}.edge-b{color:var(--warm)}.edge-t{color:var(--muted)}
+.lowtag{font-size:.66rem;color:var(--muted);font-weight:500;margin-left:5px}
+.footer{margin-top:30px;font-size:.78rem;color:var(--muted);text-align:center}
+.footer a{color:var(--accent)}
+@media(max-width:720px){.cmp-pickers{grid-template-columns:1fr;gap:10px}.vs{display:none}.lang-switch{position:static;margin-bottom:14px}}</style>
+</head>
+<body>
+  <main class="page">
+    <section class="article-header">
+      <div class="lang-switch"><a class="btn" href="../../../articles/2026-nba-finals-compare/index.html">English</a></div>
+      <h1>2026 总决赛 · 球员对比</h1>
+      <p>从尼克斯和马刺所有上过场的总决赛球员里任选两人，并排叠加他们的十维雷达，逐项对比表现。</p>
+      <div class="nav">
+        <a class="btn" href="../index.html">全部文章</a>
+        <a class="btn" href="../../index.html">站点首页</a>
+      </div>
+    </section>
+
+    <section class="cmp-pickers">
+      <div class="pk a" data-side="a">
+        <div class="pk-tag">球员 A</div>
+        <div class="pk-name" data-name></div>
+        <div class="pk-sub" data-sub></div>
+        <input class="pk-input" type="search" placeholder="搜索球员…" aria-label="球员 A">
+        <div class="pk-list"></div>
+      </div>
+      <div class="vs">对比</div>
+      <div class="pk b" data-side="b">
+        <div class="pk-tag">球员 B</div>
+        <div class="pk-name" data-name></div>
+        <div class="pk-sub" data-sub></div>
+        <input class="pk-input" type="search" placeholder="搜索球员…" aria-label="球员 B">
+        <div class="pk-list"></div>
+      </div>
+    </section>
+
+    <section class="radar-card">
+      <div id="radar"></div>
+      <div class="legend">
+        <span><i style="background:var(--accent)"></i><b data-leg="a"></b></span>
+        <span><i style="background:var(--warm)"></i><b data-leg="b"></b></span>
+      </div>
+    </section>
+
+    <section class="table-card">
+      <table><thead><tr>
+        <th>维度</th><th>A</th><th>B</th><th>优势</th>
+      </tr></thead><tbody id="cmp-rows"></tbody></table>
+    </section>
+
+    <footer class="footer">文章由最新总决赛雷达产物重建，并发布到 GitHub Pages。 · <a href="https://github.com/GioDio1002/benedict23-skills/tree/main/src/skills/nba-finals-radar-publishing">Generated with skill: nba-finals-radar-publishing</a></footer>
+  </main>
+<script>
+var PLAYERS=[{"n": "杰伦·布伦森", "t": "knicks", "pos": "纽约尼克斯 · G", "mpg": "39.1", "ppg": "32.6", "v": [53.2, 36.6, 23.7, 31.2, 5.0, 9.9, 1.6, 106.7, 2.2, 15.2], "raw": ["53.2%", "36.6%", "23.7%", "31.2%", "5.0%", "9.9%", "+1.6", "106.7", "2.2", "15.2%"]}, {"n": "OG·阿奴诺比", "t": "knicks", "pos": "纽约尼克斯 · F", "mpg": "36.0", "ppg": "21.2", "v": [69.6, 18.3, 4.6, 20.3, 6.1, 3.4, -3.4, 108.7, 2.6, 14.7], "raw": ["69.6%", "18.3%", "4.6%", "20.3%", "6.1%", "3.4%", "-3.4", "108.7", "2.6", "14.7%"]}, {"n": "米卡尔·布里奇斯", "t": "knicks", "pos": "纽约尼克斯 · G", "mpg": "32.9", "ppg": "10.4", "v": [51.6, 12.4, 15.7, 10.0, 5.3, 5.2, 6.6, 102.3, 2.0, 8.9], "raw": ["51.6%", "12.4%", "15.7%", "10.0%", "5.3%", "5.2%", "+6.6", "102.3", "2.0", "8.9%"]}, {"n": "卡尔-安东尼·唐斯", "t": "knicks", "pos": "纽约尼克斯 · C", "mpg": "31.0", "ppg": "13.0", "v": [58.9, 18.6, 12.8, 12.5, 16.8, 19.2, 8.8, 97.4, 4.6, 12.4], "raw": ["58.9%", "18.6%", "12.8%", "12.5%", "16.8%", "19.2%", "+8.8", "97.4", "4.6", "12.4%"]}, {"n": "约什·哈特", "t": "knicks", "pos": "纽约尼克斯 · F", "mpg": "30.4", "ppg": "7.6", "v": [43.4, 11.9, 22.9, 7.3, 14.8, 10.8, 7.6, 96.3, 3.4, 12.7], "raw": ["43.4%", "11.9%", "22.9%", "7.3%", "14.8%", "10.8%", "+7.6", "96.3", "3.4", "12.7%"]}, {"n": "兰德里·沙梅特", "t": "knicks", "pos": "纽约尼克斯 · N/A", "mpg": "24.1", "ppg": "6.8", "v": [36.2, 13.8, 6.7, 6.5, 3.8, 0.0, -9.6, 116.0, 2.4, 1.5], "raw": ["36.2%", "13.8%", "6.7%", "6.5%", "3.8%", "0.0%", "-9.6", "116.0", "2.4", "1.5%"]}, {"n": "米切尔·罗宾逊", "t": "knicks", "pos": "纽约尼克斯 · N/A", "mpg": "13.4", "ppg": "3.6", "v": [46.1, 15.4, 6.9, 3.4, 17.8, 5.6, -7.2, 115.1, 1.2, 8.1], "raw": ["46.1%", "15.4%", "6.9%", "3.4%", "17.8%", "5.6%", "-7.2", "115.1", "1.2", "8.1%"]}, {"n": "迈尔斯·麦克布莱德", "t": "knicks", "pos": "纽约尼克斯 · N/A", "mpg": "13.3", "ppg": "2.2", "v": [15.7, 15.5, 9.8, 2.1, 1.5, 10.3, 0.2, 116.5, 0.6, -4.3], "raw": ["15.7%", "15.5%", "9.8%", "2.1%", "1.5%", "10.3%", "+0.2", "116.5", "0.6", "-4.3%"]}, {"n": "何塞·阿尔瓦拉多", "t": "knicks", "pos": "纽约尼克斯 · N/A", "mpg": "12.1", "ppg": "4.2", "v": [43.4, 19.8, 14.8, 4.0, 11.0, 5.0, 4.0, 103.6, 2.2, 3.0], "raw": ["43.4%", "19.8%", "14.8%", "4.0%", "11.0%", "5.0%", "+4.0", "103.6", "2.2", "3.0%"]}, {"n": "乔丹·克拉克森", "t": "knicks", "pos": "纽约尼克斯 · N/A", "mpg": "7.4", "ppg": "3.5", "v": [31.2, 27.5, 2.5, 3.4, 8.7, 15.0, 3.8, 98.6, 1.0, -24.9], "raw": ["31.2%", "27.5%", "2.5%", "3.4%", "8.7%", "15.0%", "+3.8", "98.6", "1.0", "-24.9%"]}, {"n": "阿里埃尔·胡克波尔蒂", "t": "knicks", "pos": "纽约尼克斯 · N/A", "mpg": "2.7", "ppg": "0.0", "v": [0.0, 0.0, 50.0, 0.0, 6.2, 0.0, 3.5, 80.0, 0.5, 15.4], "raw": ["0.0%", "0.0%", "50.0%", "0.0%", "6.2%", "0.0%", "+3.5", "80.0", "0.5", "15.4%"]}, {"n": "杰里米·索汉", "t": "knicks", "pos": "纽约尼克斯 · N/A", "mpg": "1.1", "ppg": "0.0", "v": [0.0, 4.2, 0.0, 0.0, 0.0, 0.0, -1.7, 61.1, 0.0, -2.7], "raw": ["0.0%", "4.2%", "0.0%", "0.0%", "0.0%", "0.0%", "-1.7", "61.1", "0.0", "-2.7%"]}, {"n": "维克托·文班亚马", "t": "spurs", "pos": "圣安东尼奥马刺 · C", "mpg": "39.7", "ppg": "26.0", "v": [53.6, 29.7, 13.2, 25.5, 13.0, 8.4, 1.6, 108.2, 2.2, 16.1], "raw": ["53.6%", "29.7%", "13.2%", "25.5%", "13.0%", "8.4%", "+1.6", "108.2", "2.2", "16.1%"]}, {"n": "德文·瓦塞尔", "t": "spurs", "pos": "圣安东尼奥马刺 · F", "mpg": "38.3", "ppg": "12.8", "v": [76.5, 10.1, 11.9, 12.5, 8.1, 6.1, -2.6, 109.1, 1.8, 12.0], "raw": ["76.5%", "10.1%", "11.9%", "12.5%", "8.1%", "6.1%", "-2.6", "109.1", "1.8", "12.0%"]}, {"n": "德阿隆·福克斯", "t": "spurs", "pos": "圣安东尼奥马刺 · G", "mpg": "36.5", "ppg": "12.8", "v": [43.5, 21.2, 26.6, 12.5, 3.8, 11.9, -0.6, 106.2, 3.0, 6.0], "raw": ["43.5%", "21.2%", "26.6%", "12.5%", "3.8%", "11.9%", "-0.6", "106.2", "3.0", "6.0%"]}, {"n": "斯蒂芬·卡斯尔", "t": "spurs", "pos": "圣安东尼奥马刺 · G", "mpg": "31.6", "ppg": "14.6", "v": [49.9, 24.4, 25.3, 14.3, 7.7, 13.1, -4.2, 108.5, 4.0, 7.4], "raw": ["49.9%", "24.4%", "25.3%", "14.3%", "7.7%", "13.1%", "-4.2", "108.5", "4.0", "7.4%"]}, {"n": "朱利安·尚帕尼", "t": "spurs", "pos": "圣安东尼奥马刺 · F", "mpg": "31.5", "ppg": "11.0", "v": [58.3, 13.7, 9.4, 10.8, 7.6, 5.7, -4.4, 111.6, 1.8, 10.4], "raw": ["58.3%", "13.7%", "9.4%", "10.8%", "7.6%", "5.7%", "-4.4", "111.6", "1.8", "10.4%"]}, {"n": "迪伦·哈珀", "t": "spurs", "pos": "圣安东尼奥马刺 · N/A", "mpg": "31.0", "ppg": "18.0", "v": [59.8, 23.1, 19.2, 17.6, 9.3, 6.8, -0.2, 105.4, 2.8, 16.0], "raw": ["59.8%", "23.1%", "19.2%", "17.6%", "9.3%", "6.8%", "-0.2", "105.4", "2.8", "16.0%"]}, {"n": "凯尔登·约翰逊", "t": "spurs", "pos": "圣安东尼奥马刺 · N/A", "mpg": "15.0", "ppg": "4.4", "v": [39.9, 17.7, 6.1, 4.3, 7.9, 6.9, 5.2, 98.2, 2.2, 1.8], "raw": ["39.9%", "17.7%", "6.1%", "4.3%", "7.9%", "6.9%", "+5.2", "98.2", "2.2", "1.8%"]}, {"n": "哈里森·巴恩斯", "t": "spurs", "pos": "圣安东尼奥马刺 · N/A", "mpg": "8.5", "ppg": "0.0", "v": [0.0, 3.4, 5.5, 0.0, 3.5, 0.0, -3.5, 100.0, 0.5, -1.9], "raw": ["0.0%", "3.4%", "5.5%", "0.0%", "3.5%", "0.0%", "-3.5", "100.0", "0.5", "-1.9%"]}, {"n": "卢克·科内特", "t": "spurs", "pos": "圣安东尼奥马刺 · N/A", "mpg": "8.3", "ppg": "0.6", "v": [22.0, 4.0, 4.4, 0.6, 10.1, 10.0, -4.4, 101.6, 2.2, -4.1], "raw": ["22.0%", "4.0%", "4.4%", "0.6%", "10.1%", "10.0%", "-4.4", "101.6", "2.2", "-4.1%"]}, {"n": "卡特·布莱恩特", "t": "spurs", "pos": "圣安东尼奥马刺 · N/A", "mpg": "4.5", "ppg": "1.8", "v": [52.0, 16.4, 0.0, 1.8, 5.4, 40.0, -1.0, 122.5, 1.2, -2.5], "raw": ["52.0%", "16.4%", "0.0%", "1.8%", "5.4%", "40.0%", "-1.0", "122.5", "1.2", "-2.5%"]}];
+var CFG={"labels": ["真实命中率", "使用率", "助攻率", "得分占比", "篮板率", "失误率", "正负值", "防守效率", "犯规", "PIE"], "short": ["TS%", "USG%", "AST%", "SHARE", "REB%", "TOV%", "+/-", "DefRtg", "PF/G", "PIE"], "higher": [true, true, true, true, true, false, true, false, false, true], "edgeA": "A 占优", "edgeB": "B 占优", "tie": "接近", "knicks": "纽约尼克斯", "spurs": "圣安东尼奥马刺", "bdef": 12, "lower": "（越低越好）"};
+(function(){
+  var N=CFG.labels.length;
+  // per-axis min/max across all players
+  var mn=[],mx=[];
+  for(var i=0;i<N;i++){ var col=PLAYERS.map(function(p){return p.v[i];}); mn[i]=Math.min.apply(null,col); mx[i]=Math.max.apply(null,col); }
+  function norm(v,i){ var d=mx[i]-mn[i]; var t=d?(v[i]-mn[i])/d:0.5; return CFG.higher[i]?t:1-t; }
+  var sel={a:0,b:CFG.bdef};
+  var W=520,H=470,cx=260,cy=240,R=165;
+  function pt(i,r){ var ang=-Math.PI/2 + i*2*Math.PI/N; return [cx+Math.cos(ang)*r, cy+Math.sin(ang)*r]; }
+  function poly(idx,color,fill){
+    var p=PLAYERS[idx], d='';
+    for(var i=0;i<N;i++){ var r=norm(p.v,i)*R; var xy=pt(i,r); d+=(i?'L':'M')+xy[0].toFixed(1)+' '+xy[1].toFixed(1)+' '; }
+    d+='Z';
+    var dots='';
+    for(var j=0;j<N;j++){ var rr=norm(p.v,j)*R; var c=pt(j,rr); dots+='<circle cx="'+c[0].toFixed(1)+'" cy="'+c[1].toFixed(1)+'" r="3.4" fill="'+color+'"/>'; }
+    return '<path d="'+d+'" fill="'+fill+'" stroke="'+color+'" stroke-width="2.4" stroke-linejoin="round"/>'+dots;
+  }
+  function drawRadar(){
+    var g='';
+    // rings
+    for(var k=1;k<=4;k++){ var rr=R*k/4,ring=''; for(var i=0;i<N;i++){var xy=pt(i,rr);ring+=(i?'L':'M')+xy[0].toFixed(1)+' '+xy[1].toFixed(1)+' ';} ring+='Z'; g+='<path d="'+ring+'" fill="none" stroke="#E2D9CC" stroke-width="1"/>'; }
+    // spokes + labels
+    for(var i=0;i<N;i++){
+      var e=pt(i,R); g+='<line x1="'+cx+'" y1="'+cy+'" x2="'+e[0].toFixed(1)+'" y2="'+e[1].toFixed(1)+'" stroke="#E2D9CC" stroke-width="1"/>';
+      var lp=pt(i,R+26), anchor='middle';
+      if(lp[0]>cx+12)anchor='start'; else if(lp[0]<cx-12)anchor='end';
+      g+='<text x="'+lp[0].toFixed(1)+'" y="'+lp[1].toFixed(1)+'" text-anchor="'+anchor+'" font-size="12" font-weight="600" fill="#7A6F64" dominant-baseline="middle">'+CFG.short[i]+'</text>';
+    }
+    g+=poly(sel.b,'#F58426','rgba(245,132,38,0.12)');
+    g+=poly(sel.a,'#006BB6','rgba(0,107,182,0.12)');
+    document.getElementById('radar').innerHTML='<svg viewBox="0 0 '+W+' '+H+'" style="max-height:480px">'+g+'</svg>';
+  }
+  function teamName(t){return t==='knicks'?CFG.knicks:CFG.spurs;}
+  function renderTable(){
+    var A=PLAYERS[sel.a],B=PLAYERS[sel.b],html='';
+    for(var i=0;i<N;i++){
+      var better;
+      if(A.v[i]===B.v[i])better='t';
+      else {var aWin = CFG.higher[i]? A.v[i]>B.v[i] : A.v[i]<B.v[i]; better=aWin?'a':'b';}
+      var edge = better==='a'?'<span class="edge-a">'+CFG.edgeA+'</span>':better==='b'?'<span class="edge-b">'+CFG.edgeB+'</span>':'<span class="edge-t">'+CFG.tie+'</span>';
+      var low = CFG.higher[i]?'':'<span class="lowtag">'+CFG.lower+'</span>';
+      html+='<tr><td class="metric">'+CFG.labels[i]+low+'</td><td class="va">'+A.raw[i]+'</td><td class="vb">'+B.raw[i]+'</td><td class="edge">'+edge+'</td></tr>';
+    }
+    document.getElementById('cmp-rows').innerHTML=html;
+  }
+  function refreshSide(side){
+    var idx=sel[side], p=PLAYERS[idx];
+    var pk=document.querySelector('.pk[data-side="'+side+'"]');
+    pk.querySelector('[data-name]').textContent=p.n;
+    pk.querySelector('[data-sub]').textContent=teamName(p.t)+' · '+p.pos.split('·').slice(-1)[0].trim()+' · '+p.mpg+(/[0-9]/.test(p.mpg)?(document.documentElement.lang==='en'?' MPG':' 分钟'):'');
+    document.querySelector('[data-leg="'+side+'"]').textContent=p.n;
+  }
+  function render(){ refreshSide('a'); refreshSide('b'); drawRadar(); renderTable(); }
+  // build option lists + wire pickers
+  document.querySelectorAll('.pk').forEach(function(pk){
+    var side=pk.dataset.side, list=pk.querySelector('.pk-list'), input=pk.querySelector('.pk-input');
+    PLAYERS.forEach(function(p,i){
+      var o=document.createElement('div'); o.className='pk-opt'; o.dataset.i=i;
+      o.innerHTML='<span>'+p.n+'</span><span class="tm">'+teamName(p.t)+'</span>';
+      o.addEventListener('mousedown',function(e){e.preventDefault(); sel[side]=i; input.value=''; filter(list,''); list.classList.remove('open'); render();});
+      list.appendChild(o);
+    });
+    input.addEventListener('focus',function(){filter(list,input.value);list.classList.add('open');});
+    input.addEventListener('input',function(){filter(list,input.value);list.classList.add('open');});
+    input.addEventListener('blur',function(){setTimeout(function(){list.classList.remove('open');},150);});
+  });
+  function filter(list,q){
+    q=(q||'').trim().toLowerCase();
+    list.querySelectorAll('.pk-opt').forEach(function(o){
+      o.hidden = q && o.textContent.toLowerCase().indexOf(q)===-1;
+    });
+  }
+  render();
+})();
+</script>
+</body>
+</html>
