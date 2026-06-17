@@ -119,6 +119,16 @@ Current prompt-framework references include:
 - Avoid absolute local filesystem paths inside `SKILL.md` files.
 - `src/mcp/`, `src/instructions/`, and `src/prompt-framework/` are documentation-only directories; they are not imported as skills.
 
+### Design System (NBA Radar Pages)
+
+All player radar pages under `docs/` use a unified design language inspired by the huasheng.ai/parrots naturalist aesthetic:
+
+- **Palette**: warm cream `#F8F4EE` background, `#006BB6` Knicks blue accent, `#F58426` orange secondary
+- **Typography**: Playfair Display (italic serif, player names) · Inter (body) · JetBrains Mono (stats and numbers)
+- **Radar SVG colors**: swapped client-side via injected JavaScript — team color `#006BB6`, reference color `#F58426`
+- **Cards**: flat borders, no shadows, ↑/↓ arrows for insight sentiment (no gradient chips)
+- All six radar articles (Knicks + Spurs, pages 1–3, Chinese + English) share this CSS verbatim
+
 ---
 
 ## 中文
@@ -229,3 +239,13 @@ Current prompt-framework references include:
 - 如果后续要导入到其他 Codex 或 agent 环境，可以直接复制单个 skill 目录使用。
 - 尽量不要在 `SKILL.md` 里写本机绝对路径。
 - `src/mcp/`、`src/instructions/` 和 `src/prompt-framework/` 只用于文档整理，不会作为 skill 直接导入。
+
+### 设计系统（NBA 雷达页面）
+
+`docs/` 下所有球员雷达页面使用统一设计语言，风格参考 huasheng.ai/parrots 的博物学美学：
+
+- **色彩**：暖奶油底色 `#F8F4EE`，尼克斯蓝 `#006BB6` 主强调色，橙色 `#F58426` 辅助色
+- **字体**：Playfair Display（斜体衬线，球员名）· Inter（正文）· JetBrains Mono（数据和数字）
+- **雷达 SVG 颜色**：通过页面内嵌 JavaScript 在客户端替换 —— 球队色 `#006BB6`，参照线色 `#F58426`
+- **卡片**：纯边框，无阴影，洞察情感用 ↑/↓ 箭头标注（不使用渐变色块）
+- 全部六篇雷达文章（尼克斯 + 马刺，中英文各 3 页）共用同一套 CSS
