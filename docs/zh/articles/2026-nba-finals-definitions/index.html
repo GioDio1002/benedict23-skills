@@ -41,16 +41,28 @@ tr:last-child td{border-bottom:none}
 <main class="page">
   <div class="lang-switch"><a href="#" data-lang-switch>English</a></div>
   <h1>维度定义与数据采集</h1>
-  <p class="intro">本页给出对比页与雷达图所用的十个维度的精确定义、计算公式与它所表达的「比赛价值」，以及全部数据的获取流程，方便复现与校验。</p>
-  <div class="note">所有「越低越好」的原始指标在发布时都已经折算成正向对立面（护球率 / 防守压制 / 犯规节制 / 对位压制率），雷达图上「越往外越好」恒成立。十维之外的封盖率 / 抢断率 / 迫使失误率 / 对位防守命中率四项防守维度已纳入下一轮 re-scrape，准备扩展到十四维。</div>
+  <p class="intro">本页给出雷达图与对比页所用维度的精确定义、计算公式与它所表达的「比赛价值」，以及全部数据的获取流程，方便复现与校验。维度顺序与雷达图一致（自顶端真实命中率起顺时针）。</p>
+  <div class="note">所有「越低越好」的原始指标在发布时都已折算成正向对立面（护球率 = 100−失误率、防守压制 = 120−DefRtg、犯规节制 = 6−犯规），雷达图上「越往外越好」恒成立。下表 10 项就是雷达图当前真实绘制的维度，顺序与雷达顺时针一致。</div>
 
   <details class="fold" open>
-    <summary>十个维度的定义与价值</summary>
+    <summary>雷达维度的定义与价值（10 项 · 已上图）</summary>
     <div class="fold-body">
       <table>
         <colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup>
         <thead><tr><th>维度</th><th>英文 / 缩写</th><th>公式</th><th>它表达了什么</th></tr></thead>
-        <tbody><tr><td><strong>真实命中率</strong></td><td><code>TS%</code></td><td><code>PTS / (2 × (FGA + 0.44 × FTA))</code></td><td>综合两分、三分、罚球后的得分效率，比单看命中率更能反映「真正能换分的出手」。</td></tr><tr><td><strong>使用率</strong></td><td><code>USG%</code></td><td><code>100 × (FGA + 0.44×FTA + TOV) × (TmMin/5) / (Min × (TmFGA + 0.44×TmFTA + TmTOV))</code></td><td>球员在场时占用回合的比例，衡量出手与失误的责任体量。</td></tr><tr><td><strong>助攻率</strong></td><td><code>AST%</code></td><td><code>100 × AST / ((Min/(TmMin/5)) × TmFGM − FGM)</code></td><td>队友进球中由该球员直接助攻的比例，反映组织端贡献。</td></tr><tr><td><strong>队内得分占比</strong></td><td><code>Score Share</code></td><td><code>PTS / TmPTS（场均）</code></td><td>个人得分占本队得分的份额，刻画球队对其得分的依赖度。</td></tr><tr><td><strong>篮板率</strong></td><td><code>REB%</code></td><td><code>100 × (REB × (TmMin/5)) / (Min × (TmREB + OppREB))</code></td><td>在场时拿到可争抢篮板的比例，去掉了出场时间噪音。</td></tr><tr><td><strong>护球率</strong></td><td><code>Ball Security</code></td><td><code>100 − TOV%（TOV%=100×TOV/(FGA+0.44×FTA+TOV)）</code></td><td>每个使用回合不丢球的比例，越高代表回合终结越干净。</td></tr><tr><td><strong>正负值</strong></td><td><code>+/-</code></td><td><code>球员在场时本队净胜分（场均）</code></td><td>直接反映在场净效果，结合角色读最稳。</td></tr><tr><td><strong>防守压制</strong></td><td><code>Def. Stops</code></td><td><code>120 − DefRtg（DefRtg=每 100 回合失分）</code></td><td>以 120 分为基准减去百回合失分，越高代表在场防守越压制对手。</td></tr><tr><td><strong>犯规节制</strong></td><td><code>Foul Discipline</code></td><td><code>6 − 场均犯规</code></td><td>以 6 犯为基准减去场均犯规，越高代表越少送对方上罚球线。</td></tr><tr><td><strong>PIE</strong></td><td><code>PIE</code></td><td><code>官方综合贡献：球员各项正向数据 ÷ 比赛中所有球员该项数据之和</code></td><td>NBA 官方给出的「整体影响力」单值，便于跨位置横向看。</td></tr><tr><td><strong>封盖率</strong></td><td><code>BLK%</code></td><td><code>100 × (BLK × (TmMin/5)) / (Min × OppFGA2)</code></td><td>在场时盖掉对方两分出手的比例，呈现护框影响力。数据来自 BoxScoreAdvancedV3。</td></tr><tr><td><strong>抢断率</strong></td><td><code>STL%</code></td><td><code>100 × (STL × (TmMin/5)) / (Min × OppPoss)</code></td><td>在场时每个对方回合的抢断率，反映外线侵略性与预判能力。数据来自 BoxScoreAdvancedV3。</td></tr><tr><td><strong>迫使失误率</strong></td><td><code>Forced TOV%</code></td><td><code>100 × ForcedTOV / OppPoss（场均）</code></td><td>在场时迫使对方丢球的比例，来源于 PlayByPlayV3 把每次 TOV 归因到防守球员（拥抱包夹、抢断、24 秒、5 秒）。</td></tr><tr><td><strong>对位防守命中率</strong></td><td><code>Matchup FG% Allowed</code></td><td><code>对位回合内对手 FGM / FGA</code></td><td>以 LeagueDashPtDefend / BoxScoreMatchupsV3 拉对位明细，统计该球员作为主防时对手的命中率，越低越好——发布时取 100 − 该值，得到「对位压制率」。</td></tr></tbody>
+        <tbody><tr><td><strong>真实命中率</strong></td><td><code>TS%</code></td><td><code>PTS / (2 × (FGA + 0.44 × FTA))</code></td><td>综合两分、三分、罚球后的得分效率，比单看命中率更能反映「真正能换分的出手」。</td></tr><tr><td><strong>使用率</strong></td><td><code>USG%</code></td><td><code>100 × (FGA + 0.44×FTA + TOV) × (TmMin/5) / (Min × (TmFGA + 0.44×TmFTA + TmTOV))</code></td><td>球员在场时占用回合的比例，衡量出手与失误的责任体量。</td></tr><tr><td><strong>助攻率</strong></td><td><code>AST%</code></td><td><code>100 × AST / ((Min/(TmMin/5)) × TmFGM − FGM)</code></td><td>队友进球中由该球员直接助攻的比例，反映组织端贡献。</td></tr><tr><td><strong>队内得分占比</strong></td><td><code>Score Share</code></td><td><code>PTS / TmPTS（场均）</code></td><td>个人得分占本队得分的份额，刻画球队对其得分的依赖度。</td></tr><tr><td><strong>篮板率</strong></td><td><code>REB%</code></td><td><code>100 × (REB × (TmMin/5)) / (Min × (TmREB + OppREB))</code></td><td>在场时拿到可争抢篮板的比例，去掉了出场时间噪音。</td></tr><tr><td><strong>护球率</strong></td><td><code>Ball Security</code></td><td><code>100 − TOV%（TOV%=100×TOV/(FGA+0.44×FTA+TOV)）</code></td><td>每个使用回合不丢球的比例，越高代表回合终结越干净。</td></tr><tr><td><strong>正负值</strong></td><td><code>+/-</code></td><td><code>球员在场时本队净胜分（场均）</code></td><td>直接反映在场净效果，结合角色读最稳。</td></tr><tr><td><strong>防守压制</strong></td><td><code>Def. Stops</code></td><td><code>120 − DefRtg（DefRtg=每 100 回合失分）</code></td><td>以 120 分为基准减去百回合失分，越高代表在场防守越压制对手。</td></tr><tr><td><strong>犯规节制</strong></td><td><code>Foul Discipline</code></td><td><code>6 − 场均犯规</code></td><td>以 6 犯为基准减去场均犯规，越高代表越少送对方上罚球线。</td></tr><tr><td><strong>PIE</strong></td><td><code>PIE</code></td><td><code>官方综合贡献：球员各项正向数据 ÷ 比赛中所有球员该项数据之和</code></td><td>NBA 官方给出的「整体影响力」单值，便于跨位置横向看。</td></tr></tbody>
+      </table>
+    </div>
+  </details>
+
+  <details class="fold">
+    <summary>待采集的扩展维度（4 项 · 暂未上图）</summary>
+    <div class="fold-body">
+      <div class="note" style="margin:0 0 16px">以下 4 项对位级防守维度已定义好公式，但需要额外端点（PlayByPlayV3 / BoxScoreMatchupsV3 / LeagueDashPtDefend）重新抓取才能拿到真实数据。在数据落盘前不会画到雷达上，也不会显示任何占位数值——绝不编造。补齐后雷达将扩展到 14 维。</div>
+      <table>
+        <colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup>
+        <thead><tr><th>维度</th><th>英文 / 缩写</th><th>公式</th><th>它表达了什么</th></tr></thead>
+        <tbody><tr><td><strong>封盖率</strong></td><td><code>BLK%</code></td><td><code>100 × (BLK × (TmMin/5)) / (Min × OppFGA2)</code></td><td>在场时盖掉对方两分出手的比例，护框影响力。需 BoxScoreAdvancedV3。</td></tr><tr><td><strong>抢断率</strong></td><td><code>STL%</code></td><td><code>100 × (STL × (TmMin/5)) / (Min × OppPoss)</code></td><td>在场时每个对方回合的抢断率，外线侵略性。需 BoxScoreAdvancedV3。</td></tr><tr><td><strong>迫使失误率</strong></td><td><code>Forced TOV%</code></td><td><code>100 × ForcedTOV / OppPoss</code></td><td>迫使对方丢球的比例，需 PlayByPlayV3 把每次 TOV 归因到防守球员。</td></tr><tr><td><strong>对位压制率</strong></td><td><code>Matchup Suppression</code></td><td><code>100 − 对位对手 FGM/FGA</code></td><td>作为主防时压低对手命中率，需 LeagueDashPtDefend / BoxScoreMatchupsV3。</td></tr></tbody>
       </table>
     </div>
   </details>
