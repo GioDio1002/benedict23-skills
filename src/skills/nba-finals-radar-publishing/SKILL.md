@@ -157,10 +157,13 @@ Rules:
     divider, `雷达维度 / Radar metrics` below). This keeps every number in one scannable card
     and visually separates descriptive box-score stats from the analytical radar axes.
   - The per-game table carries the six baked box-score stats (MPG / PPG / APG / RPG / TOPG /
-    PFPG) plus two **shooting-split rows — FG% and 3P%** (`CFG.extraStats`). These two require
-    the bake stage to emit `x:[fg, fg3]` per player; until the scrape includes raw FGM/FGA and
-    3PM/3PA they render `—`. Don't fabricate them — wire the column and let it fill when the
-    data lands.
+    PFPG). **Show only metrics that have real baked data — never display an axis/row with no
+    data or a fabricated value.** FG% / 3P% were attempted but the artifacts carry no raw
+    FGM/FGA or 3PM/3PA (only TS%), so those rows are **not rendered**. The mechanism is left
+    in place (`CFG.extraStats`, read `x:[fg, fg3]` per player): set `extra_stats` to the
+    labels only once the bake actually emits the values — an empty `extra_stats=[]` keeps them
+    hidden. Same rule governs the four defense expansion axes: keep them documented on the
+    Metrics & Data page, but do not plot them on the radar until the scrape provides them.
   - Each picker's subtitle carries the **six stat-mini panels** (MPG / PPG / APG / RPG / TOPG /
     PFPG) for the currently selected player — same six chips as the per-player deck card — so the
     head-to-head context is visible before the user even reads the radar.
