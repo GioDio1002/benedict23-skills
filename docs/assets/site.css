@@ -722,7 +722,7 @@ html:lang(zh-CN) .article-radar-body .player-header h2 {
 }
 
 html:lang(zh-CN) .article-header h1 {
-  max-width: 15ch;
+  max-width: none;
   line-height: 1.12;
 }
 

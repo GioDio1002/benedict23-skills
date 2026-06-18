@@ -15,7 +15,8 @@ body{font-family:'Inter',-apple-system,"PingFang SC","Hiragino Sans GB",sans-ser
 .btn:hover{border-color:var(--accent)}
 .article-header h1{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:700;font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.08;margin-bottom:8px;max-width:20ch}
 .article-header p{color:var(--muted);font-size:.95rem;max-width:64ch}
-.filter-bar{position:sticky;top:0;z-index:40;display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;background:var(--bg);padding:12px 0;margin-bottom:14px;border-bottom:1px solid var(--border)}
+.filter-bar{position:sticky;top:0;z-index:40;background:var(--bg);padding:12px 0 10px;margin-bottom:14px;border-bottom:1px solid var(--border)}
+.filter-pickers{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}
 .pk{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;flex-direction:column;gap:6px}
 .pk.a{border-top:3px solid var(--accent)}.pk.b{border-top:3px solid var(--warm)}
 .pk-tag{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
@@ -25,7 +26,7 @@ body{font-family:'Inter',-apple-system,"PingFang SC","Hiragino Sans GB",sans-ser
 .pk.a .pk-select{border-color:rgba(0,107,182,.4)}.pk.b .pk-select{border-color:rgba(245,132,38,.4)}
 .pk-sub{font-size:.76rem;color:var(--muted)}
 .vs{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;color:var(--muted);font-size:1.1rem;text-align:center}
-.mode-row{display:flex;flex-wrap:nowrap;gap:12px;align-items:center;justify-content:flex-start;margin-bottom:14px;overflow-x:auto;padding-bottom:2px}
+.mode-row{display:flex;flex-wrap:nowrap;gap:12px;align-items:center;justify-content:flex-start;margin-top:10px;overflow-x:auto;padding-bottom:2px}
 .mode-row::-webkit-scrollbar{height:6px}.mode-row::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 .seg{flex:0 0 auto;display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--card)}
 .seg-btn{font-family:inherit;font-size:.82rem;font-weight:600;padding:7px 14px;border:none;background:transparent;color:var(--muted);cursor:pointer;white-space:nowrap}
@@ -51,7 +52,7 @@ td.edge{font-weight:700;font-size:.8rem}.edge-a{color:var(--accent)}.edge-b{colo
 .tcap{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;margin-bottom:10px}
 .tcap.a{color:var(--accent)}.tcap.b{color:var(--warm)}
 .footer{margin-top:30px;font-size:.78rem;color:var(--muted);text-align:center}.footer a{color:var(--accent)}
-@media(max-width:760px){.filter-bar{grid-template-columns:1fr;gap:10px}.vs{display:none}.lang-switch{position:static;margin-bottom:14px}.radar-wrap.split{grid-template-columns:1fr}.tbl-split{grid-template-columns:1fr}}
+@media(max-width:760px){.filter-pickers{grid-template-columns:1fr;gap:10px}.vs{display:none}.lang-switch{position:static;margin-bottom:14px}.radar-wrap.split{grid-template-columns:1fr}.tbl-split{grid-template-columns:1fr}}
 .stat-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0 2px}
 .stat-mini .m{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:7px 9px}
 .stat-mini .m b{display:block;font-family:'JetBrains Mono',monospace;font-size:1.02rem;font-weight:700;color:var(--text)}
@@ -91,23 +92,24 @@ details.fold>.radar-wrap,details.fold>.table-card,details.fold>.stat-row{margin:
   </section>
 
   <section class="filter-bar">
-    <div class="pk a" data-side="a">
-      <span class="pk-tag">球员 A</span>
-      <select class="pk-select" data-side="a" aria-label="球员 A"></select>
-      <span class="pk-sub" data-sub></span>
+    <div class="filter-pickers">
+      <div class="pk a" data-side="a">
+        <span class="pk-tag">球员 A</span>
+        <select class="pk-select" data-side="a" aria-label="球员 A"></select>
+        <span class="pk-sub" data-sub></span>
+      </div>
+      <div class="vs">对比</div>
+      <div class="pk b" data-side="b">
+        <span class="pk-tag">球员 B</span>
+        <select class="pk-select" data-side="b" aria-label="球员 B"></select>
+        <span class="pk-sub" data-sub></span>
+      </div>
     </div>
-    <div class="vs">对比</div>
-    <div class="pk b" data-side="b">
-      <span class="pk-tag">球员 B</span>
-      <select class="pk-select" data-side="b" aria-label="球员 B"></select>
-      <span class="pk-sub" data-sub></span>
+    <div class="mode-row">
+      <div class="seg"><button class="seg-btn is-on" data-mode="overlay">叠加对比</button><button class="seg-btn" data-mode="split">分开查看</button></div>
+      <div class="series-toggles" id="series-toggles"></div>
     </div>
   </section>
-
-  <div class="mode-row">
-    <div class="seg"><button class="seg-btn is-on" data-mode="overlay">叠加对比</button><button class="seg-btn" data-mode="split">分开查看</button></div>
-    <div class="series-toggles" id="series-toggles"></div>
-  </div>
 
   <details class="fold" open><summary>雷达对比</summary><section class="radar-wrap" id="radar-wrap"></section></details>
   <details class="fold" open><summary>综合评价</summary><section class="eval-wrap" id="eval-wrap"></section></details>
@@ -232,7 +234,7 @@ details.fold>.radar-wrap,details.fold>.table-card,details.fold>.stat-row{margin:
     var p=PLAYERS[sel[side]], pk=document.querySelector('.pk[data-side="'+side+'"]');
     if(pk){
       var sub=pk.querySelector('[data-sub]');
-      if(sub) sub.textContent=teamName(p.t)+' · '+p.pos+' · '+p.mpg+(isEN?' MPG':' 分钟');
+      if(sub) sub.textContent=teamName(p.t)+' · '+p.pos;
     }
     var stats=document.querySelector('.stat-mini[data-stats][data-side="'+side+'"]');
     if(stats) stats.innerHTML=(p.c||[]).map(function(c){return '<div class="m"><b>'+c[0]+'</b><span>'+c[1]+'</span></div>';}).join('');

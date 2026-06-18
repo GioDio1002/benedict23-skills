@@ -131,7 +131,11 @@ Rules:
   - **Sticky global filter bar with native `<select>` per side** — A left, B right, in a
     `position:sticky; top:0` bar so the reader can re-pick either player from anywhere on
     the page without scrolling back up. Each side is a native `<select>` whose options are
-    grouped by team via `<optgroup>` (Knicks group, Spurs group). **Do not build a custom
+    grouped by team via `<optgroup>` (Knicks group, Spurs group). The **Overlay/Split mode
+    toggle and the per-series legend chips live INSIDE this same sticky bar** (a second row
+    under the two selects) — all controls scroll-pinned together so the reader never loses
+    them mid-page. The selected-player subline shows team · position only — **no minutes**
+    (MPG is redundant with the stat-mini fold and just clutters the bar). **Do not build a custom
     popover/dropdown inside a collapsible card** — a `<details>` fold has `overflow:hidden`,
     which clips any absolutely-positioned popover so it never appears. The native select's
     dropdown is browser-rendered above all stacking contexts and cannot be clipped; it is
@@ -303,5 +307,10 @@ The published deck must read well on a phone, not just desktop:
 
 - Publish the deck as a clean directory `index.html` (e.g. `.../2026-nba-finals-knicks-radars/`),
   not `page-1.html`; redirect any legacy paginated URLs to it.
+- When a deck is loaded inside the unified-shell iframe, **drop the per-page "All articles /
+  Site home" nav block** — the shell sidebar already owns cross-view navigation, so the
+  in-iframe nav is redundant. Also don't cap the zh `article-header h1` width so tight that
+  a short title (e.g. `2026 尼克斯总决赛表现`) wraps to a second line — `text-wrap: balance`
+  plus a narrow `max-width` will force an ugly mid-word CJK break; give it room for one line.
 - Give each page a descriptive, branded `<title>` (e.g. `2026 NBA Finals · Knicks Player Performance
   | benedict23`) rather than a bare or numbered title — it is the tab label and the share preview name.
