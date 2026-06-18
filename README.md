@@ -142,6 +142,32 @@ All player radar pages under `docs/` use a unified design language inspired by t
 - **Cards**: flat borders, no shadows, ↑/↓ arrows for insight sentiment (no gradient chips)
 - All six radar articles (Knicks + Spurs, pages 1–3, Chinese + English) share this CSS verbatim
 
+### NBA Site — How It's Built / Reproduced
+
+The `2026-nba-finals` site is fully static under `docs/`, served by GitHub Pages. Two stages:
+
+1. **Data + bake** (`nba_api`, one-time per series): scrape official `stats.nba.com` box scores
+   (`LeagueGameFinder` / `TeamGameLogs` / `BoxScoreTraditionalV3` / `BoxScoreAdvancedV3`), cache
+   raw JSON, normalize, and **bake** each player's radar SVG + 10-metric table + analyst
+   evaluation into `docs/{zh/,}articles/2026-nba-finals-<team>-radars/page-{1,2,3}.html`. These
+   baked artifacts are the source of truth — everything downstream reads from them, never the API.
+2. **Publish** (pure Python transforms over the baked artifacts, no API needed): `regen_decks.py`
+   (positive-opposite metrics) → `restructure_decks.py` (radar-left / grade+evaluation-right card,
+   Finals A–F grade) → `build_deck.py` (swipe decks) → `build_compare.py` (head-to-head page) →
+   `build_defs.py` (Metrics & Data page) → `build_shell.py` (unified sidebar shell). Each script
+   overwrites its outputs and is safe to re-run.
+
+Key pieces:
+- **Metrics**: 10 live radar axes (6 offense + 2 impact + 2 defense), all recast **higher-better**
+  (护球率 = 100−TOV%, 防守压制 = 120−DefRtg, 犯规节制 = 6−PF). Four matchup-level defense axes
+  (BLK% / STL% / Forced TOV% / Matchup Suppression) are specified and queued for the next scrape.
+- **Overall evaluation**: per-player analyst prose anchored on Finals vs the player's own playoff
+  baseline vs team average; the compare page generates A-vs-B head-to-head prose instead.
+- **Finals A–F grade**: analyst-style — volume × absolute efficiency + impact + role bonus +
+  series outcome/FMVP — baked identically into both the decks and the compare page.
+- **Reproducibility receipt**: the in-site **Metrics & Data** page documents every formula and the
+  full data pipeline. Full build map lives in `src/skills/nba-finals-radar-publishing/SKILL.md`.
+
 ---
 
 ## 中文
@@ -272,3 +298,28 @@ All player radar pages under `docs/` use a unified design language inspired by t
 - **雷达 SVG 颜色**：通过页面内嵌 JavaScript 在客户端替换 —— 球队色 `#006BB6`，参照线色 `#F58426`
 - **卡片**：纯边框，无阴影，洞察情感用 ↑/↓ 箭头标注（不使用渐变色块）
 - 全部六篇雷达文章（尼克斯 + 马刺，中英文各 3 页）共用同一套 CSS
+
+### NBA 网站 —— 如何构建 / 复现
+
+`2026-nba-finals` 网站在 `docs/` 下纯静态，由 GitHub Pages 托管。两个阶段：
+
+1. **数据 + 烘焙**（`nba_api`，每个系列赛跑一次）：抓取官方 `stats.nba.com` box score
+   （`LeagueGameFinder` / `TeamGameLogs` / `BoxScoreTraditionalV3` / `BoxScoreAdvancedV3`），
+   缓存原始 JSON，归一化，把每名球员的雷达 SVG + 10 项指标表 + 综合评价**烘焙**进
+   `docs/{zh/,}articles/2026-nba-finals-<队>-radars/page-{1,2,3}.html`。这些烘焙产物是
+   真相源 —— 下游全部从它读，不再碰 API。
+2. **发布**（对烘焙产物的纯 Python 变换，无需 API）：`regen_decks.py`（正向指标）→
+   `restructure_decks.py`（雷达左 / 评分+评价右，总决赛 A–F 评级）→ `build_deck.py`（滑动卡片）
+   → `build_compare.py`（对比页）→ `build_defs.py`（维度定义与数据采集页）→ `build_shell.py`
+   （统一侧栏外壳）。每个脚本覆盖自己的输出，可反复运行。
+
+要点：
+- **指标**：10 个雷达维度（进攻 6 + 整体 2 + 防守 2），全部正向化（护球率 = 100−失误率、
+  防守压制 = 120−DefRtg、犯规节制 = 6−犯规）。另有 4 个对位级防守维度（封盖率 / 抢断率 /
+  迫使失误率 / 对位压制率）已定义，待下次抓取接入。
+- **综合评价**：逐人分析师文风，锚定 总决赛 vs 自身季后赛基准 vs 本队均值；对比页改为
+  A vs B 的直接对位文案。
+- **总决赛 A–F 评级**：分析师式 —— 负荷 × 绝对效率 + 影响 + 角色加成 + 系列赛结果/FMVP ——
+  deck 和对比页用同一套公式烘焙。
+- **可复现凭据**：站内「维度定义与数据采集」页记录每条公式和完整数据流水线；完整构建图见
+  `src/skills/nba-finals-radar-publishing/SKILL.md`。

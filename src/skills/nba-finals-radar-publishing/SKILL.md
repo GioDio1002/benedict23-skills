@@ -63,7 +63,12 @@ team or to the Finals. To target a new series:
 
 ## Metric guidance
 
-The published radar carries **fourteen axes** organized as offense (6) + impact (1) + defense (7):
+The **live radar carries ten axes** — offense (6) + impact (2) + defense (2). Four further
+**defense expansion axes** (BLK% / STL% / Forced TOV% / Matchup Suppression) are fully
+specified below and queued for the next re-scrape (they need the extra `PlayByPlayV3` /
+`BoxScoreMatchupsV3` / `LeagueDashPtDefend` endpoints — see *Data acquisition* step 6); the
+target is a fourteen-axis radar. Until that scrape lands, publish the ten live axes and keep
+the four expansion definitions on the Metrics & Data page marked as upcoming.
 
 **Offense — load + efficiency + creation**
 - `TS%` — scoring efficiency
@@ -77,9 +82,11 @@ The published radar carries **fourteen axes** organized as offense (6) + impact 
 - `+/-` — on-court net points
 - `PIE` — official all-in-one impact
 
-**Defense — both team-level and matchup-level signals**
+**Defense — live (team-level)**
 - `Def. Stops` (= 120 − DefRtg) — on-court team defensive disruption
 - `Foul Discipline` (= 6 − PF/G) — fouling restraint
+
+**Defense — expansion axes (specified, pending re-scrape; matchup-level)**
 - `BLK%` — rim protection (`100 × BLK × (TmMin/5) / (Min × OppFGA2)`)
 - `STL%` — perimeter disruption (`100 × STL × (TmMin/5) / (Min × OppPoss)`)
 - `Forced TOV%` — share of opponent possessions the defender forced into a giveaway,
@@ -264,6 +271,65 @@ player's full-playoff value vs team average):
   sample as too small, and stop. No manufactured insight.
 
 Keep the English and Chinese versions generated from the same computed facts so they stay aligned.
+
+## Site build architecture (how to reproduce the published site)
+
+The live site (`giodio1002.github.io/benedict23-skills/...2026-nba-finals/`) is **fully
+static** under `docs/`, published by GitHub Pages. There is no server, no build step at
+request time — every page is a generated HTML file. Reproduce it in two stages: a
+**data/bake stage** (Python + nba_api → per-player radar SVGs + stat tables baked into the
+`page-N.html` artifacts) and a **publish stage** (small Python generators that assemble the
+baked artifacts into the deck / compare / definitions / shell pages).
+
+### Source-of-truth artifacts
+
+The bake stage emits, per team per language, three paginated artifacts that hold the baked
+radars + tables + analyst prose:
+
+```
+docs/{zh/,}articles/2026-nba-finals-<team>-radars/page-{1,2,3}.html   # baked source of truth
+```
+
+Each `<section class="player-section">` in those files contains: the player `<h2>`, the six
+`stat-chip` per-game panels, the radar `<svg>` (three baked polygons — player `#111827`,
+team-avg `#2563EB`, playoff-avg `#6C757D` — geometry computed from raw values with per-axis
+min/max normalization), the `summary-box` analyst evaluation, the insight cards, and the
+ten-row metric table. **Everything downstream reads from these files**, never from the API.
+
+### Publish-stage generators (idempotent, re-runnable)
+
+Each is a standalone Python script that reads the baked `page-N.html` artifacts and writes
+the published pages. Re-run any of them after editing; they overwrite their outputs.
+
+| Generator | Reads | Writes | Responsibility |
+|---|---|---|---|
+| `build_deck.py` | `page-{1,2,3}.html` | `<team>-radars/index.html` (×4) | the swipe deck: sticky search picker, one `player-section` per card, foldable radar/table, color-swap JS, keyboard/touch nav. Strips legacy redirect meta. |
+| `regen_decks.py` | `page-N.html` | rewrites `page-N.html` in place | rebakes the three radar polygons + axis labels + table value cells + delta/insight/summary prose to the **positive-opposite** metrics (护球率/防守压制/犯规节制). Run when metric polarity or axis set changes. |
+| `restructure_decks.py` | `page-N.html` | rewrites `page-N.html` in place | moves `summary-box` out of the radar column into the right column, prepends the **baked Finals letter-grade card** (same grading model as compare), injects `.grade-card` CSS. |
+| `build_compare.py` (+ `compare_css.txt`, `compare_js.txt`) | `page-N.html` (extracts each player's `v/p/tm` vectors + chips + `ev` prose) | `2026-nba-finals-compare/index.html` (×2) | head-to-head page: sticky native-`<select>` filter bar (A/B grouped by `<optgroup>`), Overlay/Split radar, A-vs-B generated evaluation cards with letter grade, delta table, stat-mini fold. |
+| `build_defs.py` | (self-contained metric/pipeline copy) | `2026-nba-finals-definitions/index.html` (×2) | the Metrics & Data reproducibility page: 14-axis formula table + 8-step data pipeline. |
+| `build_shell.py` | (config only) | `2026-nba-finals/index.html` (×2) | the unified shell: collapsible sidebar (Comparison → teams → Metrics & Data), iframe loader, hash routing, parent-redirect language switch. |
+
+**Per-series knobs** (edit before regenerating for a new series): in `build_compare.py` META
+set `series_winner`, `fmvp`, `fmvp_tag`, `win_tag`, `loss_tag`; in `build_shell.py` /
+`build_defs.py` set team labels and titles. The grading code, color-swap, and normalization
+are all generic.
+
+### Reproduction order for a fresh series
+
+1. **Scrape + bake** (data stage, see *Data acquisition*): nba_api → cache raw JSON →
+   normalize → emit `page-{1,2,3}.html` per team per language with baked SVGs + tables +
+   analyst evaluations.
+2. `python3 regen_decks.py` — ensure radars/tables are on positive-opposite metrics.
+3. `python3 restructure_decks.py` — radar-left / grade+evaluation-right card layout.
+4. `python3 build_deck.py` — assemble the four swipe decks.
+5. `python3 build_compare.py` — the head-to-head page (set the per-series knobs first).
+6. `python3 build_defs.py` — the Metrics & Data page.
+7. `python3 build_shell.py` — the unified entry that binds them.
+8. Repoint home/index links at `2026-nba-finals/index.html`; commit `docs/`; GitHub Pages serves it.
+
+Steps 2–7 are pure transforms over committed artifacts — anyone can re-run them without API
+access. Only step 1 needs nba_api. Verify at 390px before shipping (see *Mobile / responsive*).
 
 ## Visual design (radar article shell)
 
