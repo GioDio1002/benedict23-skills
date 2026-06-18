@@ -44,12 +44,12 @@ html,body{background:#cdc4b6}
 .sub{position:relative;z-index:2;margin-top:34px;font-size:27px;line-height:1.7;color:var(--muted);max-width:30ch;
   font-family:'Noto Serif SC',serif}
 .sub b{color:var(--text);font-weight:700}
-.evidence{position:relative;z-index:2;margin-top:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.chip{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:22px 22px 20px}
+.evidence{position:relative;z-index:2;margin-top:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.chip{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:20px 16px 18px}
 .chip.flag{background:var(--bad-bg);border-color:rgba(139,26,26,0.22)}
-.chip .num{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:42px;letter-spacing:-.02em;color:var(--text)}
+.chip .num{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:36px;letter-spacing:-.03em;color:var(--text)}
 .chip.flag .num{color:var(--bad)}
-.chip .lab{font-size:15px;color:var(--muted);margin-top:10px;line-height:1.45}
+.chip .lab{font-size:14px;color:var(--muted);margin-top:9px;line-height:1.45}
 .chip .lab b{color:var(--text);font-weight:600}
 .foot{position:relative;z-index:2;margin-top:30px;display:flex;justify-content:space-between;align-items:center;
   padding-top:22px;border-top:1px solid var(--border)}
@@ -81,9 +81,13 @@ html,body{background:#cdc4b6}
       <div class="num">−0.6</div>
       <div class="lab">在场场均净胜<br><b>季后赛 +5.7</b></div>
     </div>
-    <div class="chip">
+    <div class="chip flag">
       <div class="num">21.2%</div>
       <div class="lab">使用率<br><b>持球没少碰</b></div>
+    </div>
+    <div class="chip">
+      <div class="num">68.8%</div>
+      <div class="lab">对位压制率<br><b>防守端没躺</b></div>
     </div>
   </div>
 
