@@ -110,6 +110,13 @@ Rules:
 - Keep each card short with **collapsible `<details>` sections**: the long metric-definition table is
   collapsed by default; the radar+analysis block is foldable (open by default). Recompute the deck
   viewport height on every `toggle` so the slider resizes to the open content.
+- **Deck card layout = radar left, evaluation right.** Inside each player card's `main-grid`, the left
+  column holds the radar SVG + legend; the right column leads with a **Finals letter-grade card**
+  (square accent badge A+…F + one-line rationale) followed by the player's overall-evaluation prose,
+  then the team-relative strength/weakness insight groups. The grade uses the **same analyst-style
+  model as the compare page** (volume × absolute efficiency + impact + role bonus + outcome/FMVP),
+  baked statically at build time from each card's own Finals stat line — so the per-team decks and the
+  head-to-head compare page show a consistent grade for the same player.
 - Offer a **head-to-head compare page** alongside the per-team decks: two searchable pickers (player
   A vs player B, drawn from every player on both teams), and a metric-by-metric delta table.
   - **Recast the lower-is-better axes as positive opposites** (don't just invert for plotting):
