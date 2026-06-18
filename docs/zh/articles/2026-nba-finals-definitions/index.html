@@ -58,11 +58,11 @@ tr:last-child td{border-bottom:none}
   <details class="fold" open>
     <summary>数据采集流程</summary>
     <div class="fold-body">
-      <div class="steps"><article class="step"><h3>1 · 数据来源</h3><p>以官方 `stats.nba.com` 数据为唯一基准，通过 `nba_api` 调用 `LeagueGameFinder`、`TeamGameLogs`、`BoxScoreTraditionalV3`、`BoxScoreAdvancedV3` 端点，覆盖 2026 总决赛全部 6 场以及两队完整季后赛历程。</p></article><article class="step"><h3>2 · 采集策略</h3><p>按球队 ID + 赛季 ID + SeasonType=Playoffs 拉取场次清单，再按场次 ID 拉每场 box score（基础 + 高阶），原始 JSON 落盘到 `data/raw/<game_id>/` 缓存。</p></article><article class="step"><h3>3 · 礼貌抓取</h3><p>`stats.nba.com` 有显式限速：每次请求间隔 0.6–1.2 秒随机抖动 + 失败指数退避，UA 写明项目身份。再跑分析时只读缓存，绝不二次请求。</p></article><article class="step"><h3>4 · 三条基线</h3><p>每名球员同时构建三组数据：① 本届总决赛逐场聚合；② 该球员完整季后赛均值（含总决赛）；③ 本队总决赛全员均值。三条线在雷达图上同时画出，构成「本人 / 自身基准 / 球队基准」的三角对照。</p></article><article class="step"><h3>5 · 衍生指标</h3><p>派生指标（队内得分占比、护球率 = 100−TOV%、防守压制 = 120−DefRtg、犯规节制 = 6−PF/G）在归一化前显式计算，公式写进 `derive.py` 留底，便于事后复查。</p></article><article class="step"><h3>6 · 校验</h3><p>逐场再用 `BoxScoreSummaryV2` 拉队伍总分 + 胜负，与聚合结果交叉核对；任何球员场均 TS% / USG% 与 `stats.nba.com` 公开页同口径差异超过 0.5 个百分点即报错回查。</p></article><article class="step"><h3>7 · 归一化</h3><p>雷达绘制时按当前页面全集做 per-axis min/max 归一，保证任意两名球员可直接面积对比；表格仍给出原始数值。</p></article><article class="step"><h3>8 · 防守对位数据（扩展维度）</h3><p>十维之外的四项防守维度通过额外端点获取：封盖率 / 抢断率从 BoxScoreAdvancedV3 直接读出；迫使失误率通过 PlayByPlayV3 把每次 TOV 归因到防守球员（结合 SCREEN_AST / STEAL / EVENTMSGTYPE=5）；对位防守命中率读 LeagueDashPtDefend 或 BoxScoreMatchupsV3 的逐对位回合明细，按 OFF_PLAYER vs DEF_PLAYER 汇总命中率，发布时取 100 − MFG% 做正向化。</p></article></div>
+      <div class="steps"><article class="step"><h3>1 · 来源与抓取</h3><p>以官方 `stats.nba.com` 为唯一基准，通过 `nba_api` 调用 `LeagueGameLog`（季后赛场次）、`BoxScoreTraditionalV3`、`BoxScoreMatchupsV3`、`PlayByPlayV3`，覆盖 2026 总决赛 5 场（尼克斯 4-1 马刺）及两队完整季后赛。礼貌抓取：请求间隔 0.6–1.2 秒随机抖动 + 失败退避，原始 JSON 落盘 `data/raw/` 缓存，再跑分析只读缓存。</p></article><article class="step"><h3>2 · 三条基线</h3><p>每名球员同时构建三组数据并在雷达上同时画出：① 本届总决赛逐场聚合；② 该球员完整季后赛均值（含总决赛，灰线）；③ 本队总决赛全员均值。构成「本人 / 自身基准 / 球队基准」的三角对照。</p></article><article class="step"><h3>3 · 维度计算</h3><p>进攻/影响 10 维 + 防守 4 维，发布前全部正向化（护球率 = 100−TOV%、防守压制 = 120−DefRtg、犯规节制 = 6−PF/G、对位压制率 = 100−对位命中率）。防守 4 维：封盖率 / 抢断率由基础 box 算，迫使失误率由 `PlayByPlayV3` 把抢断归因到防守球员，对位压制率由 `BoxScoreMatchupsV3` 逐对位汇总。</p></article><article class="step"><h3>4 · 归一化与复现</h3><p>雷达按全集做 per-axis min/max 归一，保证任意两名球员可直接面积对比；表格仍给原始数值。采集与生成脚本（`scrape_defense.py` / `bake14.py` / `build_*.py`）均可独立重跑复现。</p></article></div>
     </div>
   </details>
 
-  <div class="foot">全部脚本与中间产物保存在仓库 src/skills/nba-finals-radar-publishing/ 下，可独立复现。</div>
+  <div class="foot">全部脚本保存在仓库 src/skills/nba-finals-radar-publishing/ 下，可独立复现。</div>
 </main>
 </body>
 </html>
