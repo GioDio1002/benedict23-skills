@@ -36,13 +36,20 @@ team or to the Finals. To target a new series:
    formula explicit and auditable.
 5. The chosen baseline is configurable: Finals → player's full-playoff average; a playoff round →
    that player's regular-season or prior-rounds average; a regular-season span → season-to-date.
-6. For the **defense expansion axes** (BLK% / STL% / Forced TOV% / Matchup Suppression), pull
-   two additional endpoints: `PlayByPlayV3` for each game (so Forced TOV% can attribute each
-   `EVENTMSGTYPE=5` event to the defender that produced the steal / 24-second / 5-second
-   violation), and `LeagueDashPtDefend` (season-cumulative) plus per-game
-   `BoxScoreMatchupsV3` for matchup-level FGM/FGA grouped by primary defender. Cache both
-   alongside the traditional/advanced box scores. Publish Matchup FG% Allowed as
-   `100 − MFG%` so the axis stays higher-better.
+6. For the **defense expansion axes** (BLK% / STL% / Forced TOV% / Matchup Suppression) use the
+   ready-made collector **`scrape_defense.py`** in this skill dir (depends on `nba_api`, see
+   `requirements.txt`). It pulls, per Finals game: `BoxScoreTraditionalV3` (BLK / STL / MIN +
+   team/opp totals → BLK% and STL%), `PlayByPlayV3` (count `"… STEAL …"` actions credited to a
+   defender → Forced TOV%), and `BoxScoreMatchupsV3` (sum each defender's per-matchup
+   `matchupFieldGoalsMade/Attempted` → opponent FG% allowed; publish `100 − MFG%` as Matchup
+   Suppression, higher-better). Polite: jittered backoff, raw JSON cached under `data/raw/`
+   (gitignored, regenerable). Output: `defense.json` keyed by player name. **Runs only where
+   stats.nba.com is reachable** (it datacenter/geo-blocks some IPs). For the 2026 NYK–SAS Finals
+   this produced real values for all 22 players (e.g. Wembanyama BLK% 8.5, Brunson Forced TOV%
+   12.6, Fox Matchup Suppression 68.8); sub-15-minute players are small-sample noisy — flag, don't
+   over-read. Still TODO before these become live radar axes: scrape each player's full-playoff
+   baseline for the same four metrics (the gray reference line) and the team-Finals average, then
+   extend the bake to 14 spokes.
 
 ## Workflow
 
