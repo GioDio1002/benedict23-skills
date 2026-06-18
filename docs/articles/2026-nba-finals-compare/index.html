@@ -15,21 +15,15 @@ body{font-family:'Inter',-apple-system,"PingFang SC","Hiragino Sans GB",sans-ser
 .btn:hover{border-color:var(--accent)}
 .article-header h1{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:700;font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.08;margin-bottom:8px;max-width:20ch}
 .article-header p{color:var(--muted);font-size:.95rem;max-width:64ch}
-.cmp-pickers{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin-bottom:16px}
-.pk{position:relative;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.filter-bar{position:sticky;top:0;z-index:40;display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;background:var(--bg);padding:12px 0;margin-bottom:14px;border-bottom:1px solid var(--border)}
+.pk{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;flex-direction:column;gap:6px}
 .pk.a{border-top:3px solid var(--accent)}.pk.b{border-top:3px solid var(--warm)}
-.pk-tag{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.pk-tag{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .pk.a .pk-tag{color:var(--accent)}.pk.b .pk-tag{color:var(--warm)}
-.pk-name{font-family:'Playfair Display',serif;font-style:italic;font-size:1.45rem;font-weight:700;line-height:1.1}
-.pk-sub{font-size:.78rem;color:var(--muted);margin-top:4px}
-.pk-input{width:100%;margin-top:12px;font-family:inherit;font-size:.9rem;padding:9px 12px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text)}
-.pk-input:focus{outline:none;border-color:var(--accent)}
-.pk-list{position:absolute;left:16px;right:16px;top:100%;z-index:50;max-height:280px;overflow-y:auto;background:var(--card);border:1px solid var(--border);border-radius:8px;box-shadow:0 12px 30px rgba(20,20,18,.14);display:none;margin-top:-4px}
-.pk-list.open{display:block}
-.pk-opt{display:flex;justify-content:space-between;gap:10px;padding:9px 13px;font-size:.86rem;cursor:pointer;border-bottom:1px solid var(--border)}
-.pk-opt:last-child{border-bottom:none}.pk-opt:hover{background:var(--bg)}
-.pk-opt .tm{font-size:.7rem;color:var(--muted);font-weight:600;align-self:center}
-.pk-opt[hidden]{display:none}
+.pk-select{width:100%;font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;font-weight:700;line-height:1.1;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px 34px 8px 12px;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%237A6F64' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.pk-select:focus{outline:none;border-color:var(--accent)}
+.pk.a .pk-select{border-color:rgba(0,107,182,.4)}.pk.b .pk-select{border-color:rgba(245,132,38,.4)}
+.pk-sub{font-size:.76rem;color:var(--muted)}
 .vs{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;color:var(--muted);font-size:1.1rem;text-align:center}
 .mode-row{display:flex;flex-wrap:nowrap;gap:12px;align-items:center;justify-content:flex-start;margin-bottom:14px;overflow-x:auto;padding-bottom:2px}
 .mode-row::-webkit-scrollbar{height:6px}.mode-row::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
@@ -57,24 +51,17 @@ td.edge{font-weight:700;font-size:.8rem}.edge-a{color:var(--accent)}.edge-b{colo
 .tcap{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;margin-bottom:10px}
 .tcap.a{color:var(--accent)}.tcap.b{color:var(--warm)}
 .footer{margin-top:30px;font-size:.78rem;color:var(--muted);text-align:center}.footer a{color:var(--accent)}
-@media(max-width:760px){.cmp-pickers{grid-template-columns:1fr;gap:10px}.vs{display:none}.lang-switch{position:static;margin-bottom:14px}.radar-wrap.split{grid-template-columns:1fr}.tbl-split{grid-template-columns:1fr}}
+@media(max-width:760px){.filter-bar{grid-template-columns:1fr;gap:10px}.vs{display:none}.lang-switch{position:static;margin-bottom:14px}.radar-wrap.split{grid-template-columns:1fr}.tbl-split{grid-template-columns:1fr}}
 .stat-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0 2px}
 .stat-mini .m{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:7px 9px}
 .stat-mini .m b{display:block;font-family:'JetBrains Mono',monospace;font-size:1.02rem;font-weight:700;color:var(--text)}
 .stat-mini .m span{display:block;font-size:.6rem;color:var(--muted);margin-top:2px;letter-spacing:.02em}
-.pk-team{display:flex;justify-content:space-between;align-items:center;padding:12px 13px;font-size:.92rem;font-weight:600;cursor:pointer;border-bottom:1px solid var(--border)}
-.pk-team:last-child{border-bottom:none}
-.pk-team:hover{background:var(--bg)}
-.pk-team .ch{color:var(--muted);font-weight:400}
-.pk-back{padding:10px 13px;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:1px solid var(--border);background:var(--bg)}
-.pk-back:hover{color:var(--accent)}
-
 details.fold{background:var(--card);border:1px solid var(--border);border-radius:12px;margin:0 auto 18px;max-width:1180px;overflow:hidden}
 details.fold>summary{cursor:pointer;list-style:none;padding:14px 22px;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:700;font-size:1.2rem;color:var(--text);display:flex;align-items:center;justify-content:space-between}
 details.fold>summary::-webkit-details-marker{display:none}
 details.fold>summary::after{content:'▾';color:var(--muted);font-style:normal;font-size:.95rem;transition:transform .2s}
 details.fold:not([open])>summary::after{transform:rotate(-90deg)}
-details.fold>.radar-wrap,details.fold>.table-card,details.fold>.cmp-pickers,details.fold>.stat-row{margin:0;border:none;border-radius:0;background:transparent;padding:8px 18px 22px}
+details.fold>.radar-wrap,details.fold>.table-card,details.fold>.stat-row{margin:0;border:none;border-radius:0;background:transparent;padding:8px 18px 22px}
 
 .eval-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:8px 18px 22px}
 .eval-card{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:2px;padding:16px 20px}
@@ -86,19 +73,6 @@ details.fold>.radar-wrap,details.fold>.table-card,details.fold>.cmp-pickers,deta
 .eval-card p{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.92rem;line-height:1.75;color:var(--text);margin:0}
 .eval-card p.grade-line{font-family:'Inter',sans-serif;font-style:normal;font-size:.85rem;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px 12px;margin-bottom:10px}
 @media(max-width:760px){.eval-wrap{grid-template-columns:1fr}}
-
-.pk-pick{margin-top:12px;width:100%;font:inherit;font-size:.85rem;font-weight:600;padding:9px 14px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.pk-pick:hover{border-color:var(--accent);color:var(--accent)}
-.pk-pick .caret{color:var(--muted);font-weight:400}
-.pk-pop{position:absolute;left:14px;right:14px;top:100%;z-index:60;margin-top:6px;background:var(--card);border:1px solid var(--border);border-radius:10px;box-shadow:0 14px 36px rgba(20,20,18,.18);padding:10px 12px;display:none;max-height:380px;overflow-y:auto}
-.pk-pop.open{display:block}
-.pk-pop .team-grp{margin-bottom:8px}
-.pk-pop .team-grp:last-child{margin-bottom:0}
-.pk-pop .team-h{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:700;font-size:.92rem;color:var(--muted);padding:6px 4px 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
-.pk-pop .opts{display:flex;flex-wrap:wrap;gap:6px}
-.pk-pop .opt{font:inherit;font-size:.78rem;font-weight:600;padding:6px 12px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text);cursor:pointer;white-space:nowrap}
-.pk-pop .opt:hover{border-color:var(--accent);color:var(--accent)}
-.pk-pop .opt.is-sel{background:var(--accent);color:#fff;border-color:var(--accent)}
 
 .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:0 18px 18px}
 .stat-side{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
@@ -116,34 +90,19 @@ details.fold>.radar-wrap,details.fold>.table-card,details.fold>.cmp-pickers,deta
     <p>Pick any two Finals players from the Knicks and Spurs rotations; overlay or split their ten-dimension radars and compare Finals, playoff average, and team average. Every line is click-to-hide.</p>
   </section>
 
-  <details class="fold" open>
-    <summary>Player picker</summary>
-    <section class="cmp-pickers">
-      <div class="pk a" data-side="a">
-        <div class="pk-tag">Player A</div>
-        <div class="pk-name" data-name></div>
-        <div class="pk-sub" data-sub></div>
-        <button class="pk-pick" type="button" data-side="a">Change player <span class="caret">▾</span></button>
-        <div class="pk-pop" data-side="a"></div>
-      </div>
-      <div class="vs">vs</div>
-      <div class="pk b" data-side="b">
-        <div class="pk-tag">Player B</div>
-        <div class="pk-name" data-name></div>
-        <div class="pk-sub" data-sub></div>
-        <button class="pk-pick" type="button" data-side="b">Change player <span class="caret">▾</span></button>
-        <div class="pk-pop" data-side="b"></div>
-      </div>
-    </section>
-  </details>
-
-  <details class="fold" open>
-    <summary>Per-game stats</summary>
-    <section class="stat-row">
-      <div class="stat-side"><div class="stat-cap a">Player A</div><div class="stat-mini" data-stats data-side="a"></div></div>
-      <div class="stat-side"><div class="stat-cap b">Player B</div><div class="stat-mini" data-stats data-side="b"></div></div>
-    </section>
-  </details>
+  <section class="filter-bar">
+    <div class="pk a" data-side="a">
+      <span class="pk-tag">Player A</span>
+      <select class="pk-select" data-side="a" aria-label="Player A"></select>
+      <span class="pk-sub" data-sub></span>
+    </div>
+    <div class="vs">vs</div>
+    <div class="pk b" data-side="b">
+      <span class="pk-tag">Player B</span>
+      <select class="pk-select" data-side="b" aria-label="Player B"></select>
+      <span class="pk-sub" data-sub></span>
+    </div>
+  </section>
 
   <div class="mode-row">
     <div class="seg"><button class="seg-btn is-on" data-mode="overlay">Overlay</button><button class="seg-btn" data-mode="split">Split</button></div>
@@ -152,6 +111,13 @@ details.fold>.radar-wrap,details.fold>.table-card,details.fold>.cmp-pickers,deta
 
   <details class="fold" open><summary>Radar comparison</summary><section class="radar-wrap" id="radar-wrap"></section></details>
   <details class="fold" open><summary>Overall evaluations</summary><section class="eval-wrap" id="eval-wrap"></section></details>
+  <details class="fold" open>
+    <summary>Per-game stats</summary>
+    <section class="stat-row">
+      <div class="stat-side"><div class="stat-cap a">Player A</div><div class="stat-mini" data-stats data-side="a"></div></div>
+      <div class="stat-side"><div class="stat-cap b">Player B</div><div class="stat-mini" data-stats data-side="b"></div></div>
+    </section>
+  </details>
   <details class="fold" open><summary>Data table</summary><section class="table-card" id="table-card"></section></details>
 
   <footer class="footer">Article rebuilt from the latest Finals radar artifacts and published to GitHub Pages. · <a href="https://github.com/GioDio1002/benedict23-skills/tree/main/src/skills/nba-finals-radar-publishing">Generated with skill: nba-finals-radar-publishing</a></footer>
@@ -265,8 +231,8 @@ details.fold>.radar-wrap,details.fold>.table-card,details.fold>.cmp-pickers,deta
   function refreshSide(side){
     var p=PLAYERS[sel[side]], pk=document.querySelector('.pk[data-side="'+side+'"]');
     if(pk){
-      pk.querySelector('[data-name]').textContent=p.n;
-      pk.querySelector('[data-sub]').textContent=teamName(p.t)+' · '+p.pos+' · '+p.mpg+(isEN?' MPG':' 分钟');
+      var sub=pk.querySelector('[data-sub]');
+      if(sub) sub.textContent=teamName(p.t)+' · '+p.pos+' · '+p.mpg+(isEN?' MPG':' 分钟');
     }
     var stats=document.querySelector('.stat-mini[data-stats][data-side="'+side+'"]');
     if(stats) stats.innerHTML=(p.c||[]).map(function(c){return '<div class="m"><b>'+c[0]+'</b><span>'+c[1]+'</span></div>';}).join('');
@@ -372,47 +338,30 @@ details.fold>.radar-wrap,details.fold>.table-card,details.fold>.cmp-pickers,deta
     }
     w.innerHTML=card('a')+card('b');
   }
-  function render(){refreshSide('a');refreshSide('b');buildToggles();drawRadars();drawEvals();drawTable();buildPop('a');buildPop('b');}
+  function render(){refreshSide('a');refreshSide('b');buildToggles();drawRadars();drawEvals();drawTable();buildSelects();}
 
-  // Two-team popover picker. Both Knicks + Spurs (with all players) are visible
-  // simultaneously when the popover opens; same neutral button style for every opt.
-  function buildPop(side){
-    var pop=document.querySelector('.pk-pop[data-side="'+side+'"]'); if(!pop) return;
-    pop.innerHTML='';
-    [['knicks',CFG.knicks],['spurs',CFG.spurs]].forEach(function(tm){
-      var grp=document.createElement('div'); grp.className='team-grp';
-      var h=document.createElement('div'); h.className='team-h'; h.textContent=tm[1]; grp.appendChild(h);
-      var opts=document.createElement('div'); opts.className='opts';
-      PLAYERS.forEach(function(p,i){
-        if(p.t!==tm[0]) return;
-        var b=document.createElement('button'); b.type='button';
-        b.className='opt'+(sel[side]===i?' is-sel':'');
-        b.textContent=p.n;
-        b.addEventListener('mousedown',function(e){e.preventDefault();sel[side]=i;closePop(side);render();});
-        opts.appendChild(b);
+  // Always-visible native <select> per side, grouped by team via <optgroup>.
+  // Native dropdown renders above everything (no clipping by details overflow).
+  function buildSelects(){
+    document.querySelectorAll('.pk-select').forEach(function(selEl){
+      var side=selEl.dataset.side;
+      selEl.innerHTML='';
+      [['knicks',CFG.knicks],['spurs',CFG.spurs]].forEach(function(tm){
+        var og=document.createElement('optgroup'); og.label=tm[1];
+        PLAYERS.forEach(function(p,i){
+          if(p.t!==tm[0]) return;
+          var o=document.createElement('option'); o.value=i; o.textContent=p.n;
+          if(sel[side]===i) o.selected=true;
+          og.appendChild(o);
+        });
+        selEl.appendChild(og);
       });
-      grp.appendChild(opts); pop.appendChild(grp);
+      if(!selEl.dataset.bound){
+        selEl.dataset.bound='1';
+        selEl.addEventListener('change',function(){sel[side]=parseInt(selEl.value,10);render();});
+      }
     });
   }
-  function openPop(side){
-    closePop(side==='a'?'b':'a');
-    var pop=document.querySelector('.pk-pop[data-side="'+side+'"]'); if(pop) pop.classList.add('open');
-  }
-  function closePop(side){
-    var pop=document.querySelector('.pk-pop[data-side="'+side+'"]'); if(pop) pop.classList.remove('open');
-  }
-  document.querySelectorAll('.pk-pick').forEach(function(btn){
-    btn.addEventListener('click',function(e){
-      e.stopPropagation();
-      var side=btn.dataset.side;
-      var pop=document.querySelector('.pk-pop[data-side="'+side+'"]');
-      if(pop.classList.contains('open')) closePop(side); else openPop(side);
-    });
-  });
-  document.addEventListener('click',function(e){
-    if(e.target.closest('.pk-pop')||e.target.closest('.pk-pick')) return;
-    closePop('a'); closePop('b');
-  });
 
   document.querySelectorAll('.seg-btn').forEach(function(b){
     b.addEventListener('click',function(){

@@ -121,21 +121,21 @@ Rules:
   - A **mode switch**: *Overlay* (A vs B on one radar) and *Split* (two separate per-player radars,
     each showing that player's three series for readability). The comparison table follows the mode —
     A-vs-B edge table in overlay; per-player Finals/playoff/team tables in split.
-  - **Side-by-side picker with two-team popover**: A and B sit left/right; each side has a
-    single neutral-styled "Change player ▾" button that opens a popover anchored beneath
-    the card. The popover renders **both teams expanded at once** — Knicks header + every
-    Knicks player as an option, then Spurs header + every Spurs player — so the reader
-    sees the full roster in one glance, no drill / click-team-first step. Options use the
-    same neutral button look as everything else on the page (no per-team colored fills,
-    no blue-bg / white-text chips — those read as a visual outlier on a cream-themed
-    article). Selected option highlights with the accent fill. Click outside the popover
-    closes it; opening A closes B and vice versa.
-  - **Wrap the picker section itself in `<details open>`** — when readers know who they
-    want to compare, they can collapse the whole picker block. This replaces what used to
-    be a separate top search input row.
-  - **Per-game basic stats (6-panel stat-mini) live in their own `<details open>` fold**,
-    side A and side B shown left/right with their own colored caption. Collapsible so
-    readers focused on the radar can hide the descriptive numbers.
+  - **Sticky global filter bar with native `<select>` per side** — A left, B right, in a
+    `position:sticky; top:0` bar so the reader can re-pick either player from anywhere on
+    the page without scrolling back up. Each side is a native `<select>` whose options are
+    grouped by team via `<optgroup>` (Knicks group, Spurs group). **Do not build a custom
+    popover/dropdown inside a collapsible card** — a `<details>` fold has `overflow:hidden`,
+    which clips any absolutely-positioned popover so it never appears. The native select's
+    dropdown is browser-rendered above all stacking contexts and cannot be clipped; it is
+    the robust choice here. (This is the concrete bug that killed the earlier popover
+    picker.) The select keeps the per-side accent border (A blue, B orange) but otherwise
+    uses the cream theme — no colored chip fills.
+  - **Layout order**: sticky filter bar → mode toggle row → radar fold → overall-evaluation
+    fold → **per-game stat-mini fold** → data-table fold. The 6-panel per-game basic stats
+    sit in their own `<details open>` **below the overall evaluation** (not up by the
+    picker), A and B side-by-side with colored captions — descriptive context belongs after
+    the analytical read, and it stays collapsible.
   - Each picker's subtitle carries the **six stat-mini panels** (MPG / PPG / APG / RPG / TOPG /
     PFPG) for the currently selected player — same six chips as the per-player deck card — so the
     head-to-head context is visible before the user even reads the radar.
