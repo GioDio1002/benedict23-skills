@@ -70,12 +70,14 @@ team or to the Finals. To target a new series:
 
 ## Metric guidance
 
-The **live radar carries ten axes** — offense (6) + impact (2) + defense (2). Four further
-**defense expansion axes** (BLK% / STL% / Forced TOV% / Matchup Suppression) are fully
-specified below and queued for the next re-scrape (they need the extra `PlayByPlayV3` /
-`BoxScoreMatchupsV3` / `LeagueDashPtDefend` endpoints — see *Data acquisition* step 6); the
-target is a fourteen-axis radar. Until that scrape lands, publish the ten live axes and keep
-the four expansion definitions on the Metrics & Data page marked as upcoming.
+The **live radar carries ten axes** — offense (6) + impact (2) + defense (2). The four
+**matchup-level defense axes** (BLK% / STL% / Forced TOV% / Matchup Suppression) have now been
+**scraped for real** (`scrape_defense.py` → `defense_full.json`, with Finals / playoff-avg /
+team-avg baselines for all 22 players) and are **published as real table rows** — appended to
+each deck player's metric table and shown as a dedicated "Matchup defense (real data)" block on
+the compare page. They are **not yet plotted on the radar** (that needs the 10→14 spoke SVG
+rebake); the radar stays at ten axes for now. So: real defense data is live in the tables,
+radar expansion to fourteen spokes is the remaining step.
 
 **Offense — load + efficiency + creation**
 - `TS%` — scoring efficiency

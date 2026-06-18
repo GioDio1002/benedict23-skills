@@ -1,0 +1,486 @@
+{
+  "Devin Vassell": {
+    "team": "SAS",
+    "MIN": 191.7,
+    "fin": {
+      "BLK_PCT": 1.0,
+      "STL_PCT": 0.8,
+      "FORCED_TOV_PCT": 3.8,
+      "MATCHUP_SUPPRESSION": 48.8
+    },
+    "pl": {
+      "BLK_PCT": 1.9,
+      "STL_PCT": 1.7,
+      "FORCED_TOV_PCT": 8.7,
+      "MATCHUP_SUPPRESSION": 56.2
+    },
+    "tm": {
+      "BLK_PCT": 1.8,
+      "STL_PCT": 1.6,
+      "FORCED_TOV_PCT": 8.0,
+      "MATCHUP_SUPPRESSION": 66.8
+    }
+  },
+  "Julian Champagnie": {
+    "team": "SAS",
+    "MIN": 157.5,
+    "fin": {
+      "BLK_PCT": 1.2,
+      "STL_PCT": 1.9,
+      "FORCED_TOV_PCT": 9.3,
+      "MATCHUP_SUPPRESSION": 56.5
+    },
+    "pl": {
+      "BLK_PCT": 1.5,
+      "STL_PCT": 2.0,
+      "FORCED_TOV_PCT": 10.2,
+      "MATCHUP_SUPPRESSION": 55.7
+    },
+    "tm": {
+      "BLK_PCT": 1.8,
+      "STL_PCT": 1.6,
+      "FORCED_TOV_PCT": 8.0,
+      "MATCHUP_SUPPRESSION": 66.8
+    }
+  },
+  "Victor Wembanyama": {
+    "team": "SAS",
+    "MIN": 198.6,
+    "fin": {
+      "BLK_PCT": 8.5,
+      "STL_PCT": 1.2,
+      "FORCED_TOV_PCT": 6.2,
+      "MATCHUP_SUPPRESSION": 59.5
+    },
+    "pl": {
+      "BLK_PCT": 9.4,
+      "STL_PCT": 1.3,
+      "FORCED_TOV_PCT": 6.7,
+      "MATCHUP_SUPPRESSION": 50.9
+    },
+    "tm": {
+      "BLK_PCT": 1.8,
+      "STL_PCT": 1.6,
+      "FORCED_TOV_PCT": 8.0,
+      "MATCHUP_SUPPRESSION": 66.8
+    }
+  },
+  "Stephon Castle": {
+    "team": "SAS",
+    "MIN": 158.2,
+    "fin": {
+      "BLK_PCT": 0.6,
+      "STL_PCT": 0.9,
+      "FORCED_TOV_PCT": 4.6,
+      "MATCHUP_SUPPRESSION": 64.1
+    },
+    "pl": {
+      "BLK_PCT": 0.9,
+      "STL_PCT": 1.3,
+      "FORCED_TOV_PCT": 6.6,
+      "MATCHUP_SUPPRESSION": 53.4
+    },
+    "tm": {
+      "BLK_PCT": 1.8,
+      "STL_PCT": 1.6,
+      "FORCED_TOV_PCT": 8.0,
+      "MATCHUP_SUPPRESSION": 66.8
+    }
+  },
+  "De'Aaron Fox": {
+    "team": "SAS",
+    "MIN": 182.6,
+    "fin": {
+      "BLK_PCT": 2.1,
+      "STL_PCT": 1.9,
+      "FORCED_TOV_PCT": 9.4,
+      "MATCHUP_SUPPRESSION": 68.8
+    },
+    "pl": {
+      "BLK_PCT": 1.1,
+      "STL_PCT": 1.8,
+      "FORCED_TOV_PCT": 9.2,
+      "MATCHUP_SUPPRESSION": 58.9
+    },
+    "tm": {
+      "BLK_PCT": 1.8,
+      "STL_PCT": 1.6,
+      "FORCED_TOV_PCT": 8.0,
+      "MATCHUP_SUPPRESSION": 66.8
+    }
+  },
+  "Dylan Harper": {
+    "team": "SAS",
+    "MIN": 155.2,
+    "fin": {
+      "BLK_PCT": 0.6,
+      "STL_PCT": 0.6,
+      "FORCED_TOV_PCT": 3.2,
+      "MATCHUP_SUPPRESSION": 50.0
+    },
+    "pl": {
+      "BLK_PCT": 0.7,
+      "STL_PCT": 1.7,
+      "FORCED_TOV_PCT": 8.6,
+      "MATCHUP_SUPPRESSION": 47.6
+    },
+    "tm": {
+      "BLK_PCT": 1.8,
+      "STL_PCT": 1.6,
+      "FORCED_TOV_PCT": 8.0,
+      "MATCHUP_SUPPRESSION": 66.8
+    }
+  },
+  "Keldon Johnson": {
+    "team": "SAS",
+    "MIN": 75.0,
+    "fin": {
+      "BLK_PCT": 0.0,
+      "STL_PCT": 2.0,
+      "FORCED_TOV_PCT": 9.8,
+      "MATCHUP_SUPPRESSION": 70.0
+    },
+    "pl": {
+      "BLK_PCT": 0.7,
+      "STL_PCT": 1.8,
+      "FORCED_TOV_PCT": 8.8,
+      "MATCHUP_SUPPRESSION": 61.4
+    },
+    "tm": {
+      "BLK_PCT": 1.8,
+      "STL_PCT": 1.6,
+      "FORCED_TOV_PCT": 8.0,
+      "MATCHUP_SUPPRESSION": 66.8
+    }
+  },
+  "Luke Kornet": {
+    "team": "SAS",
+    "MIN": 41.6,
+    "fin": {
+      "BLK_PCT": 0.0,
+      "STL_PCT": 4.7,
+      "FORCED_TOV_PCT": 23.4,
+      "MATCHUP_SUPPRESSION": 100.0
+    },
+    "pl": {
+      "BLK_PCT": 4.8,
+      "STL_PCT": 2.3,
+      "FORCED_TOV_PCT": 11.3,
+      "MATCHUP_SUPPRESSION": 48.6
+    },
+    "tm": {
+      "BLK_PCT": 1.8,
+      "STL_PCT": 1.6,
+      "FORCED_TOV_PCT": 8.0,
+      "MATCHUP_SUPPRESSION": 66.8
+    }
+  },
+  "Harrison Barnes": {
+    "team": "SAS",
+    "MIN": 17.0,
+    "fin": {
+      "BLK_PCT": 0.0,
+      "STL_PCT": 0.0,
+      "FORCED_TOV_PCT": 0.0,
+      "MATCHUP_SUPPRESSION": 100.0
+    },
+    "pl": {
+      "BLK_PCT": 0.5,
+      "STL_PCT": 0.5,
+      "FORCED_TOV_PCT": 2.6,
+      "MATCHUP_SUPPRESSION": 65.9
+    },
+    "tm": {
+      "BLK_PCT": 1.8,
+      "STL_PCT": 1.6,
+      "FORCED_TOV_PCT": 8.0,
+      "MATCHUP_SUPPRESSION": 66.8
+    }
+  },
+  "Carter Bryant": {
+    "team": "SAS",
+    "MIN": 22.6,
+    "fin": {
+      "BLK_PCT": 4.2,
+      "STL_PCT": 2.2,
+      "FORCED_TOV_PCT": 10.8,
+      "MATCHUP_SUPPRESSION": 50.0
+    },
+    "pl": {
+      "BLK_PCT": 2.8,
+      "STL_PCT": 0.8,
+      "FORCED_TOV_PCT": 3.8,
+      "MATCHUP_SUPPRESSION": 47.8
+    },
+    "tm": {
+      "BLK_PCT": 1.8,
+      "STL_PCT": 1.6,
+      "FORCED_TOV_PCT": 8.0,
+      "MATCHUP_SUPPRESSION": 66.8
+    }
+  },
+  "Josh Hart": {
+    "team": "NYK",
+    "MIN": 151.8,
+    "fin": {
+      "BLK_PCT": 1.3,
+      "STL_PCT": 2.3,
+      "FORCED_TOV_PCT": 11.4,
+      "MATCHUP_SUPPRESSION": 60.6
+    },
+    "pl": {
+      "BLK_PCT": 0.7,
+      "STL_PCT": 2.6,
+      "FORCED_TOV_PCT": 12.9,
+      "MATCHUP_SUPPRESSION": 57.0
+    },
+    "tm": {
+      "BLK_PCT": 4.8,
+      "STL_PCT": 1.1,
+      "FORCED_TOV_PCT": 5.4,
+      "MATCHUP_SUPPRESSION": 58.3
+    }
+  },
+  "OG Anunoby": {
+    "team": "NYK",
+    "MIN": 180.1,
+    "fin": {
+      "BLK_PCT": 3.9,
+      "STL_PCT": 1.9,
+      "FORCED_TOV_PCT": 9.6,
+      "MATCHUP_SUPPRESSION": 48.4
+    },
+    "pl": {
+      "BLK_PCT": 3.4,
+      "STL_PCT": 2.2,
+      "FORCED_TOV_PCT": 10.9,
+      "MATCHUP_SUPPRESSION": 42.3
+    },
+    "tm": {
+      "BLK_PCT": 4.8,
+      "STL_PCT": 1.1,
+      "FORCED_TOV_PCT": 5.4,
+      "MATCHUP_SUPPRESSION": 58.3
+    }
+  },
+  "Karl-Anthony Towns": {
+    "team": "NYK",
+    "MIN": 154.8,
+    "fin": {
+      "BLK_PCT": 3.3,
+      "STL_PCT": 2.2,
+      "FORCED_TOV_PCT": 11.1,
+      "MATCHUP_SUPPRESSION": 50.0
+    },
+    "pl": {
+      "BLK_PCT": 4.4,
+      "STL_PCT": 2.0,
+      "FORCED_TOV_PCT": 10.2,
+      "MATCHUP_SUPPRESSION": 44.3
+    },
+    "tm": {
+      "BLK_PCT": 4.8,
+      "STL_PCT": 1.1,
+      "FORCED_TOV_PCT": 5.4,
+      "MATCHUP_SUPPRESSION": 58.3
+    }
+  },
+  "Mikal Bridges": {
+    "team": "NYK",
+    "MIN": 164.5,
+    "fin": {
+      "BLK_PCT": 1.2,
+      "STL_PCT": 0.9,
+      "FORCED_TOV_PCT": 4.5,
+      "MATCHUP_SUPPRESSION": 52.3
+    },
+    "pl": {
+      "BLK_PCT": 1.0,
+      "STL_PCT": 1.5,
+      "FORCED_TOV_PCT": 7.7,
+      "MATCHUP_SUPPRESSION": 43.8
+    },
+    "tm": {
+      "BLK_PCT": 4.8,
+      "STL_PCT": 1.1,
+      "FORCED_TOV_PCT": 5.4,
+      "MATCHUP_SUPPRESSION": 58.3
+    }
+  },
+  "Jalen Brunson": {
+    "team": "NYK",
+    "MIN": 195.8,
+    "fin": {
+      "BLK_PCT": 0.0,
+      "STL_PCT": 2.5,
+      "FORCED_TOV_PCT": 12.6,
+      "MATCHUP_SUPPRESSION": 58.8
+    },
+    "pl": {
+      "BLK_PCT": 0.0,
+      "STL_PCT": 1.6,
+      "FORCED_TOV_PCT": 8.1,
+      "MATCHUP_SUPPRESSION": 53.6
+    },
+    "tm": {
+      "BLK_PCT": 4.8,
+      "STL_PCT": 1.1,
+      "FORCED_TOV_PCT": 5.4,
+      "MATCHUP_SUPPRESSION": 58.3
+    }
+  },
+  "Landry Shamet": {
+    "team": "NYK",
+    "MIN": 120.5,
+    "fin": {
+      "BLK_PCT": 1.7,
+      "STL_PCT": 0.0,
+      "FORCED_TOV_PCT": 0.0,
+      "MATCHUP_SUPPRESSION": 65.8
+    },
+    "pl": {
+      "BLK_PCT": 0.7,
+      "STL_PCT": 0.6,
+      "FORCED_TOV_PCT": 3.2,
+      "MATCHUP_SUPPRESSION": 55.4
+    },
+    "tm": {
+      "BLK_PCT": 4.8,
+      "STL_PCT": 1.1,
+      "FORCED_TOV_PCT": 5.4,
+      "MATCHUP_SUPPRESSION": 58.3
+    }
+  },
+  "Miles McBride": {
+    "team": "NYK",
+    "MIN": 66.5,
+    "fin": {
+      "BLK_PCT": 1.5,
+      "STL_PCT": 0.0,
+      "FORCED_TOV_PCT": 0.0,
+      "MATCHUP_SUPPRESSION": 81.8
+    },
+    "pl": {
+      "BLK_PCT": 1.2,
+      "STL_PCT": 1.2,
+      "FORCED_TOV_PCT": 5.9,
+      "MATCHUP_SUPPRESSION": 64.8
+    },
+    "tm": {
+      "BLK_PCT": 4.8,
+      "STL_PCT": 1.1,
+      "FORCED_TOV_PCT": 5.4,
+      "MATCHUP_SUPPRESSION": 58.3
+    }
+  },
+  "Mitchell Robinson": {
+    "team": "NYK",
+    "MIN": 67.2,
+    "fin": {
+      "BLK_PCT": 4.5,
+      "STL_PCT": 0.7,
+      "FORCED_TOV_PCT": 3.7,
+      "MATCHUP_SUPPRESSION": 56.2
+    },
+    "pl": {
+      "BLK_PCT": 4.6,
+      "STL_PCT": 1.4,
+      "FORCED_TOV_PCT": 6.9,
+      "MATCHUP_SUPPRESSION": 34.4
+    },
+    "tm": {
+      "BLK_PCT": 4.8,
+      "STL_PCT": 1.1,
+      "FORCED_TOV_PCT": 5.4,
+      "MATCHUP_SUPPRESSION": 58.3
+    }
+  },
+  "Jose Alvarado": {
+    "team": "NYK",
+    "MIN": 60.4,
+    "fin": {
+      "BLK_PCT": 0.0,
+      "STL_PCT": 0.8,
+      "FORCED_TOV_PCT": 4.1,
+      "MATCHUP_SUPPRESSION": 66.7
+    },
+    "pl": {
+      "BLK_PCT": 1.2,
+      "STL_PCT": 2.9,
+      "FORCED_TOV_PCT": 14.5,
+      "MATCHUP_SUPPRESSION": 56.7
+    },
+    "tm": {
+      "BLK_PCT": 4.8,
+      "STL_PCT": 1.1,
+      "FORCED_TOV_PCT": 5.4,
+      "MATCHUP_SUPPRESSION": 58.3
+    }
+  },
+  "Jordan Clarkson": {
+    "team": "NYK",
+    "MIN": 29.7,
+    "fin": {
+      "BLK_PCT": 0.0,
+      "STL_PCT": 1.7,
+      "FORCED_TOV_PCT": 8.3,
+      "MATCHUP_SUPPRESSION": 58.8
+    },
+    "pl": {
+      "BLK_PCT": 0.5,
+      "STL_PCT": 1.0,
+      "FORCED_TOV_PCT": 5.0,
+      "MATCHUP_SUPPRESSION": 55.3
+    },
+    "tm": {
+      "BLK_PCT": 4.8,
+      "STL_PCT": 1.1,
+      "FORCED_TOV_PCT": 5.4,
+      "MATCHUP_SUPPRESSION": 58.3
+    }
+  },
+  "Jeremy Sochan": {
+    "team": "NYK",
+    "MIN": 3.3,
+    "fin": {
+      "BLK_PCT": 0.0,
+      "STL_PCT": 0.0,
+      "FORCED_TOV_PCT": 0.0,
+      "MATCHUP_SUPPRESSION": 100.0
+    },
+    "pl": {
+      "BLK_PCT": 3.9,
+      "STL_PCT": 1.9,
+      "FORCED_TOV_PCT": 9.5,
+      "MATCHUP_SUPPRESSION": 25.0
+    },
+    "tm": {
+      "BLK_PCT": 4.8,
+      "STL_PCT": 1.1,
+      "FORCED_TOV_PCT": 5.4,
+      "MATCHUP_SUPPRESSION": 58.3
+    }
+  },
+  "Ariel Hukporti": {
+    "team": "NYK",
+    "MIN": 5.3,
+    "fin": {
+      "BLK_PCT": 40.0,
+      "STL_PCT": 0.0,
+      "FORCED_TOV_PCT": 0.0,
+      "MATCHUP_SUPPRESSION": null
+    },
+    "pl": {
+      "BLK_PCT": 9.9,
+      "STL_PCT": 1.3,
+      "FORCED_TOV_PCT": 6.4,
+      "MATCHUP_SUPPRESSION": 50.0
+    },
+    "tm": {
+      "BLK_PCT": 4.8,
+      "STL_PCT": 1.1,
+      "FORCED_TOV_PCT": 5.4,
+      "MATCHUP_SUPPRESSION": 58.3
+    }
+  }
+}

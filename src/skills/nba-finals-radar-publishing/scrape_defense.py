@@ -55,6 +55,21 @@ def finals_game_ids(season='2025-26', teams=('NYK', 'SAS')):
     return sorted(ids)
 
 
+def playoff_game_ids(season='2025-26', teams=('NYK', 'SAS')):
+    """Every playoff game either team played (their full runs, unioned)."""
+    d = _cached(f'gamelog_{season}', lambda: leaguegamelog.LeagueGameLog(
+        season=season, season_type_all_star='Playoffs', player_or_team_abbreviation='T',
+        counter=1000, direction='DESC', sorter='DATE').get_dict())
+    rs = d['resultSets'][0]; h = rs['headers']
+    gi, ti = h.index('GAME_ID'), h.index('TEAM_ABBREVIATION')
+    ids = {ti0: [] for ti0 in teams}
+    by_game_team = {}
+    for r in rs['rowSet']:
+        by_game_team.setdefault(r[gi], set()).add(r[ti])
+    out = {t: sorted(g for g, ts in by_game_team.items() if t in ts) for t in teams}
+    return out
+
+
 def _box(gid, kind):
     ep = {'traditional': boxscoretraditionalv3.BoxScoreTraditionalV3,
           'matchups': boxscorematchupsv3.BoxScoreMatchupsV3}[kind]
@@ -136,16 +151,52 @@ def finalize(P):
     return out
 
 
+M4 = ['BLK_PCT', 'STL_PCT', 'FORCED_TOV_PCT', 'MATCHUP_SUPPRESSION']
+
+
+def build_full(season, teams):
+    fin_ids = finals_game_ids(season, teams)
+    po = playoff_game_ids(season, teams)
+    print('finals:', fin_ids)
+    print('playoff games:', {t: len(v) for t, v in po.items()})
+    fin = finalize(collect(fin_ids))
+    # full-playoff baseline: each player aggregated over his own team's full playoff run
+    pl = {}
+    for t in teams:
+        for name, v in finalize(collect(po[t])).items():
+            if v['team'] == t:
+                pl[name] = v
+    # team-Finals average per metric (mean over team's Finals players)
+    tmavg = {}
+    for t in teams:
+        ps = [v for v in fin.values() if v['team'] == t]
+        tmavg[t] = {m: round(sum((p[m] or 0) for p in ps) / max(len(ps), 1), 1) for m in M4}
+    out = {}
+    for name, v in fin.items():
+        t = v['team']
+        out[name] = dict(team=t, MIN=v['MIN'],
+                         fin={m: v[m] for m in M4},
+                         pl={m: (pl.get(name, {}).get(m)) for m in M4},
+                         tm=tmavg[t])
+    return out
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--season', default='2025-26')
     ap.add_argument('--teams', default='NYK,SAS')
     ap.add_argument('--games', default='')
-    ap.add_argument('--out', default=os.path.join(os.path.dirname(__file__), 'defense.json'))
+    ap.add_argument('--full', action='store_true', help='emit fin/pl/tm baselines for the radar bake')
+    ap.add_argument('--out', default='')
     a = ap.parse_args()
-    gids = a.games.split(',') if a.games else finals_game_ids(a.season, tuple(a.teams.split(',')))
-    print('games:', gids)
-    P = collect(gids)
-    res = finalize(P)
-    json.dump(res, open(a.out, 'w'), ensure_ascii=False, indent=2)
-    print('wrote', a.out, '|', len(res), 'players')
+    teams = tuple(a.teams.split(','))
+    if a.full:
+        res = build_full(a.season, teams)
+        out = a.out or os.path.join(os.path.dirname(__file__), 'defense_full.json')
+    else:
+        gids = a.games.split(',') if a.games else finals_game_ids(a.season, teams)
+        print('games:', gids)
+        res = finalize(collect(gids))
+        out = a.out or os.path.join(os.path.dirname(__file__), 'defense.json')
+    json.dump(res, open(out, 'w'), ensure_ascii=False, indent=2)
+    print('wrote', out, '|', len(res), 'players')
