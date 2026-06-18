@@ -117,13 +117,15 @@ Rules:
 - Keep each card short with **collapsible `<details>` sections**: the long metric-definition table is
   collapsed by default; the radar+analysis block is foldable (open by default). Recompute the deck
   viewport height on every `toggle` so the slider resizes to the open content.
-- **Deck card layout = radar left, evaluation right.** Inside each player card's `main-grid`, the left
-  column holds the radar SVG + legend; the right column leads with a **Finals letter-grade card**
-  (square accent badge A+…F + one-line rationale) followed by the player's overall-evaluation prose,
-  then the team-relative strength/weakness insight groups. The grade uses the **same analyst-style
-  model as the compare page** (volume × absolute efficiency + impact + role bonus + outcome/FMVP),
-  baked statically at build time from each card's own Finals stat line — so the per-team decks and the
-  head-to-head compare page show a consistent grade for the same player.
+- **Deck card layout.** Inside each player card's `main-grid`: the **left column** holds the radar
+  SVG + legend at the top, with the player's **overall-evaluation prose directly below it** (fills
+  the dead space that otherwise sits under a short radar). The **right column** leads with a **Finals
+  letter-grade card** (square accent badge A+…F + one-line rationale), then the team-relative
+  strength/weakness insight groups. (Earlier the evaluation was on the right; moving it under the
+  radar removes the top-left whitespace and keeps the radar pinned to the top.) The grade uses the
+  **same analyst-style model as the compare page** (volume × absolute efficiency + impact + role
+  bonus + outcome/FMVP), baked statically at build time from each card's own Finals stat line — so the
+  per-team decks and the head-to-head compare page show a consistent grade for the same player.
 - Offer a **head-to-head compare page** alongside the per-team decks: two searchable pickers (player
   A vs player B, drawn from every player on both teams), and a metric-by-metric delta table.
   - **Recast the lower-is-better axes as positive opposites** (don't just invert for plotting):
@@ -151,10 +153,12 @@ Rules:
     uses the cream theme — no colored chip fills.
   - **Layout order**: sticky filter bar → mode toggle row → radar fold → overall-evaluation
     fold → data-table fold. The per-game basic stats are **not** a separate panel block —
-    they live as the **first table inside the data-table fold**, an A-vs-B two-column table,
-    separated from the radar-metric table by a horizontal **divider** (`.tbl-divider`, accent
-    tick). Each block carries its own italic caption (`场均数据 / Per-game stats` above the
-    divider, `雷达维度 / Radar metrics` below). This keeps every number in one scannable card
+    they live inside the data-table fold as a second A-vs-B two-column table **below** the
+    radar-metric table, separated by a horizontal **divider** (`.tbl-divider`, accent tick):
+    radar metrics first (`雷达维度 / Radar metrics`), divider, then per-game box-score stats
+    (`场均数据 / Per-game stats`). Each block carries its own italic caption. The per-game
+    table's value-column headers are plain `A` / `B` (`thead[1]`/`[2]`), **not** the
+    "A 占优 / B 占优" edge labels — there's no winner column in the per-game block. This keeps every number in one scannable card
     and visually separates descriptive box-score stats from the analytical radar axes.
   - The per-game table carries the six baked box-score stats (MPG / PPG / APG / RPG / TOPG /
     PFPG). **Show only metrics that have real baked data — never display an axis/row with no

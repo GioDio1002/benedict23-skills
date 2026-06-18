@@ -217,16 +217,16 @@ details.fold>.radar-wrap,details.fold>.table-card,details.fold>.stat-row{margin:
       var ai=(A.x&&A.x[k]!=null)?A.x[k]:'—', bi=(B.x&&B.x[k]!=null)?B.x[k]:'—';
       rows.push([lab, ai, bi]);
     });
-    var h='<div class="tbl-section"><div class="tbl-sec-cap">'+CFG.secPerGame+'</div><table><thead><tr><th>'+CFG.perGameHead+'</th><th>'+CFG.edgeA+'</th><th>'+CFG.edgeB+'</th></tr></thead><tbody>';
+    var h='<div class="tbl-section"><div class="tbl-sec-cap">'+CFG.secPerGame+'</div><table><thead><tr><th>'+CFG.perGameHead+'</th><th>'+CFG.thead[1]+'</th><th>'+CFG.thead[2]+'</th></tr></thead><tbody>';
     rows.forEach(function(r){ h+='<tr><td class="metric">'+r[0]+'</td><td class="num va">'+r[1]+'</td><td class="num vb">'+r[2]+'</td></tr>'; });
     return h+'</tbody></table></div>';
   }
   function drawTable(){
     var c=document.getElementById('table-card'); c.className='table-card';
     var radar = mode==='overlay' ? tableOverlay() : '<div class="tbl-split">'+tableFor('a')+tableFor('b')+'</div>';
-    c.innerHTML = perGameTable()
+    c.innerHTML = '<div class="tbl-section"><div class="tbl-sec-cap">'+CFG.secRadar+'</div>'+radar+'</div>'
       + '<div class="tbl-divider"></div>'
-      + '<div class="tbl-section"><div class="tbl-sec-cap">'+CFG.secRadar+'</div>'+radar+'</div>';
+      + perGameTable();
   }
 
   function buildToggles(){
