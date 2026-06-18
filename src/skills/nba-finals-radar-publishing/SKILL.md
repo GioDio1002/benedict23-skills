@@ -70,14 +70,15 @@ team or to the Finals. To target a new series:
 
 ## Metric guidance
 
-The **live radar carries ten axes** — offense (6) + impact (2) + defense (2). The four
-**matchup-level defense axes** (BLK% / STL% / Forced TOV% / Matchup Suppression) have now been
-**scraped for real** (`scrape_defense.py` → `defense_full.json`, with Finals / playoff-avg /
-team-avg baselines for all 22 players) and are **published as real table rows** — appended to
-each deck player's metric table and shown as a dedicated "Matchup defense (real data)" block on
-the compare page. They are **not yet plotted on the radar** (that needs the 10→14 spoke SVG
-rebake); the radar stays at ten axes for now. So: real defense data is live in the tables,
-radar expansion to fourteen spokes is the remaining step.
+The **live radar carries fourteen axes** — offense (6) + impact (2) + defense (6). The four
+matchup-level defense axes (BLK% / STL% / Forced TOV% / Matchup Suppression) were **scraped for
+real** (`scrape_defense.py` → `defense_full.json`, Finals / playoff-avg / team-avg baselines for
+all 22 players) and are now **fully integrated**: real table rows on the decks, real columns on
+the compare radar table, and **plotted on the 14-spoke radar** itself. `bake14.py` reads all 14
+positive (higher-better) values straight from each player's metric table and rebakes the SVG to
+14 spokes (player `#111827`, team `#2563EB`, playoff `#6C757D`; per-axis min/max normalized
+across all 22 players × 3 baselines). The Metrics & Data page documents all 14 in radar
+clockwise order.
 
 **Offense — load + efficiency + creation**
 - `TS%` — scoring efficiency
