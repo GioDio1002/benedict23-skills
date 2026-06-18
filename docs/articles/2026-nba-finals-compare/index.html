@@ -87,6 +87,22 @@ details.fold>.radar-wrap,details.fold>.table-card{margin:0;border:none;border-ra
 .eval-card p{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.92rem;line-height:1.75;color:var(--text);margin:0}
 .eval-card p.grade-line{font-family:'Inter',sans-serif;font-style:normal;font-size:.85rem;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px 12px;margin-bottom:10px}
 @media(max-width:760px){.eval-wrap{grid-template-columns:1fr}}
+
+.global-search{max-width:1180px;margin:0 auto 14px;padding:0 18px}
+.global-search input{width:100%;font:inherit;font-size:1rem;padding:12px 18px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text)}
+.global-search input:focus{outline:none;border-color:var(--accent)}
+
+.player-board{max-width:1180px;margin:0 auto 18px;padding:0 18px;display:flex;flex-direction:column;gap:10px}
+.board-row{display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px}
+.board-row .board-label{flex:0 0 auto;font-weight:700;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;padding-top:5px;min-width:64px}
+.board-row .chips{flex:1;display:flex;flex-wrap:wrap;gap:6px}
+.chip-p{font:inherit;font-size:.74rem;font-weight:600;padding:5px 11px;border-radius:999px;cursor:pointer;border:1px solid transparent;transition:transform .1s, box-shadow .1s, outline .1s;white-space:nowrap}
+.chip-p.knicks{background:#006BB6;color:#F58426;border-color:#006BB6}
+.chip-p.spurs{background:#FFFFFF;color:#0A0A0A;border-color:#0A0A0A}
+.chip-p:hover{transform:translateY(-1px);box-shadow:0 2px 6px rgba(0,0,0,.14)}
+.chip-p.is-sel{outline:2px solid #1C1713;outline-offset:2px;box-shadow:0 0 0 1px #FFFDFB inset}
+.chip-p.is-hidden{display:none}
+@media(max-width:760px){.board-row{flex-direction:column}.board-row .board-label{min-width:0;padding-top:0}}
 </style>
 </head>
 <body>
@@ -98,10 +114,17 @@ details.fold>.radar-wrap,details.fold>.table-card{margin:0;border:none;border-ra
     <div class="nav"><a class="btn" href="../index.html">All Articles</a><a class="btn" href="../../index.html">Site Home</a></div>
   </section>
 
+  <section class="global-search"><input id="global-search" type="search" placeholder="Search players…" autocomplete="off"></section>
+
   <section class="cmp-pickers">
-    <div class="pk a" data-side="a"><div class="pk-tag">Player A</div><div class="pk-name" data-name></div><div class="pk-sub" data-sub></div><div class="stat-mini" data-stats></div><input class="pk-input" type="search" placeholder="Search players…"><div class="pk-list"></div></div>
+    <div class="pk a" data-side="a"><div class="pk-tag">Player A</div><div class="pk-name" data-name></div><div class="pk-sub" data-sub></div><div class="stat-mini" data-stats></div></div>
     <div class="vs">vs</div>
-    <div class="pk b" data-side="b"><div class="pk-tag">Player B</div><div class="pk-name" data-name></div><div class="pk-sub" data-sub></div><div class="stat-mini" data-stats></div><input class="pk-input" type="search" placeholder="Search players…"><div class="pk-list"></div></div>
+    <div class="pk b" data-side="b"><div class="pk-tag">Player B</div><div class="pk-name" data-name></div><div class="pk-sub" data-sub></div><div class="stat-mini" data-stats></div></div>
+  </section>
+
+  <section class="player-board">
+    <div class="board-row" data-side="a"><span class="board-label" style="color:#006BB6">Player A</span><div class="chips" id="chips-a"></div></div>
+    <div class="board-row" data-side="b"><span class="board-label" style="color:#F58426">Player B</span><div class="chips" id="chips-b"></div></div>
   </section>
 
   <div class="mode-row">
@@ -328,41 +351,40 @@ details.fold>.radar-wrap,details.fold>.table-card{margin:0;border:none;border-ra
     }
     w.innerHTML=card('a')+card('b');
   }
-  function render(){refreshSide('a');refreshSide('b');buildToggles();drawRadars();drawEvals();drawTable();}
+  function render(){refreshSide('a');refreshSide('b');buildToggles();drawRadars();drawEvals();drawTable();buildBoard();applySearch(gs?gs.value:'');}
 
-  var drill={a:null,b:null};
-  function optRow(side,i){
-    var p=PLAYERS[i],o=document.createElement('div');o.className='pk-opt';
-    o.innerHTML='<span>'+p.n+'</span><span class="tm">'+teamName(p.t)+'</span>';
-    o.addEventListener('mousedown',function(e){e.preventDefault();sel[side]=i;var inp=document.querySelector('.pk[data-side="'+side+'"] .pk-input');inp.value='';drill[side]=null;document.querySelector('.pk[data-side="'+side+'"] .pk-list').classList.remove('open');render();});
-    return o;
-  }
-  function renderList(side){
-    var pk=document.querySelector('.pk[data-side="'+side+'"]'),list=pk.querySelector('.pk-list'),q=pk.querySelector('.pk-input').value.trim().toLowerCase();
-    list.innerHTML='';
-    if(q){ // flat search across both teams
-      PLAYERS.forEach(function(p,i){ if(p.n.toLowerCase().indexOf(q)>-1||teamName(p.t).toLowerCase().indexOf(q)>-1) list.appendChild(optRow(side,i)); });
-      return;
-    }
-    if(!drill[side]){ // level 1: teams
-      [['knicks',CFG.knicks],['spurs',CFG.spurs]].forEach(function(tm){
-        var r=document.createElement('div');r.className='pk-team';r.innerHTML='<span>'+tm[1]+'</span><span class="ch">›</span>';
-        r.addEventListener('mousedown',function(e){e.preventDefault();drill[side]=tm[0];renderList(side);});
-        list.appendChild(r);
-      });
-    } else { // level 2: players of team
-      var back=document.createElement('div');back.className='pk-back';back.textContent=CFG.back;
-      back.addEventListener('mousedown',function(e){e.preventDefault();drill[side]=null;renderList(side);});
-      list.appendChild(back);
-      PLAYERS.forEach(function(p,i){ if(p.t===drill[side]) list.appendChild(optRow(side,i)); });
-    }
-  }
-  document.querySelectorAll('.pk').forEach(function(pk){
-    var side=pk.dataset.side,list=pk.querySelector('.pk-list'),input=pk.querySelector('.pk-input');
-    input.addEventListener('focus',function(){drill[side]=null;renderList(side);list.classList.add('open');});
-    input.addEventListener('input',function(){renderList(side);list.classList.add('open');});
-    input.addEventListener('blur',function(){setTimeout(function(){list.classList.remove('open');},160);});
+  // Knicks-by-team-then-name ordering so the board reads tidy
+  var ORDER=PLAYERS.map(function(_,i){return i;}).sort(function(a,b){
+    var pa=PLAYERS[a], pb=PLAYERS[b];
+    if(pa.t!==pb.t) return pa.t==='knicks'?-1:1;
+    return pa.n.localeCompare(pb.n);
   });
+  function buildBoard(){
+    ['a','b'].forEach(function(side){
+      var host=document.getElementById('chips-'+side); host.innerHTML='';
+      ORDER.forEach(function(i){
+        var p=PLAYERS[i];
+        var c=document.createElement('button');
+        c.type='button';
+        c.className='chip-p '+p.t+(sel[side]===i?' is-sel':'');
+        c.dataset.idx=i;
+        c.dataset.name=p.n.toLowerCase();
+        c.dataset.team=teamName(p.t).toLowerCase();
+        c.textContent=p.n;
+        c.addEventListener('click',function(){sel[side]=i;render();});
+        host.appendChild(c);
+      });
+    });
+  }
+  function applySearch(q){
+    q=(q||'').trim().toLowerCase();
+    document.querySelectorAll('.chip-p').forEach(function(c){
+      var hit=!q || c.dataset.name.indexOf(q)>-1 || c.dataset.team.indexOf(q)>-1;
+      c.classList.toggle('is-hidden',!hit);
+    });
+  }
+  var gs=document.getElementById('global-search');
+  if(gs) gs.addEventListener('input',function(){applySearch(gs.value);});
 
   document.querySelectorAll('.seg-btn').forEach(function(b){
     b.addEventListener('click',function(){

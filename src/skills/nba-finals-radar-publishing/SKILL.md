@@ -121,9 +121,16 @@ Rules:
   - A **mode switch**: *Overlay* (A vs B on one radar) and *Split* (two separate per-player radars,
     each showing that player's three series for readability). The comparison table follows the mode —
     A-vs-B edge table in overlay; per-player Finals/playoff/team tables in split.
-  - **Two-level drill picker** for each side: pick a team first, then a player within that team
-    (with a "‹ back" row to return to team list). Typing into the search box falls through to a
-    **flat cross-team search**, so power users still get one-keystroke access.
+  - **Player board picker**: one global search input lives between the title section and
+    the A/B selected-player cards (NOT inside the picker cards — embedded search wastes
+    space and hides the roster). Below the A/B cards sit two horizontal chip rows — one
+    per side — each rendering every player on both teams as a compact team-colored pill:
+    Knicks → blue background `#006BB6` with orange text `#F58426`; Spurs → white
+    background with black text (silver/black scheme). Click a chip in the A row to set
+    side A; click in the B row to set side B. The currently selected chip carries a dark
+    outline ring. The global search hides non-matching chips in both rows simultaneously —
+    one keystroke filters the whole board. This replaces the older two-level drill +
+    embedded-search picker, which buried the roster behind a focus event.
   - Each picker's subtitle carries the **six stat-mini panels** (MPG / PPG / APG / RPG / TOPG /
     PFPG) for the currently selected player — same six chips as the per-player deck card — so the
     head-to-head context is visible before the user even reads the radar.
