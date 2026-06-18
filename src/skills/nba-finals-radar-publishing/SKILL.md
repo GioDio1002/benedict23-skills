@@ -150,10 +150,17 @@ Rules:
     picker.) The select keeps the per-side accent border (A blue, B orange) but otherwise
     uses the cream theme — no colored chip fills.
   - **Layout order**: sticky filter bar → mode toggle row → radar fold → overall-evaluation
-    fold → **per-game stat-mini fold** → data-table fold. The 6-panel per-game basic stats
-    sit in their own `<details open>` **below the overall evaluation** (not up by the
-    picker), A and B side-by-side with colored captions — descriptive context belongs after
-    the analytical read, and it stays collapsible.
+    fold → data-table fold. The per-game basic stats are **not** a separate panel block —
+    they live as the **first table inside the data-table fold**, an A-vs-B two-column table,
+    separated from the radar-metric table by a horizontal **divider** (`.tbl-divider`, accent
+    tick). Each block carries its own italic caption (`场均数据 / Per-game stats` above the
+    divider, `雷达维度 / Radar metrics` below). This keeps every number in one scannable card
+    and visually separates descriptive box-score stats from the analytical radar axes.
+  - The per-game table carries the six baked box-score stats (MPG / PPG / APG / RPG / TOPG /
+    PFPG) plus two **shooting-split rows — FG% and 3P%** (`CFG.extraStats`). These two require
+    the bake stage to emit `x:[fg, fg3]` per player; until the scrape includes raw FGM/FGA and
+    3PM/3PA they render `—`. Don't fabricate them — wire the column and let it fill when the
+    data lands.
   - Each picker's subtitle carries the **six stat-mini panels** (MPG / PPG / APG / RPG / TOPG /
     PFPG) for the currently selected player — same six chips as the per-player deck card — so the
     head-to-head context is visible before the user even reads the radar.
