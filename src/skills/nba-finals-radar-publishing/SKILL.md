@@ -121,16 +121,21 @@ Rules:
   - A **mode switch**: *Overlay* (A vs B on one radar) and *Split* (two separate per-player radars,
     each showing that player's three series for readability). The comparison table follows the mode —
     A-vs-B edge table in overlay; per-player Finals/playoff/team tables in split.
-  - **Player board picker**: one global search input lives between the title section and
-    the A/B selected-player cards (NOT inside the picker cards — embedded search wastes
-    space and hides the roster). Below the A/B cards sit two horizontal chip rows — one
-    per side — each rendering every player on both teams as a compact team-colored pill:
-    Knicks → blue background `#006BB6` with orange text `#F58426`; Spurs → white
-    background with black text (silver/black scheme). Click a chip in the A row to set
-    side A; click in the B row to set side B. The currently selected chip carries a dark
-    outline ring. The global search hides non-matching chips in both rows simultaneously —
-    one keystroke filters the whole board. This replaces the older two-level drill +
-    embedded-search picker, which buried the roster behind a focus event.
+  - **Side-by-side picker with two-team popover**: A and B sit left/right; each side has a
+    single neutral-styled "Change player ▾" button that opens a popover anchored beneath
+    the card. The popover renders **both teams expanded at once** — Knicks header + every
+    Knicks player as an option, then Spurs header + every Spurs player — so the reader
+    sees the full roster in one glance, no drill / click-team-first step. Options use the
+    same neutral button look as everything else on the page (no per-team colored fills,
+    no blue-bg / white-text chips — those read as a visual outlier on a cream-themed
+    article). Selected option highlights with the accent fill. Click outside the popover
+    closes it; opening A closes B and vice versa.
+  - **Wrap the picker section itself in `<details open>`** — when readers know who they
+    want to compare, they can collapse the whole picker block. This replaces what used to
+    be a separate top search input row.
+  - **Per-game basic stats (6-panel stat-mini) live in their own `<details open>` fold**,
+    side A and side B shown left/right with their own colored caption. Collapsible so
+    readers focused on the radar can hide the descriptive numbers.
   - Each picker's subtitle carries the **six stat-mini panels** (MPG / PPG / APG / RPG / TOPG /
     PFPG) for the currently selected player — same six chips as the per-player deck card — so the
     head-to-head context is visible before the user even reads the radar.

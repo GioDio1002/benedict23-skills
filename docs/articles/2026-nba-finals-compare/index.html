@@ -75,7 +75,7 @@ details.fold>summary{cursor:pointer;list-style:none;padding:14px 22px;font-famil
 details.fold>summary::-webkit-details-marker{display:none}
 details.fold>summary::after{content:'▾';color:var(--muted);font-style:normal;font-size:.95rem;transition:transform .2s}
 details.fold:not([open])>summary::after{transform:rotate(-90deg)}
-details.fold>.radar-wrap,details.fold>.table-card{margin:0;border:none;border-radius:0;background:transparent;padding:8px 18px 22px}
+details.fold>.radar-wrap,details.fold>.table-card,details.fold>.cmp-pickers,details.fold>.stat-row{margin:0;border:none;border-radius:0;background:transparent;padding:8px 18px 22px}
 
 .eval-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:8px 18px 22px}
 .eval-card{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:2px;padding:16px 20px}
@@ -88,21 +88,25 @@ details.fold>.radar-wrap,details.fold>.table-card{margin:0;border:none;border-ra
 .eval-card p.grade-line{font-family:'Inter',sans-serif;font-style:normal;font-size:.85rem;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px 12px;margin-bottom:10px}
 @media(max-width:760px){.eval-wrap{grid-template-columns:1fr}}
 
-.global-search{max-width:1180px;margin:0 auto 14px;padding:0 18px}
-.global-search input{width:100%;font:inherit;font-size:1rem;padding:12px 18px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text)}
-.global-search input:focus{outline:none;border-color:var(--accent)}
+.pk-pick{margin-top:12px;width:100%;font:inherit;font-size:.85rem;font-weight:600;padding:9px 14px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pk-pick:hover{border-color:var(--accent);color:var(--accent)}
+.pk-pick .caret{color:var(--muted);font-weight:400}
+.pk-pop{position:absolute;left:14px;right:14px;top:100%;z-index:60;margin-top:6px;background:var(--card);border:1px solid var(--border);border-radius:10px;box-shadow:0 14px 36px rgba(20,20,18,.18);padding:10px 12px;display:none;max-height:380px;overflow-y:auto}
+.pk-pop.open{display:block}
+.pk-pop .team-grp{margin-bottom:8px}
+.pk-pop .team-grp:last-child{margin-bottom:0}
+.pk-pop .team-h{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:700;font-size:.92rem;color:var(--muted);padding:6px 4px 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
+.pk-pop .opts{display:flex;flex-wrap:wrap;gap:6px}
+.pk-pop .opt{font:inherit;font-size:.78rem;font-weight:600;padding:6px 12px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text);cursor:pointer;white-space:nowrap}
+.pk-pop .opt:hover{border-color:var(--accent);color:var(--accent)}
+.pk-pop .opt.is-sel{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-.player-board{max-width:1180px;margin:0 auto 18px;padding:0 18px;display:flex;flex-direction:column;gap:10px}
-.board-row{display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px}
-.board-row .board-label{flex:0 0 auto;font-weight:700;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;padding-top:5px;min-width:64px}
-.board-row .chips{flex:1;display:flex;flex-wrap:wrap;gap:6px}
-.chip-p{font:inherit;font-size:.74rem;font-weight:600;padding:5px 11px;border-radius:999px;cursor:pointer;border:1px solid transparent;transition:transform .1s, box-shadow .1s, outline .1s;white-space:nowrap}
-.chip-p.knicks{background:#006BB6;color:#F58426;border-color:#006BB6}
-.chip-p.spurs{background:#FFFFFF;color:#0A0A0A;border-color:#0A0A0A}
-.chip-p:hover{transform:translateY(-1px);box-shadow:0 2px 6px rgba(0,0,0,.14)}
-.chip-p.is-sel{outline:2px solid #1C1713;outline-offset:2px;box-shadow:0 0 0 1px #FFFDFB inset}
-.chip-p.is-hidden{display:none}
-@media(max-width:760px){.board-row{flex-direction:column}.board-row .board-label{min-width:0;padding-top:0}}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:0 18px 18px}
+.stat-side{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.stat-cap{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:700;font-size:1.05rem;margin-bottom:10px}
+.stat-cap.a{color:var(--accent)}.stat-cap.b{color:var(--warm)}
+.stat-row .stat-mini{margin:0}
+@media(max-width:760px){.stat-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -114,18 +118,34 @@ details.fold>.radar-wrap,details.fold>.table-card{margin:0;border:none;border-ra
     <div class="nav"><a class="btn" href="../index.html">All Articles</a><a class="btn" href="../../index.html">Site Home</a></div>
   </section>
 
-  <section class="global-search"><input id="global-search" type="search" placeholder="Search players…" autocomplete="off"></section>
+  <details class="fold" open>
+    <summary>Player picker</summary>
+    <section class="cmp-pickers">
+      <div class="pk a" data-side="a">
+        <div class="pk-tag">Player A</div>
+        <div class="pk-name" data-name></div>
+        <div class="pk-sub" data-sub></div>
+        <button class="pk-pick" type="button" data-side="a">Change player <span class="caret">▾</span></button>
+        <div class="pk-pop" data-side="a"></div>
+      </div>
+      <div class="vs">vs</div>
+      <div class="pk b" data-side="b">
+        <div class="pk-tag">Player B</div>
+        <div class="pk-name" data-name></div>
+        <div class="pk-sub" data-sub></div>
+        <button class="pk-pick" type="button" data-side="b">Change player <span class="caret">▾</span></button>
+        <div class="pk-pop" data-side="b"></div>
+      </div>
+    </section>
+  </details>
 
-  <section class="cmp-pickers">
-    <div class="pk a" data-side="a"><div class="pk-tag">Player A</div><div class="pk-name" data-name></div><div class="pk-sub" data-sub></div><div class="stat-mini" data-stats></div></div>
-    <div class="vs">vs</div>
-    <div class="pk b" data-side="b"><div class="pk-tag">Player B</div><div class="pk-name" data-name></div><div class="pk-sub" data-sub></div><div class="stat-mini" data-stats></div></div>
-  </section>
-
-  <section class="player-board">
-    <div class="board-row" data-side="a"><span class="board-label" style="color:#006BB6">Player A</span><div class="chips" id="chips-a"></div></div>
-    <div class="board-row" data-side="b"><span class="board-label" style="color:#F58426">Player B</span><div class="chips" id="chips-b"></div></div>
-  </section>
+  <details class="fold" open>
+    <summary>Per-game stats</summary>
+    <section class="stat-row">
+      <div class="stat-side"><div class="stat-cap a">Player A</div><div class="stat-mini" data-stats data-side="a"></div></div>
+      <div class="stat-side"><div class="stat-cap b">Player B</div><div class="stat-mini" data-stats data-side="b"></div></div>
+    </section>
+  </details>
 
   <div class="mode-row">
     <div class="seg"><button class="seg-btn is-on" data-mode="overlay">Overlay</button><button class="seg-btn" data-mode="split">Split</button></div>
@@ -246,9 +266,12 @@ details.fold>.radar-wrap,details.fold>.table-card{margin:0;border:none;border-ra
 
   function refreshSide(side){
     var p=PLAYERS[sel[side]], pk=document.querySelector('.pk[data-side="'+side+'"]');
-    pk.querySelector('[data-name]').textContent=p.n;
-    pk.querySelector('[data-sub]').textContent=teamName(p.t)+' · '+p.pos+' · '+p.mpg+(isEN?' MPG':' 分钟');
-    pk.querySelector('[data-stats]').innerHTML=(p.c||[]).map(function(c){return '<div class="m"><b>'+c[0]+'</b><span>'+c[1]+'</span></div>';}).join('');
+    if(pk){
+      pk.querySelector('[data-name]').textContent=p.n;
+      pk.querySelector('[data-sub]').textContent=teamName(p.t)+' · '+p.pos+' · '+p.mpg+(isEN?' MPG':' 分钟');
+    }
+    var stats=document.querySelector('.stat-mini[data-stats][data-side="'+side+'"]');
+    if(stats) stats.innerHTML=(p.c||[]).map(function(c){return '<div class="m"><b>'+c[0]+'</b><span>'+c[1]+'</span></div>';}).join('');
   }
   function pp(x){return (x>=0?'+':'')+x.toFixed(1);}
   function gradeScore(p){
@@ -351,40 +374,47 @@ details.fold>.radar-wrap,details.fold>.table-card{margin:0;border:none;border-ra
     }
     w.innerHTML=card('a')+card('b');
   }
-  function render(){refreshSide('a');refreshSide('b');buildToggles();drawRadars();drawEvals();drawTable();buildBoard();applySearch(gs?gs.value:'');}
+  function render(){refreshSide('a');refreshSide('b');buildToggles();drawRadars();drawEvals();drawTable();buildPop('a');buildPop('b');}
 
-  // Knicks-by-team-then-name ordering so the board reads tidy
-  var ORDER=PLAYERS.map(function(_,i){return i;}).sort(function(a,b){
-    var pa=PLAYERS[a], pb=PLAYERS[b];
-    if(pa.t!==pb.t) return pa.t==='knicks'?-1:1;
-    return pa.n.localeCompare(pb.n);
-  });
-  function buildBoard(){
-    ['a','b'].forEach(function(side){
-      var host=document.getElementById('chips-'+side); host.innerHTML='';
-      ORDER.forEach(function(i){
-        var p=PLAYERS[i];
-        var c=document.createElement('button');
-        c.type='button';
-        c.className='chip-p '+p.t+(sel[side]===i?' is-sel':'');
-        c.dataset.idx=i;
-        c.dataset.name=p.n.toLowerCase();
-        c.dataset.team=teamName(p.t).toLowerCase();
-        c.textContent=p.n;
-        c.addEventListener('click',function(){sel[side]=i;render();});
-        host.appendChild(c);
+  // Two-team popover picker. Both Knicks + Spurs (with all players) are visible
+  // simultaneously when the popover opens; same neutral button style for every opt.
+  function buildPop(side){
+    var pop=document.querySelector('.pk-pop[data-side="'+side+'"]'); if(!pop) return;
+    pop.innerHTML='';
+    [['knicks',CFG.knicks],['spurs',CFG.spurs]].forEach(function(tm){
+      var grp=document.createElement('div'); grp.className='team-grp';
+      var h=document.createElement('div'); h.className='team-h'; h.textContent=tm[1]; grp.appendChild(h);
+      var opts=document.createElement('div'); opts.className='opts';
+      PLAYERS.forEach(function(p,i){
+        if(p.t!==tm[0]) return;
+        var b=document.createElement('button'); b.type='button';
+        b.className='opt'+(sel[side]===i?' is-sel':'');
+        b.textContent=p.n;
+        b.addEventListener('mousedown',function(e){e.preventDefault();sel[side]=i;closePop(side);render();});
+        opts.appendChild(b);
       });
+      grp.appendChild(opts); pop.appendChild(grp);
     });
   }
-  function applySearch(q){
-    q=(q||'').trim().toLowerCase();
-    document.querySelectorAll('.chip-p').forEach(function(c){
-      var hit=!q || c.dataset.name.indexOf(q)>-1 || c.dataset.team.indexOf(q)>-1;
-      c.classList.toggle('is-hidden',!hit);
-    });
+  function openPop(side){
+    closePop(side==='a'?'b':'a');
+    var pop=document.querySelector('.pk-pop[data-side="'+side+'"]'); if(pop) pop.classList.add('open');
   }
-  var gs=document.getElementById('global-search');
-  if(gs) gs.addEventListener('input',function(){applySearch(gs.value);});
+  function closePop(side){
+    var pop=document.querySelector('.pk-pop[data-side="'+side+'"]'); if(pop) pop.classList.remove('open');
+  }
+  document.querySelectorAll('.pk-pick').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var side=btn.dataset.side;
+      var pop=document.querySelector('.pk-pop[data-side="'+side+'"]');
+      if(pop.classList.contains('open')) closePop(side); else openPop(side);
+    });
+  });
+  document.addEventListener('click',function(e){
+    if(e.target.closest('.pk-pop')||e.target.closest('.pk-pick')) return;
+    closePop('a'); closePop('b');
+  });
 
   document.querySelectorAll('.seg-btn').forEach(function(b){
     b.addEventListener('click',function(){
